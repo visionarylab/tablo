@@ -1,0 +1,33 @@
+$headerHeight: 50px;
+
+.app-wrapper {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #282c34;
+  color: white;
+
+  .app-header {
+    height: $headerHeight;
+    margin-bottom: 10px;
+  }
+
+  .app-content-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(100% - #{$headerHeight} - 10px);
+
+    .app-sidebar {
+      width: 300px;
+      height: 100%;
+    }
+
+    .app-content {
+      flex: 1 1 auto;
+      height: 100%;
+    }
+  }
+
+}
