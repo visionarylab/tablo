@@ -1,0 +1,40 @@
+.folder-wrapper {
+    overflow: hidden;
+
+    &.folder-expanded {
+
+        .folder-title {
+            .search-bookmarks-icon {
+                transform: rotate(-180deg);
+            }
+        }
+
+        .folder-children {
+        }
+    }
+
+    .folder-title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .search-bookmarks-icon {
+            cursor: pointer;
+            transform: rotate(0);
+            transition: transform linear .3s;
+        }
+    }
+
+    .folder-children {
+        padding-left: 0px;
+        width: 100%;
+
+        > div {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
