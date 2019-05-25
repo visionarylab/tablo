@@ -1,166 +1,139 @@
 import React, { Component } from 'react';
-import { Picture } from 'types/picture';
+import { Picture } from 'store/picture';
+
 import './Cartel.scss';
+import { Button } from 'components/Buttons/Button';
+import Icon from '@mdi/react';
+import { mdiOpenInNew, mdiDownload, mdiClose } from '@mdi/js';
 
-interface CartelProps {
+interface Props {
   picture: Picture;
+  hideDetails: () => any;
 }
 
-const wrapperStyles = {
-    width: '100%',
-    height: '100%',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-};
 
-const headerStyles = {
-    display: 'flex',
-    flexWrap: 'wrap'
-};
+export class Cartel extends Component<Props> {
 
-const cartelBtnStyles = {
-    color: 'black',
-    textDecoration: 'none',
-    border: '2px solid',
-    borderRadius: '8px',
-    padding: '6px',
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: '10px',
-    marginBottom: '10px',
-};
+    constructor(props: any) {
+        super(props);
 
-const spanStyles = {
-    whiteSpace: 'nowrap'
-};
+        this.downloadImage = this.downloadImage.bind(this);
+        this.openImageWebsite = this.openImageWebsite.bind(this);
+    }
 
-const scrollContainerStyle = {
-    height: '100%',
-    overflow: 'auto',
-    position: 'relative',
-    marginTop: '10px'
-};
+    downloadImage() {
+        if (this.props.picture) {
+            const link = document.createElement('a');
+            link.href = this.props.picture.medias.max;
+            link.download = this.props.picture.title + '.jpg';
+            link.rel = 'noopener noreferrer';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
 
-const itemStyles = {
-    fontSize: '1.2em',
-    display: 'flex',
-    flexDirection: 'column',
-    flexWrap: 'nowrap',
-    justifyContent: 'flex-start',
-    marginLeft: '3px',
-    marginBottom: '30px',
-};
+    openImageWebsite() {
+        if (this.props.picture) {
+            window.open(this.props.picture.medias.page, '_blank')
+        }
+    }
 
-const labelStyles = {
-    width: '125px',
-    minWidth: '125px',
-    color: '#888',
-    marginBottom: '10px',
-    fontSize: '1em',
-}
-
-export class Cartel extends Component<CartelProps> {
     render() {
-      let { picture } = this.props;
+      let { picture, hideDetails } = this.props;
 
       return (
-        <div className="cartel-wrapper" style={wrapperStyles as any}>
+        <div className="cartel-wrapper">
+            <div className="cartel-header">
+                <div className="cartel-header-controls">
+                    <Button className="cartel-btn"
+                        onClick={this.openImageWebsite}>
+                        <Icon path={mdiOpenInNew} size={0.8} />
+                        <span>Visit {picture.from} page</span>
+                    </Button>
 
-            { !!picture &&
-            <div className="header" style={headerStyles as any}>
-                <a className="cartel-btn"
-                    href={picture.medias.max}
-                    target="_blank"
-                    download={picture.title + '.jpg'}
-                    rel="noopener noreferrer"
-                    style={cartelBtnStyles}>
-                    <i className="pi pi-download" ></i>
-                    <span style={spanStyles as any}>Download</span>
-                </a>
+                    <Button className="cartel-btn"
+                        onClick={this.downloadImage}>
+                        <Icon path={mdiDownload} size={0.8} />
+                        <span>Download</span>
+                    </Button>
+                </div>
 
-                <a className="cartel-btn"
-                    href={picture.medias.page}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={cartelBtnStyles}>
-                    <i className="pi pi-external-link" ></i>
-                    <span style={spanStyles as any}>Visit {picture.from} page</span>
-                </a>
+                <Button className="cartel-btn close-cartel-btn" isIcon
+                    onClick={hideDetails}>
+                    <Icon path={mdiClose} size={1} />
+                </Button>
             </div>
-            }
 
-            { !!picture &&
-            <div className="scroll-container" style={scrollContainerStyle as any}>
-                { !!picture.title &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Title: </div>
-                    <div>{ picture.title }</div>
+            <div className="scroll-container">
+                {!!picture.title &&
+                <div className="item">
+                    <div className="label">Title: </div>
+                    <div>{picture.title}</div>
                 </div>
                 }
 
-                { !!picture.subTitle &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>SubTitle: </div>
-                    <div>{ picture.subTitle }</div>
+                {!!picture.subTitle &&
+                <div className="item">
+                    <div className="label">SubTitle: </div>
+                    <div>{picture.subTitle}</div>
                 </div>
                 }
 
-                { !!picture.date &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Date: </div>
-                    <div>{ picture.date }</div>
+                {!!picture.date &&
+                <div className="item">
+                    <div className="label">Date: </div>
+                    <div>{picture.date}</div>
                 </div>
                 }
 
-                { !!picture.medium &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Medium: </div>
-                    <div>{ picture.medium }</div>
+                {!!picture.medium &&
+                <div className="item">
+                    <div className="label">Medium: </div>
+                    <div>{picture.medium}</div>
                 </div>
                 }
 
-                { !!picture.dimensions &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Dimensions: </div>
-                    <div>{ picture.dimensions }</div>
+                {!!picture.dimensions &&
+                <div className="item">
+                    <div className="label">Dimensions: </div>
+                    <div>{picture.dimensions}</div>
                 </div>
                 }
 
                 <div className="separator"></div>
 
-                { !!picture.artiste &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Artist: </div>
-                    <div>{ picture.artiste }</div>
+                {!!picture.artiste &&
+                <div className="item">
+                    <div className="label">Artist: </div>
+                    <div>{picture.artiste}</div>
                 </div>
                 }
 
-                { !!picture.artisteBio &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Bio: </div>
-                    <div>{ picture.artisteBio }</div>
+                {!!picture.artisteBio &&
+                <div className="item">
+                    <div className="label">Bio: </div>
+                    <div>{picture.artisteBio}</div>
                 </div>
                 }
 
                 <div className="separator"></div>
 
-                { !!picture.classification &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Classification: </div>
-                    <div>{ picture.classification }</div>
+                {!!picture.classification &&
+                <div className="item">
+                    <div className="label">Classification: </div>
+                    <div>{picture.classification}</div>
                 </div>
                 }
 
-                { !!picture.credits &&
-                <div className="item" style={itemStyles as any}>
-                    <div className="label" style={labelStyles}>Credit: </div>
-                    <div>{ picture.credits }</div>
+                {!!picture.credits &&
+                <div className="item">
+                    <div className="label">Credit: </div>
+                    <div>{picture.credits}</div>
                 </div>
                 }
             </div>
-            }
-
         </div>
       );
     }
