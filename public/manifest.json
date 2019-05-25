@@ -1,7 +1,7 @@
 {
-  "name": "New tab TEST",
-  "short_name": "React App",
-  "description": "Simple new tab",
+  "name": "Tablo",
+  "short_name": "Tablo",
+  "description": "New tab extension",
   "manifest_version": 2,
   "minimum_chrome_version": "0",
   "version": "1.0.0",
