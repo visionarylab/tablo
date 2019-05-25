@@ -3,6 +3,7 @@
 # Tablo: new tab chrome extension
 
 ### What's inside:
+
 - A configurable search bar for your prefered search engine.
 - A sidebar with a random art picture from Tate or MoMA museum.
 - A panel with all yours bookmarks.
@@ -11,9 +12,8 @@
 
 ![alt Tablo UI 2](https://github.com/radiium/tablo/blob/master/.github/tablo2.png "Tablo UI 2: image details")
 
-
-
 ### Stack:
+
 - react (with create react app + typescript)
 - react-animate-height
 - react-magnifier
