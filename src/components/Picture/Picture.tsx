@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
-import './Picture.scss';
-import getRandomPicture from './getRandomPicture';
-
 import Icon from '@mdi/react'
-import { mdiRefresh, mdiClose, mdiEye,
-    mdiDownload, mdiOpenInNew } from '@mdi/js'
+import { mdiRefresh, mdiEye  } from '@mdi/js'
 import { Dialog } from 'primereact/dialog';
 
-import { Picture } from 'types/picture';
+import { Picture } from 'store/picture';
 import { Spinner } from 'components/Spinner/Spinner';
 import { Button } from 'components/Buttons/Button';
-// import Magnifier from './Magnifier';
 
 import Magnifier from "react-magnifier";
 import classNames from "classnames";
+import { RootState } from 'store/rootReducer';
+import { getRandomPictureAsync } from 'store/picture';
+import { connect } from 'react-redux';
+import { Cartel } from 'components/Cartel/Cartel';
 
+import './Picture.scss';
 
-interface PictureState {
+interface Props {
+    picture: Picture | null;
+    getRandomPicture: () => any;
+}
+
+interface State {
     isLoading: boolean;
     isShowDetails: boolean;
-    picture?: Picture | null;
     magnifierSize: any;
 }
 
-export class AppPicture extends Component<any, PictureState> {
+class AppPicture extends Component<Props, State> {
     img: HTMLImageElement | null;
+
+    static defaultProps: Props = {
+        picture: null,
+        getRandomPicture: () => { },
+    };
 
     constructor(props: any) {
         super(props);
@@ -33,39 +42,38 @@ export class AppPicture extends Component<any, PictureState> {
         this.state = {
             isLoading: true,
             isShowDetails: false,
-            picture: null,
             magnifierSize: { w: 0, h: 0 }
         };
 
-        this.loadPicture = this.loadPicture.bind(this);
+        // this.loadPicture = this.loadPicture.bind(this);
         this.onImageLoad = this.onImageLoad.bind(this);
         this.onImageError = this.onImageError.bind(this);
         this.showDetails = this.showDetails.bind(this);
         this.hideDetails = this.hideDetails.bind(this);
-        this.downloadImage = this.downloadImage.bind(this);
-        this.openImageWebsite = this.openImageWebsite.bind(this);
     }
 
     componentDidMount() {
-        this.loadPicture();
+        // this.loadPicture();
         window.addEventListener("resize", () => {
             this.computeMagnifierSize(false);
         });
     }
 
+    /*
     async loadPicture() {
         this.setState({ isLoading: true });
-        let picture = await getRandomPicture();
+        let picture = await API.picture.getRandomPicture();
         // console.log('picture', picture);
         this.setState({ picture: picture });
     };
+    */
 
     onImageLoad(evt: any) {
         this.setState({ isLoading: false });
     }
 
     onImageError(evt: any) {
-        this.loadPicture();
+        // this.loadPicture();
     }
 
     showDetails() {
@@ -74,25 +82,6 @@ export class AppPicture extends Component<any, PictureState> {
 
     hideDetails() {
         this.setState({ isShowDetails: false });
-    }
-
-    downloadImage() {
-        if (this.state.picture) {
-            const link = document.createElement('a');
-            link.href = this.state.picture.medias.max;
-            link.download = this.state.picture.title + '.jpg';
-            link.rel = 'noopener noreferrer';
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    }
-
-    openImageWebsite() {
-        if (this.state.picture) {
-            window.open(this.state.picture.medias.page, '_blank')
-        }
     }
 
     computeMagnifierSize(isShowDetails: boolean) {
@@ -123,19 +112,20 @@ export class AppPicture extends Component<any, PictureState> {
     }
 
     render() {
-        let { isLoading, isShowDetails, picture, magnifierSize } = this.state;
+        const { picture, getRandomPicture } = this.props;
+        const { isLoading, isShowDetails, magnifierSize } = this.state;
 
         return (
             <div className="picture-wrapper" id="picture">
 
-                <Button className="load-picture-btn" isIcon={true}
-                    onClick={this.loadPicture}>
+                <Button className="load-picture-btn"
+                    isIcon={true}
+                    onClick={getRandomPicture}>
                     <Icon path={mdiRefresh} size={0.8} color="white" />
                     <span>Random image</span>
                 </Button>
 
                 <div className="picture-content">
-
                     { isLoading &&
                     <div className="picture-loader">
                         <Spinner />
@@ -143,7 +133,8 @@ export class AppPicture extends Component<any, PictureState> {
                     }
 
                     { this.img && !isLoading &&
-                    <Button className="picture-overlay-btn" isIcon={true}
+                    <Button className="picture-overlay-btn"
+                        isIcon={true}
                         onClick={this.showDetails}>
                         <Icon path={mdiEye} size={3} color="white" />
                     </Button>
@@ -169,110 +160,24 @@ export class AppPicture extends Component<any, PictureState> {
 
                     { picture &&
                     <div className="details-content">
-
                         <div className="details-image-wrapper">
-                        <Magnifier
-                            className="details-image image-loaded"
-                            mgShowOverflow={true}
-                            src={picture.medias.max}
-                            width={magnifierSize.w}
-                            height={magnifierSize.h}
-                            mgWidth={250}
-                            mgHeight={250}/>
+                            <Magnifier
+                                className="details-image image-loaded"
+                                mgShowOverflow={true}
+                                src={picture.medias.max}
+                                width={magnifierSize.w}
+                                height={magnifierSize.h}
+                                mgWidth={250}
+                                mgHeight={250}>
+                            </Magnifier>
                         </div>
 
                         <div className="details-cartel-wrapper">
-                            <div className="cartel-header">
-                                <div className="cartel-header-controls">
-                                    <Button className="cartel-btn"
-                                        onClick={this.openImageWebsite}>
-                                        <Icon path={mdiOpenInNew} size={0.8} />
-                                        <span>Visit {picture.from} page</span>
-                                    </Button>
-
-                                    <Button className="cartel-btn"
-                                        onClick={this.downloadImage}>
-                                        <Icon path={mdiDownload} size={0.8} />
-                                        <span>Download</span>
-                                    </Button>
-                                </div>
-
-                                <Button className="cartel-btn close-cartel-btn" isIcon
-                                    onClick={this.hideDetails}>
-                                    <Icon path={mdiClose} size={1} />
-                                </Button>
-                            </div>
-
-                            <div className="scroll-container">
-                                {!!picture.title &&
-                                <div className="item">
-                                    <div className="label">Title: </div>
-                                    <div>{picture.title}</div>
-                                </div>
-                                }
-
-                                {!!picture.subTitle &&
-                                <div className="item">
-                                    <div className="label">SubTitle: </div>
-                                    <div>{picture.subTitle}</div>
-                                </div>
-                                }
-
-                                {!!picture.date &&
-                                <div className="item">
-                                    <div className="label">Date: </div>
-                                    <div>{picture.date}</div>
-                                </div>
-                                }
-
-                                {!!picture.medium &&
-                                <div className="item">
-                                    <div className="label">Medium: </div>
-                                    <div>{picture.medium}</div>
-                                </div>
-                                }
-
-                                {!!picture.dimensions &&
-                                <div className="item">
-                                    <div className="label">Dimensions: </div>
-                                    <div>{picture.dimensions}</div>
-                                </div>
-                                }
-
-                                <div className="separator"></div>
-
-                                {!!picture.artiste &&
-                                <div className="item">
-                                    <div className="label">Artist: </div>
-                                    <div>{picture.artiste}</div>
-                                </div>
-                                }
-
-                                {!!picture.artisteBio &&
-                                <div className="item">
-                                    <div className="label">Bio: </div>
-                                    <div>{picture.artisteBio}</div>
-                                </div>
-                                }
-
-                                <div className="separator"></div>
-
-                                {!!picture.classification &&
-                                <div className="item">
-                                    <div className="label">Classification: </div>
-                                    <div>{picture.classification}</div>
-                                </div>
-                                }
-
-                                {!!picture.credits &&
-                                <div className="item">
-                                    <div className="label">Credit: </div>
-                                    <div>{picture.credits}</div>
-                                </div>
-                                }
-                            </div>
+                            <Cartel
+                                picture={picture}
+                                hideDetails={this.hideDetails}>
+                            </Cartel>
                         </div>
-
                     </div>
                     }
                 </Dialog>
@@ -280,3 +185,18 @@ export class AppPicture extends Component<any, PictureState> {
         );
     }
 }
+
+const mapStateToProps = (rootState: RootState) => {
+    return {
+        picture: rootState.pictureState.current,
+        history: rootState.pictureState.current,
+    }
+};
+
+const mapDispatchToProps = (dispatch: any) => ({
+    getRandomPicture: () => dispatch(getRandomPictureAsync())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppPicture);
+
+
