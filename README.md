@@ -7,6 +7,10 @@
 - A sidebar with a random art picture from Tate or MoMA museum.
 - A panel with all yours bookmarks.
 
+![alt Tablo UI 1](https://github.com/radiium/tablo/raw/.github/tablo.png "Tablo UI 1: main interface")
+![alt Tablo UI 2](https://github.com/radiium/tablo/raw/.github/tablo2.png "Tablo UI 2: image details")
+
+
 ### Stack:
 - react (with create react app + typescript)
 - react-animate-height
