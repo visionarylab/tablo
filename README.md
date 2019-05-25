@@ -2,7 +2,7 @@
 
 # Tablo: new tab chrome extension
 
-### What inside:
+### What's inside:
 - A configurable search bar for your prefered search engine.
 - A sidebar with a random art picture from Tate or MoMA museum.
 - A panel with all yours bookmarks.
