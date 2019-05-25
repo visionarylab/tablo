@@ -1,3 +1,56 @@
 .content-wrapper {
     // display: flex;
+    padding: 0 10px 0 10px ;
+    // border: 1px solid white;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    .header {
+        height: 40px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-wrap: nowrap;
+
+        .search-input-bookmarks-wrapper {
+            flex: 1 1 auto;
+            height: 40px;
+        }
+
+        .toggle-expand-btn {
+            color: white;
+            cursor: pointer;
+            width: 95px;
+            height: 40px;
+            text-align: center;
+        }
+    }
+
+    .content {
+        overflow: auto;
+        height: calc(100% - 40px - 10px);
+    }
+
+
+
+    .children {
+        margin-left: 20px;
+    }
+
+    .treeNode-wrapper {
+        margin: 10px;
+
+        .treeNode-title {
+
+            &.treeNode-title-folder {
+                text-decoration: underline;
+            }
+
+        }
+
+        .treeNode-children {
+            margin-left: 20px;
+
+        }
+    }
 }

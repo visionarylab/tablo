@@ -1,15 +1,14 @@
-import React from 'react';
-import { Header } from './Header/Header';
+import React, { FC } from 'react';
+import Header from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
-import { Content } from './Content/Content';
+import Content from './Content/Content';
 import './App.scss';
 
-const App: React.FC = () => {
+const App: FC = () => {
   return (
     <div className="app-wrapper">
-
         <div className="app-header">
-          <Header/>
+        <Header/>
         </div>
 
         <div className="app-content-wrapper">
@@ -21,7 +20,6 @@ const App: React.FC = () => {
             <Content/>
             </div>
         </div>
-
     </div>
   );
 }
