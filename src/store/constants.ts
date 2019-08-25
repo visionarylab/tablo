@@ -13,9 +13,9 @@ export const defaultBookmarkState: BookmarkState = {
 
 export const pictureStateKey: string = 'pictureState';
 export const defaultPictureState: PictureState = {
-    current: null,
-    history: [],
-    maxHistoryCount: 10
+    currentPictureIndex: null,
+    pictures: [],
+    maxPicturesCount: 10
 };
 
 export const searchStatekey: string = 'searchState';

@@ -1,12 +1,12 @@
 import { Action } from 'redux';
-import { takeEvery, select, put } from "redux-saga/effects";
+import { takeEvery, select, put } from 'redux-saga/effects';
 import { pictureStateKey, defaultPictureState } from './constants';
 import api from 'api';
 
 export interface PictureState {
-    current: Picture | any;
-    history: Picture[];
-    maxHistoryCount: number;
+    currentPictureIndex: Picture | any;
+    pictures: Picture[];
+    maxPicturesCount: number;
 }
 
 export interface Picture {
@@ -45,7 +45,8 @@ export enum PictureActions {
     GET_RANDOM_PICTURE_SUCCESS = 'PICTURE/GET_RANDOM_PICTURE_SUCCESS',
     GET_RANDOM_PICTURE_FAIL = 'PICTURE/GET_RANDOM_PICTURE_FAIL',
 
-    SET_MAX_HISTORY_COUNT = 'PICTURE/SET_MAX_HISTORY_COUNT',
+    SET_PICTURE_INDEX = 'PICTURE/SET_PICTURE_INDEX',
+    SET_MAX_PICTURES_COUNT = 'PICTURE/SET_MAX_PICTURES_COUNT',
 }
 
 export interface LoadPictureStateAction extends Action<PictureActions.LOAD_PICTURE_STATE> {
@@ -86,8 +87,13 @@ export interface GetRandomPictureFailAction extends Action<PictureActions.GET_RA
     type: PictureActions.GET_RANDOM_PICTURE_FAIL;
 }
 
-export interface SetMaxHistoryCountAction extends Action<PictureActions.SET_MAX_HISTORY_COUNT> {
-    type: PictureActions.SET_MAX_HISTORY_COUNT;
+export interface SetMaxPicturesCountAction extends Action<PictureActions.SET_MAX_PICTURES_COUNT> {
+    type: PictureActions.SET_MAX_PICTURES_COUNT;
+    payload: number;
+}
+
+export interface SetPictureIndexAction extends Action<PictureActions.SET_PICTURE_INDEX> {
+    type: PictureActions.SET_PICTURE_INDEX;
     payload: number;
 }
 
@@ -101,7 +107,8 @@ export type PictureActionType =
     | GetRandomPictureAction
     | GetRandomPictureSuccessAction
     | GetRandomPictureFailAction
-    | SetMaxHistoryCountAction;
+    | SetPictureIndexAction
+    | SetMaxPicturesCountAction;
 
 export const loadPictureState = () => ({
     type: PictureActions.LOAD_PICTURE_STATE,
@@ -141,15 +148,20 @@ export const getRandomPictureFail = () => ({
     type: PictureActions.GET_RANDOM_PICTURE_FAIL,
 });
 
-export const setMaxHistoryCount = (payload: number) => ({
-    type: PictureActions.SET_MAX_HISTORY_COUNT,
+export const setPictureIndex = (payload: number) => ({
+    type: PictureActions.SET_PICTURE_INDEX,
+    payload: payload
+});
+
+export const setMaxPicturesCount = (payload: number) => ({
+    type: PictureActions.SET_MAX_PICTURES_COUNT,
     payload: payload
 });
 
 const INITIAL_STATE: PictureState = {
-    current: null,
-    history: [],
-    maxHistoryCount: 10
+    currentPictureIndex: 0,
+    pictures: [],
+    maxPicturesCount: 10
 };
 
 export const pictureState = (
@@ -175,35 +187,49 @@ export const pictureState = (
         case PictureActions.GET_RANDOM_PICTURE:
             return state;
         case PictureActions.GET_RANDOM_PICTURE_SUCCESS:
-            state.history.push(state.current);
+            if (action.payload) {
+                state.pictures.unshift(action.payload);
+            }
+            state.pictures.splice(state.maxPicturesCount);
             return {
                 ...state,
-                current: action.payload,
-                history: updateHistory(state.history, state.maxHistoryCount)
+                pictures: [...state.pictures],
+                currentPictureIndex: 0,
             };
         case PictureActions.GET_RANDOM_PICTURE_FAIL:
             return state;
 
-        case PictureActions.SET_MAX_HISTORY_COUNT:
+        case PictureActions.SET_PICTURE_INDEX:
             return {
                 ...state,
-                history: updateHistory(state.history, action.payload),
-                maxHistoryCount: action.payload
+                currentPictureIndex: action.payload,
             };
 
+        case PictureActions.SET_MAX_PICTURES_COUNT:
+            const maxPicturesCount = action.payload;
+            state.pictures.splice(maxPicturesCount);
+
+            const currentPictureIndex = state.currentPictureIndex < state.pictures.length
+                ? state.currentPictureIndex
+                : state.pictures.length - 1
+            return {
+                pictures: state.pictures,
+                currentPictureIndex: currentPictureIndex,
+                maxPicturesCount: maxPicturesCount,
+            };
         default:
             return state;
     }
 };
 
-const updateHistory = (history: Picture[], maxHistoryCount: number): Picture[] => {
-    if (history.length > maxHistoryCount) {
-        const countToRm = history.length - maxHistoryCount;
+const updatePictures = (pictures: Picture[], maxPicturesCount: number): Picture[] => {
+    if (pictures.length > maxPicturesCount) {
+        const countToRm = pictures.length - maxPicturesCount;
         for (let i = 0; i < countToRm; i++) {
-            history.shift();
+            pictures.shift();
         }
     }
-    return history;
+    return pictures;
 }
 
 // ASYNC ACTIONS
@@ -228,7 +254,7 @@ export const getRandomPictureAsync = () => {
 /// SAGA
 const saveSearchStateSaga = takeEvery([
     PictureActions.GET_RANDOM_PICTURE_SUCCESS,
-    PictureActions.SET_MAX_HISTORY_COUNT,
+    PictureActions.SET_MAX_PICTURES_COUNT,
 ],
 function* () {
     const rootState = yield select();
