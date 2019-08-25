@@ -2,14 +2,29 @@ $headerHeight: 50px;
 
 .app-wrapper {
   height: 100%;
+  max-height: 100%;
   width: 100%;
-  padding: 10px;
+  max-width: 100%;
+  overflow: hidden;
   box-sizing: border-box;
   color: white;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 
-  .app-header {
+  .header-wrapper {
     height: $headerHeight;
     margin-bottom: 10px;
+  }
+
+  .picture-viewer-wrapper {
+    // flex: 1 1 auto;
+   //  height: calc(100% - #{$headerHeight} - 10px);
+  }
+
+  .app-header {
+
   }
 
   .app-content-wrapper {
@@ -20,8 +35,9 @@ $headerHeight: 50px;
     height: calc(100% - #{$headerHeight} - 10px);
 
     .app-sidebar {
-      width: 300px;
+      // width: 300px;
       height: 100%;
+      width: 100%;
     }
 
     .app-content {
