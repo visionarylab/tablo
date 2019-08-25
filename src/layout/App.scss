@@ -5,7 +5,6 @@ $headerHeight: 50px;
   max-height: 100%;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
   box-sizing: border-box;
   color: white;
   display: flex;
@@ -13,38 +12,40 @@ $headerHeight: 50px;
   flex-wrap: nowrap;
   justify-content: space-between;
 
-  .header-wrapper {
-    height: $headerHeight;
-    margin-bottom: 10px;
-  }
+  .app-content {
+    height: 100%;
+    width: 100%;
 
-  .picture-viewer-wrapper {
-    // flex: 1 1 auto;
-   //  height: calc(100% - #{$headerHeight} - 10px);
-  }
-
-  .app-header {
-
-  }
-
-  .app-content-wrapper {
-    flex: 1 1 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    height: calc(100% - #{$headerHeight} - 10px);
-
-    .app-sidebar {
-      // width: 300px;
-      height: 100%;
-      width: 100%;
-    }
-
-    .app-content {
+    .picture-viewer-wrapper {
       // flex: 1 1 auto;
-      height: 100%;
-      width: calc(100% - 300px - 10px);
+      //  height: calc(100% - #{$headerHeight} - 10px);
     }
   }
+
+
+  // .app-header {}
+
+  // .header-wrapper {
+  //   height: $headerHeight;
+  //   margin-bottom: 10px;
+  // }
+
+  // .app-content-wrapper {
+  //   flex: 1 1 auto;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: space-between;
+  //   height: calc(100% - #{$headerHeight} - 10px);
+
+  //   .app-sidebar {
+  //     height: 100%;
+  //     width: 100%;
+  //   }
+
+  //   .app-content {
+  //     height: 100%;
+  //     width: calc(100% - 300px - 10px);
+  //   }
+  // }
 
 }
