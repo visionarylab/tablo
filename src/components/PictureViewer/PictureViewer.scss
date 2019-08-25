@@ -1,8 +1,8 @@
 .picture-viewer-wrapper {
     position: relative;
-    width: 100%;
-    height: 100%;
-    padding: 80px;
+    width: calc(100% - 80px - 80px);
+    height: calc(100% - 80px - 40px);
+    margin: 80px 80px 40px 80px;
     /*
     display: flex;
     justify-content: center;

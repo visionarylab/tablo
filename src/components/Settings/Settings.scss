@@ -1,29 +1,51 @@
-$rowHeight: 50px;
 
-@keyframes spin {
-    0%  {-webkit-transform: rotate(0deg);}
-    100% {-webkit-transform: rotate(360deg);}
-}
 
 .settings-wrapper {
-    position: relative;
-    height: $rowHeight;
-    width: $rowHeight;
+    position: absolute;
+    top: 5px;
+    right: 5px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    background-color: white;
+    background-color: transparent;
     margin-left: 10px;
 
-    .settings-icon {
-        width: 100%;
-        height: 100%;
+    .settings-btn {
         cursor: pointer;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        opacity: 0.6;
+        transition: opacity ease-in-out .1s;
 
         &:hover {
+            opacity: 1;
+        }
+    }
+
+    .modal-close-btn {
+        top: 5px !important;
+        right: 5px !important;
+
+        svg {
+            width: 1.65rem !important;
+            height: 1.65rem !important;
+        }
+    }
+
+
+
+
+    .dialog-wrapper {
+        .close-settings-btn {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            background-color: white;
             svg {
-                animation: spin 4s infinite linear;
+                min-width: 1.5rem;
             }
         }
     }

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames';
 import Icon from '@mdi/react'
 import {
     mdiViewGrid,
     mdiImagePlus,
-    mdiAlertBoxOutline } from '@mdi/js';
+    mdiAlertBoxOutline
+} from '@mdi/js';
 
 import { RootState } from 'store/rootReducer';
 import {
     Picture,
     getRandomPictureAsync,
     setPictureIndex,
-    setMaxPicturesCount } from 'store/picture';
+    setMaxPicturesCount
+} from 'store/picture';
 import { Spinner } from 'components/Spinner/Spinner';
-import { Dialog } from '../Dialog/Dialog';
+import { Modal } from '../Modal/Modal';
 import { PictureCartel } from 'components/PictureCartel/PictureCartel';
 import { PictureHistorique } from 'components/PictureHistorique/PictureHistorique';
 
@@ -130,92 +131,76 @@ class PictureViewer extends Component<Props, State> {
             currentPicture
         } = this.state;
 
-        const pictureClass = classNames('image-zoom', { 'image-loaded': !isLoading });
-
         if (!currentPicture) {
             return (null);
         }
 
+        const pictureClass = classNames('image-zoom', { 'image-loaded': !isLoading });
+        const modalStyle = {
+            // padding: 'calc(80px + 36px + 5px) 80px 80px 80px'
+            padding: '80px 80px calc(40px + 36px + 5px) 80px',
+            backgroundColor: '#282c34'
+        };
         return (
-            <>
-                <ReactTooltip />
+            <div className="picture-viewer-wrapper">
 
-                <Dialog
-                    style={{
-                        // padding: 'calc(80px + 36px + 5px) 80px 80px 80px'
-                        padding: '80px 80px calc(80px + 36px + 5px) 80px'
-                    }}
-                    bgColor={'#282c34'}
-                    visible={isShowDetails}
+                <div className="picture-caption bg-box "
+                    data-tip={currentPicture.title + ' - ' + currentPicture.artiste}>
+                    <span>{currentPicture.title + ' - ' + currentPicture.artiste}</span>
+                </div>
+
+                <div className="picture-container">
+                    {isLoading &&
+                        <div className="picture-loader">
+                            <Spinner />
+                        </div>
+                    }
+                    <img className={pictureClass}
+                        src={currentPicture.medias.max}
+                        alt={currentPicture.title + ' ' + currentPicture.artiste}
+                        ref={(el) => this.img = el}
+                        onLoad={this.onImageLoad}
+                    />
+                </div>
+
+                <div className="picture-toolbar bg-box">
+                    <button className="picture-viewer-btn"
+                        data-tip="New picture"
+                        onClick={this.getRandomPicture}>
+                        <Icon path={mdiImagePlus} size={1} color="white" />
+                    </button>
+                    <button className="picture-viewer-btn"
+                        data-tip="Show history"
+                        onClick={this.showHistorique}>
+                        <Icon path={mdiViewGrid} size={1} color="white" />
+                    </button>
+                    <button className="picture-viewer-btn"
+                        data-tip="Show details"
+                        onClick={this.showDetails}>
+                        <Icon path={mdiAlertBoxOutline} size={1} color="white" />
+                    </button>
+                </div>
+
+                <Modal
+                    style={modalStyle}
+                    show={isShowDetails}
                     onHide={this.hideDetails}
                     closeOnClickContent={true}>
                     <PictureCartel picture={currentPicture} />
-                </Dialog>
+                </Modal>
 
-                <Dialog
-                    style={{
-                        // padding: 'calc(80px + 36px + 5px) 80px  80px 80px'
-                        padding: '80px 80px calc(80px + 36px + 5px) 80px'
-                    }}
-                    bgColor={'#282c34'}
-                    visible={isShowHistorique}
+                <Modal
+                    style={modalStyle}
+                    show={isShowHistorique}
                     onHide={this.hideHistorique}>
                     <PictureHistorique
                         pictures={pictures}
                         selectedPictureIndex={currentPictureIndex}
                         onSelectPicture={this.setCurrentPicture}>
                     </PictureHistorique>
-                </Dialog>
+                </Modal>
 
-                <div className="picture-viewer-wrapper">
-
-                    <div className="picture-caption bg-box "
-                        data-tip={currentPicture.title + ' - ' + currentPicture.artiste}
-                        data-place="top"
-                        data-effect="solid">
-                        <span>{currentPicture.title + ' - ' + currentPicture.artiste}</span>
-                    </div>
-
-                    <div className="picture-container">
-                        {isLoading &&
-                        <div className="picture-loader">
-                            <Spinner />
-                        </div>
-                        }
-                        <img className={pictureClass}
-                            src={currentPicture.medias.max}
-                            alt={currentPicture.title + ' ' + currentPicture.artiste}
-                            ref={(el) => this.img = el}
-                            onLoad={this.onImageLoad}
-                        />
-                    </div>
-
-                    <div className="picture-toolbar bg-box">
-                        <button className="picture-viewer-btn"
-                            data-tip="New picture"
-                            data-place="top"
-                            data-effect="solid"
-                            onClick={this.getRandomPicture}>
-                            <Icon path={mdiImagePlus} size={1} color="white" />
-                        </button>
-                        <button className="picture-viewer-btn"
-                            data-tip="Show history"
-                            data-place="top"
-                            data-effect="solid"
-                            onClick={this.showHistorique}>
-                            <Icon path={mdiViewGrid} size={1} color="white" />
-                        </button>
-                        <button className="picture-viewer-btn"
-                            data-tip="Show details"
-                            data-place="top"
-                            data-effect="solid"
-                            onClick={this.showDetails}>
-                            <Icon path={mdiAlertBoxOutline} size={1} color="white" />
-                        </button>
-                    </div>
-
-                </div>
-            </>
+            </div>
         );
     }
 }
