@@ -1,7 +1,7 @@
 import { searchStatekey, defaultSearchState } from './constants';
 import StorageApi from 'api/StorageApi';
 import { Action } from 'redux';
-import { takeEvery, select, put } from "redux-saga/effects";
+import { takeEvery, select, put } from 'redux-saga/effects';
 
 export interface SearchState {
     searchEngines: SearchEngine[];

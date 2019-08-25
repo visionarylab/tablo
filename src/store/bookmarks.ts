@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { takeEvery, select, put } from "redux-saga/effects";
+import { takeEvery, select, put } from 'redux-saga/effects';
 import { cloneDeep } from 'lodash';
 import { bookmarkStateKey, defaultBookmarkState } from './constants';
 import api from 'api';
