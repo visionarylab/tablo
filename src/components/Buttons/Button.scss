@@ -9,6 +9,7 @@
   outline: none;
   background-color: transparent;
   overflow: hidden;
+  opacity: .8;
 
   &.icon-button {
     width: 35px;
@@ -25,6 +26,7 @@
   }
 
   &:hover {
+    opacity: 1;
   }
   &:focus {
   }
