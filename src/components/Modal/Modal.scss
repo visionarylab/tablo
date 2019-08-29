@@ -1,78 +1,59 @@
-.modal-wrapper {
+.modal-overlay {
+    cursor: zoom-out;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all ease .1s;
+    z-index: 97;
+
+    &.modal-overlay-show { opacity: 1; }
+    &.modal-overlay-hidden { opacity: 0; }
+}
+
+.modal-content {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 999;
     transition: all linear .2s;
+    z-index: 98;
 
-    .modal-overlay,
-    .modal-content {
-        transition: opacity linear .5s;
-        transition-delay: .1s;
-    }
-
-    &.modal-show {
+    &.modal-content-show {
         opacity: 1;
         transform: scale(1);
-
-        .modal-overlay,
-        .modal-content {
-            opacity: 1;
-        }
     }
 
-    &.modal-hide {
+    &.modal-content-hide {
         opacity: 0;
         transform: scale(0);
-
-        .modal-overlay,
-        .modal-content {
-            opacity: 0;
-        }
     }
 
-    &.closable-content {
-        .modal-content {
-            cursor: zoom-out;
-        }
-    }
-
-    .modal-overlay {
-        cursor: zoom-out;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .modal-content {
+    .modal-content-inner {
         cursor: default;
         position: relative;
         width: 100%;
         height: 100%;
-        z-index: 999;
-        padding-top: 1rem;
-
-        .modal-close-btn {
-            cursor: pointer;
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            top: 0;
-            right: 0;
-            border: 0;
-            background-color: transparent;
-            transition: opacity linear .1s;
-            opacity: 0.7;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
+        overflow: auto;
     }
+}
+
+.modal-close-btn {
+    cursor: pointer;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 5px;
+    right: 5px;
+    border: 0;
+    background-color: transparent;
+    transition: opacity linear .1s;
+    z-index: 99;
+
+    &:hover { opacity: 1; }
+
+    &.modal-close-btn-show { opacity: 0.6; }
+    &.modal-close-btn-hidden { opacity: 0; }
 }
