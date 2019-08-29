@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { Picture } from 'store/picture';
 import './PictureHistorique.scss';
+import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
 
 interface Props {
     pictures: Picture[];
@@ -20,12 +21,15 @@ export class PictureHistorique extends Component<Props> {
                         'selected': i === selectedPictureIndex
                     });
                     return (
-                        <img
-                            className={className}
+
+                        <PictureWrapper
                             key={i}
+                            className={className}
                             src={pict.medias.mini}
-                            alt=""
-                            onClick={() => onSelectPicture(pict, i)}/>
+                            alt={pict.medias.mini}
+                            onClick={() => onSelectPicture(pict, i)}
+                        />
+
                     )
                 })}
             </div>

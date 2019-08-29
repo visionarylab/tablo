@@ -21,8 +21,13 @@ import { PictureCartel } from 'components/PictureCartel/PictureCartel';
 import { PictureHistorique } from 'components/PictureHistorique/PictureHistorique';
 
 import './PictureViewer.scss';
+import { Box, Button, Layer, Text, Grommet } from 'grommet';
+import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
 
+
+// const Dock: any = require('react-dock').default;
 const Zooming: any = require('zooming/build/zooming');
+
 
 interface Props {
     currentPictureIndex: number;
@@ -94,7 +99,7 @@ class PictureViewer extends Component<Props, State> {
         this.setState({ currentPicture: currentPicture });
     }
 
-    onImageLoad(evt: any) {
+    onImageLoad(evt?: any) {
         if (this.zoom) {
             this.zoom.listen('.image-zoom');
         }
@@ -106,9 +111,11 @@ class PictureViewer extends Component<Props, State> {
     }
 
     setCurrentPicture(pict: Picture, i: number) {
-        this.setState({ isLoading: true });
         this.hideHistorique();
-        this.props.setPictureIndex(i);
+        if (i !== this.props.currentPictureIndex) {
+            this.setState({ isLoading: true });
+            this.props.setPictureIndex(i);
+        }
     }
 
     getRandomPicture() {
@@ -138,9 +145,21 @@ class PictureViewer extends Component<Props, State> {
         const pictureClass = classNames('image-zoom', { 'image-loaded': !isLoading });
         const modalStyle = {
             // padding: 'calc(80px + 36px + 5px) 80px 80px 80px'
-            padding: '80px 80px calc(40px + 36px + 5px) 80px',
+            margin: '80px 80px calc(40px + 36px + 5px) 80px',
             backgroundColor: '#282c34'
         };
+
+        const myTheme = {
+            layer: {
+                background: '#282c34',
+                overlay: {
+                    background: '#282c34',
+                },
+                extend: {
+
+                }
+            }
+        }
         return (
             <div className="picture-viewer-wrapper">
 
@@ -150,17 +169,12 @@ class PictureViewer extends Component<Props, State> {
                 </div>
 
                 <div className="picture-container">
-                    {isLoading &&
-                        <div className="picture-loader">
-                            <Spinner />
-                        </div>
-                    }
-                    <img className={pictureClass}
-                        src={currentPicture.medias.max}
-                        alt={currentPicture.title + ' ' + currentPicture.artiste}
-                        ref={(el) => this.img = el}
-                        onLoad={this.onImageLoad}
-                    />
+                <PictureWrapper
+                    className={pictureClass}
+                    src={currentPicture.medias.max}
+                    alt={currentPicture.title + ' ' + currentPicture.artiste}
+                    onImageLoad={this.onImageLoad}
+                />
                 </div>
 
                 <div className="picture-toolbar bg-box">
@@ -184,10 +198,32 @@ class PictureViewer extends Component<Props, State> {
                 <Modal
                     style={modalStyle}
                     show={isShowDetails}
-                    onHide={this.hideDetails}
-                    closeOnClickContent={true}>
+                    onHide={this.hideDetails}>
                     <PictureCartel picture={currentPicture} />
                 </Modal>
+
+                {/* isShowHistorique &&
+                <Grommet theme={myTheme}>
+                    <Layer
+                        position="bottom"
+                        animation="slide"
+                        onEsc={() => this.hideHistorique}
+                        onClickOutside={this.hideHistorique}
+                        >
+
+                    <button className="picture-viewer-btn"
+                        onClick={this.hideHistorique}>
+                        <Icon path={mdiAlertBoxOutline} size={1} color="white" />
+                    </button>
+                        <PictureHistorique
+                            pictures={pictures}
+                            selectedPictureIndex={currentPictureIndex}
+                            onSelectPicture={this.setCurrentPicture}>
+                        </PictureHistorique>
+                    </Layer>
+                </Grommet>
+
+                */}
 
                 <Modal
                     style={modalStyle}
@@ -199,7 +235,6 @@ class PictureViewer extends Component<Props, State> {
                         onSelectPicture={this.setCurrentPicture}>
                     </PictureHistorique>
                 </Modal>
-
             </div>
         );
     }
