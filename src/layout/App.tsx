@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
 import Header from 'components/Header/Header';
-import Settings from 'components/Settings/Settings';
 import './App.scss';
 
 const App: FC = () => {
@@ -9,7 +8,6 @@ const App: FC = () => {
     <div className="app-wrapper">
         <Header className="app-header"/>
         <PictureViewer className="app-content"/>
-        <Settings/>
     </div>
   );
 }
