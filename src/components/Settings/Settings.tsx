@@ -1,42 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
-import { toggleShowSettings } from 'store/settings';
-import { Sidebar } from 'components/Sidebar/Sidebar';
 import './Settings.scss';
 
 interface Props {
-    showSettings: boolean;
-    toggleShowSettings: () => void;
 }
 
-export class Settings extends Component<Props> {
+interface State {
+}
 
-    static defaultProps: Props = {
-        showSettings: false,
-        toggleShowSettings: () => {},
-    };
-
+export class Settings extends Component<Props, State> {
+    static defaultProps: Props = {};
     render() {
-        const { showSettings, toggleShowSettings } = this.props;
-
         return (
-        <Sidebar
-            title="Settings"
-            show={showSettings}
-            onHide={toggleShowSettings}>
-        </Sidebar>
+            <div className="settings-wrapper"></div>
         );
     }
 }
 
-const mapStateToProps = (rootState: RootState) => ({
-    showSettings: rootState.settingsState.showSettings,
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-    toggleShowSettings: () => dispatch(toggleShowSettings()),
-});
+const mapStateToProps = (rootState: RootState) => ({});
+const mapDispatchToProps = (dispatch: any) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 

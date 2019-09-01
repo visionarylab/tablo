@@ -4,22 +4,53 @@ import { Picture } from 'store/picture';
 import './PictureCartel.scss';
 import Icon from '@mdi/react';
 import { mdiOpenInNew, mdiDownload } from '@mdi/js';
+import { RootState } from 'store/rootReducer';
+import { connect } from 'react-redux';
 
 interface Props {
-    picture: Picture;
+    pictures: Picture[];
+    currentPictureIndex: number;
 }
 
-export class PictureCartel extends Component<Props> {
+interface State {
+    currentPicture: Picture | null;
+    currentPictureData: any[];
+}
+
+class PictureCartel extends Component<Props, State> {
+
+    static defaultProps = {
+        pictures: [],
+        currentPictureIndex: 0,
+    };
 
     constructor(props: any) {
         super(props);
+
+        this.state = {
+            currentPicture: null,
+            currentPictureData: [],
+        };
 
         this.downloadImage = this.downloadImage.bind(this);
         this.openImageWebsite = this.openImageWebsite.bind(this);
     }
 
+    componentWillReceiveProps(nextProps: Props) {
+        const currentPicture = nextProps.pictures[nextProps.currentPictureIndex];
+        const currentPictureData = this.parsePicture(currentPicture);
+        if (currentPicture && currentPictureData) {
+            this.setState({ currentPicture, currentPictureData });
+        }
+
+    }
+
     parsePicture(picture: Picture) {
         const pictureData: any = [];
+
+        if (!picture) {
+            return pictureData;
+        }
 
         if (picture.artiste) {
             pictureData.push({ label: 'Artist', data: picture.artiste });
@@ -61,10 +92,11 @@ export class PictureCartel extends Component<Props> {
     }
 
     downloadImage(evt: any) {
-        if (this.props.picture) {
+        const { currentPicture } = this.state
+        if (currentPicture) {
             const link = document.createElement('a');
-            link.href = this.props.picture.medias.max;
-            link.download = this.props.picture.title + '.jpg';
+            link.href = currentPicture.medias.max;
+            link.download = currentPicture.title + '.jpg';
             link.rel = 'noopener noreferrer';
             link.target = '_blank';
             document.body.appendChild(link);
@@ -75,17 +107,19 @@ export class PictureCartel extends Component<Props> {
     }
 
     openImageWebsite(evt: any) {
-        if (this.props.picture) {
-            window.open(this.props.picture.medias.page, '_blank')
+        const { currentPicture } = this.state
+        if (currentPicture) {
+            window.open(currentPicture.medias.page, '_blank')
         }
         evt.stopPropagation();
     }
 
     render() {
-        let { picture } = this.props;
+        const { currentPicture, currentPictureData } = this.state;
 
-        const pictureData = this.parsePicture(picture);
-
+        if (!currentPicture) {
+            return (null);
+        }
         return (
             <div className="cartel-wrapper">
 
@@ -94,7 +128,7 @@ export class PictureCartel extends Component<Props> {
                         <button className="cartel-header-btn"
                             onClick={this.openImageWebsite}>
                             <Icon path={mdiOpenInNew} size={1} color={'white'} />
-                            <span>Visit {picture.from} page</span>
+                            <span>Visit {currentPicture.from} page</span>
                         </button>
 
                         <button className="cartel-header-btn"
@@ -105,7 +139,7 @@ export class PictureCartel extends Component<Props> {
                     </div>
                 </div>
 
-                {pictureData.map((item: any, i: number) => {
+                { currentPictureData.map((item: any, i: number) => {
                     const itemClassNames = classNames('item', {
                         'even': (i % 2 === 0),
                         'odd': (i % 2 !== 0),
@@ -123,5 +157,15 @@ export class PictureCartel extends Component<Props> {
     }
 }
 
+const mapStateToProps = (rootState: RootState) => {
+    return ({
+        currentPictureIndex: rootState.pictureState.currentPictureIndex,
+        pictures: rootState.pictureState.pictures,
+    })
+};
 
+const mapDispatchToProps = (dispatch: any) => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PictureCartel);
 

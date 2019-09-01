@@ -1,32 +1,57 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { Picture } from 'store/picture';
-import './PictureHistorique.scss';
+import { connect } from 'react-redux';
+import { RootState } from 'store/rootReducer';
+import { Picture, setPictureIndex } from 'store/picture';
+import { closeAllSidebarSidebar } from 'store/ui';
 import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
+import './PictureHistorique.scss';
 
 interface Props {
     pictures: Picture[];
-    selectedPictureIndex: number;
-    onSelectPicture: (picture: Picture, i: number) => void
+    currentPictureIndex: number;
+    setPictureIndex?: (index: number) => void,
+    closeAllSidebarSidebar: () => void;
 }
 
-export class PictureHistorique extends Component<Props> {
+class PictureHistorique extends Component<Props> {
+
+    static defaultPrps = {
+        pictures: [],
+        currentPictureIndex: 0,
+        setPictureIndex: (index: number) => {},
+        closeAllSidebarSidebar: () => {},
+    }
+
+    constructor(props: any) {
+        super(props);
+        this.onSelectPicture = this.onSelectPicture.bind(this);
+    }
+
+    onSelectPicture(index: number) {
+        const {
+            currentPictureIndex,
+            setPictureIndex,
+            closeAllSidebarSidebar } = this.props;
+        if (index !== currentPictureIndex && setPictureIndex) {
+            setPictureIndex(index);
+        }
+        closeAllSidebarSidebar();
+    }
+
     render() {
-        let { pictures, selectedPictureIndex, onSelectPicture } = this.props;
+        let { pictures, currentPictureIndex } = this.props;
         return (
             <div className="historique-wrapper">
                 {pictures.map((pict: any, i: number) => {
-
-                    const className = classNames({
-                        'selected': i === selectedPictureIndex
-                    });
+                    const className = classNames({ 'selected': (i === currentPictureIndex) });
                     return (
                         <PictureWrapper
                             key={i}
                             className={className}
                             src={pict.medias.mini}
                             alt={pict.medias.mini}
-                            onClick={() => onSelectPicture(pict, i)}
+                            onClick={() => this.onSelectPicture(i)}
                         />
                     )
                 })}
@@ -34,3 +59,18 @@ export class PictureHistorique extends Component<Props> {
         );
     }
 }
+
+const mapStateToProps = (rootState: RootState) => {
+    return ({
+        currentPictureIndex: rootState.pictureState.currentPictureIndex,
+        pictures: rootState.pictureState.pictures,
+    })
+};
+
+const mapDispatchToProps = (dispatch: any) => ({
+    setPictureIndex: (payload: number) => dispatch(setPictureIndex(payload)),
+    closeAllSidebarSidebar: () => dispatch(closeAllSidebarSidebar()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PictureHistorique);
+

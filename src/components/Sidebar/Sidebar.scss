@@ -14,11 +14,12 @@
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;
-    transition: all linear .2s;
+    // right: 0;
     z-index: 98;
-    background-color: var(--bgColor);
     color: var(--color);
+    background-color: var(--bgColor);
+    width:  var(--sidebarWidth);
+    transition:  var(--sidebarTransition);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 
 
@@ -78,3 +79,21 @@
         }
     }
 }
+
+// #root
+body {
+    transition: var(--sidebarTransition);
+
+    &.show-sidebar {
+        // padding-left: var(--sidebarWidth);
+
+        #root {
+            // transition: var(--sidebarTransition);
+            // transform: scale(0.8);
+        }
+    }
+}
+
+// body
+//
+//

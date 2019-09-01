@@ -20,3 +20,16 @@
         }
     }
 }
+
+.texttt {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    font-size: 5rem;
+    line-height: 5rem;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+}
