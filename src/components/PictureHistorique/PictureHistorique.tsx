@@ -21,7 +21,6 @@ export class PictureHistorique extends Component<Props> {
                         'selected': i === selectedPictureIndex
                     });
                     return (
-
                         <PictureWrapper
                             key={i}
                             className={className}
@@ -29,7 +28,6 @@ export class PictureHistorique extends Component<Props> {
                             alt={pict.medias.mini}
                             onClick={() => onSelectPicture(pict, i)}
                         />
-
                     )
                 })}
             </div>

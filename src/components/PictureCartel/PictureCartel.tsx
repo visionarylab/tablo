@@ -90,11 +90,6 @@ export class PictureCartel extends Component<Props> {
             <div className="cartel-wrapper">
 
                 <div className="cartel-header">
-
-                    <div className="cartel-header-thumbnail">
-                        <img src={picture.medias.mini} alt="" />
-                    </div>
-
                     <div className="cartel-header-controls">
                         <button className="cartel-header-btn"
                             onClick={this.openImageWebsite}>

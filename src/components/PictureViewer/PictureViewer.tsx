@@ -1,45 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
-import Icon from '@mdi/react'
-import {
-    mdiViewGrid,
-    mdiImagePlus,
-    mdiAlertBoxOutline
-} from '@mdi/js';
-
-import { RootState } from 'store/rootReducer';
 import {
     Picture,
     getRandomPictureAsync,
     setPictureIndex,
-    setMaxPicturesCount
-} from 'store/picture';
-import { Spinner } from 'components/Spinner/Spinner';
+    setMaxPicturesCount,
+    toggleShowDetails,
+    toggleShowHistory } from 'store/picture';
+import classNames from 'classnames';
+import { RootState } from 'store/rootReducer';
 import { Modal } from '../Modal/Modal';
 import { PictureCartel } from 'components/PictureCartel/PictureCartel';
 import { PictureHistorique } from 'components/PictureHistorique/PictureHistorique';
-
-import './PictureViewer.scss';
-import { Box, Button, Layer, Text, Grommet } from 'grommet';
 import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
+import './PictureViewer.scss';
 
-
-// const Dock: any = require('react-dock').default;
 const Zooming: any = require('zooming/build/zooming');
 
-
 interface Props {
+    className: string;
     currentPictureIndex: number;
     maxPicturesCount: number;
     pictures: Picture[];
+    showDetails: boolean;
+    showHistory: boolean;
     getRandomPicture: () => void;
+    toggleShowDetails: () => void,
+    toggleShowHistory: () => void,
     setPictureIndex: (payload: number) => void,
     setMaxPicturesCount: (payload: number) => void,
 }
 
 interface State {
-    isLoading: boolean;
     isShowDetails: boolean;
     isShowHistorique: boolean;
     magnifierSize: any;
@@ -51,10 +43,15 @@ class PictureViewer extends Component<Props, State> {
     img: HTMLImageElement | null;
 
     static defaultProps: Props = {
+        className: '',
         currentPictureIndex: 0,
         maxPicturesCount: 10,
         pictures: [],
+        showDetails: false,
+        showHistory: false,
         getRandomPicture: () => { },
+        toggleShowDetails: () => { },
+        toggleShowHistory: () => { },
         setPictureIndex: (payload: number) => { },
         setMaxPicturesCount: (payload: number) => { },
     };
@@ -64,7 +61,6 @@ class PictureViewer extends Component<Props, State> {
 
         this.img = null;
         this.state = {
-            isLoading: true,
             isShowDetails: false,
             isShowHistorique: false,
             magnifierSize: { w: 0, h: 0 },
@@ -72,18 +68,13 @@ class PictureViewer extends Component<Props, State> {
         };
 
         this.setCurrentPicture = this.setCurrentPicture.bind(this);
-        this.onImageLoad = this.onImageLoad.bind(this);
-        this.onImageError = this.onImageError.bind(this);
         this.getRandomPicture = this.getRandomPicture.bind(this);
-        this.showDetails = this.showDetails.bind(this);
-        this.hideDetails = this.hideDetails.bind(this);
-        this.showHistorique = this.showHistorique.bind(this);
-        this.hideHistorique = this.hideHistorique.bind(this);
+        this.onImageLoad = this.onImageLoad.bind(this);
     }
 
     componentDidMount() {
         this.zoom = new Zooming({
-            bgColor: '#282c34', // 'rgba(0, 0, 0, 0.3)',
+            bgColor: 'var(--bgColor)', // 'rgba(0, 0, 0, 0.3)',
             // enableGrab: false,
             // customSize: '100%'
             scaleBase: 0.9,
@@ -99,136 +90,70 @@ class PictureViewer extends Component<Props, State> {
         this.setState({ currentPicture: currentPicture });
     }
 
-    onImageLoad(evt?: any) {
-        if (this.zoom) {
-            this.zoom.listen('.image-zoom');
-        }
-        this.setState({ isLoading: false });
-    }
-
-    onImageError(evt: any) {
-        this.setState({ isLoading: false });
-    }
-
     setCurrentPicture(pict: Picture, i: number) {
-        this.hideHistorique();
+        this.props.toggleShowHistory();
         if (i !== this.props.currentPictureIndex) {
-            this.setState({ isLoading: true });
             this.props.setPictureIndex(i);
         }
     }
 
     getRandomPicture() {
         const { getRandomPicture } = this.props;
-        this.setState({ isLoading: true });
         getRandomPicture();
     }
 
-    showDetails() { this.setState({ isShowDetails: true }) }
-    hideDetails() { this.setState({ isShowDetails: false }) }
-    showHistorique() { this.setState({ isShowHistorique: true }) }
-    hideHistorique() { this.setState({ isShowHistorique: false }) }
+    onImageLoad(evt?: any) {
+        if (this.zoom) {
+            this.zoom.listen('.image-zoom');
+        }
+    }
 
     render() {
-        const { pictures, currentPictureIndex } = this.props;
         const {
-            isLoading,
+            className,
+            pictures,
+            currentPictureIndex,
+            showDetails,
+            showHistory,
+            toggleShowDetails,
+            toggleShowHistory } = this.props;
+        const {
             isShowDetails,
             isShowHistorique,
-            currentPicture
-        } = this.state;
+            currentPicture } = this.state;
 
         if (!currentPicture) {
             return (null);
         }
 
-        const pictureClass = classNames('image-zoom', { 'image-loaded': !isLoading });
-        const modalStyle = {
-            // padding: 'calc(80px + 36px + 5px) 80px 80px 80px'
-            margin: '80px 80px calc(40px + 36px + 5px) 80px',
-            backgroundColor: '#282c34'
-        };
+        const pictureViewerClass = classNames('picture-viewer-wrapper', className)
 
-        const myTheme = {
-            layer: {
-                background: '#282c34',
-                overlay: {
-                    background: '#282c34',
-                },
-                extend: {
-
-                }
-            }
-        }
         return (
-            <div className="picture-viewer-wrapper">
-
-                <div className="picture-caption bg-box "
-                    data-tip={currentPicture.title + ' - ' + currentPicture.artiste}>
-                    <span>{currentPicture.title + ' - ' + currentPicture.artiste}</span>
-                </div>
+            <div className={pictureViewerClass}>
 
                 <div className="picture-container">
                 <PictureWrapper
-                    className={pictureClass}
+                    onImageLoad={this.onImageLoad}
+                    className="image-zoom"
                     src={currentPicture.medias.max}
                     alt={currentPicture.title + ' ' + currentPicture.artiste}
-                    onImageLoad={this.onImageLoad}
                 />
                 </div>
 
-                <div className="picture-toolbar bg-box">
-                    <button className="picture-viewer-btn"
-                        data-tip="New picture"
-                        onClick={this.getRandomPicture}>
-                        <Icon path={mdiImagePlus} size={1} color="white" />
-                    </button>
-                    <button className="picture-viewer-btn"
-                        data-tip="Show history"
-                        onClick={this.showHistorique}>
-                        <Icon path={mdiViewGrid} size={1} color="white" />
-                    </button>
-                    <button className="picture-viewer-btn"
-                        data-tip="Show details"
-                        onClick={this.showDetails}>
-                        <Icon path={mdiAlertBoxOutline} size={1} color="white" />
-                    </button>
+                <div className="picture-caption">
+                    <div><i>{currentPicture.title}</i></div>
+                    <div>{currentPicture.artiste}</div>
                 </div>
 
                 <Modal
-                    style={modalStyle}
-                    show={isShowDetails}
-                    onHide={this.hideDetails}>
+                    show={showDetails}
+                    onHide={toggleShowDetails}>
                     <PictureCartel picture={currentPicture} />
                 </Modal>
 
-                {/* isShowHistorique &&
-                <Grommet theme={myTheme}>
-                    <Layer
-                        position="bottom"
-                        animation="slide"
-                        onEsc={() => this.hideHistorique}
-                        onClickOutside={this.hideHistorique}
-                        >
-
-                    <button className="picture-viewer-btn"
-                        onClick={this.hideHistorique}>
-                        <Icon path={mdiAlertBoxOutline} size={1} color="white" />
-                    </button>
-                        <PictureHistorique
-                            pictures={pictures}
-                            selectedPictureIndex={currentPictureIndex}
-                            onSelectPicture={this.setCurrentPicture}>
-                        </PictureHistorique>
-                    </Layer>
-                </Grommet>
-
-                */}
-
                 <Modal
-                    style={modalStyle}
-                    show={isShowHistorique}
-                    onHide={this.hideHistorique}>
+                    show={showHistory}
+                    onHide={toggleShowHistory}>
                     <PictureHistorique
                         pictures={pictures}
                         selectedPictureIndex={currentPictureIndex}
@@ -241,16 +166,19 @@ class PictureViewer extends Component<Props, State> {
 }
 
 const mapStateToProps = (rootState: RootState) => {
-    console.log('rootState', rootState);
     return ({
         currentPictureIndex: rootState.pictureState.currentPictureIndex,
         maxPicturesCount: rootState.pictureState.maxPicturesCount,
         pictures: rootState.pictureState.pictures,
+        showDetails: rootState.pictureState.showDetails,
+        showHistory: rootState.pictureState.showHistory,
     })
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
     getRandomPicture: () => dispatch(getRandomPictureAsync()),
+    toggleShowDetails: () => dispatch(toggleShowDetails()),
+    toggleShowHistory: () => dispatch(toggleShowHistory()),
     setPictureIndex: (payload: number) => dispatch(setPictureIndex(payload)),
     setMaxPicturesCount: (payload: number) => dispatch(setMaxPicturesCount(payload)),
 });

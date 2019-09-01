@@ -1,11 +1,14 @@
 import React, { Component, CSSProperties } from 'react';
 import { Spinner } from 'components/Spinner/Spinner';
+import classNames from 'classnames';
+import './PictureWrapper.scss';
 
 interface Props {
     src: string;
     alt?: string;
     className?: string;
     style?: CSSProperties;
+    isLoading?: boolean;
     onImageLoad?: () => void;
     onClick?: () => void;
 }
@@ -50,7 +53,9 @@ export class PictureWrapper extends Component<Props, State> {
     render() {
         let { src, alt, className, style, onClick } = this.props;
         let { isLoading } = this.state;
-
+        const imageClass = classNames('picture-el', className, {
+            'is-loaded': !isLoading
+        })
         return (
             <>
             {isLoading &&
@@ -58,7 +63,7 @@ export class PictureWrapper extends Component<Props, State> {
                 <Spinner />
             </div>
             }
-            <img className={className}
+            <img className={imageClass}
                 style= {style}
                 src={src}
                 alt={alt}

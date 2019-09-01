@@ -6,63 +6,25 @@
 .picture-viewer-wrapper {
     position: relative;
     width: calc(100% - 80px - 80px);
-    height: calc(100% - 80px - 40px);
-    margin: 80px 80px 40px 80px;
-    /*
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    */
+    padding:
+        calc(80px - var(--toolbarHeight))
+        80px
+        0 //calc(80px - var(--toolbarHeight))
+        80px;
+
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 36px 36px;
+    grid-template-rows: 1fr var(--toolbarHeight) var(--toolbarHeight);
     grid-column-gap: 0px;
-    grid-row-gap: 5px;
+    grid-row-gap: 0px;
     grid-template-areas:
-    "image"
-    "caption"
-        "toolbar"
-        ;
-
-    .bg-box {
-        // background-color: rgba(255,255,255, 0.2);
-        height: 36px;
-        display: flex;
-    }
-
-    .picture-toolbar {
-        grid-area: toolbar;
-        flex-direction: row;
-        justify-content: center;
-
-        .picture-viewer-btn {
-            cursor: pointer;
-            height: 36px;
-            box-sizing: border-box;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 0;
-            padding: 0;
-            margin: 0 3px;
-            outline: none;
-            background-color: transparent;
-            overflow: hidden;
-            opacity: .8;
-
-            &:hover {
-                opacity: 1;
-            }
-            &:focus {
-            }
-            &:active {
-            }
-        }
-    }
+        "image"
+        "."
+        "caption";
 
     .picture-caption {
+        height: var(--toolbarHeight);
+        display: flex;
         grid-area: caption;
         flex-direction: column;
         justify-content: center;
@@ -97,14 +59,14 @@
             z-index: 2;
         }
 
-        img {
+        img.picture-el {
             max-height: 100%;
             max-width: 100%;
-            opacity: 0;
             transform: translateZ(0);
             transition: opacity ease-in-out .2s;
+            opacity: 0;
 
-            &.image-loaded {
+            &.is-loaded {
                 opacity: 1;
             }
         }
