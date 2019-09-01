@@ -74,7 +74,6 @@ export const bookmarkState = (
             return state;
 
         case BookmarkActions.LOAD_BOOKMARK_SUCCESS:
-            console.log('BookmarkActions.LOAD_BOOKMARK_SUCCESS', state, action)
             return { ...state, bookmarks: action.payload };
 
         case BookmarkActions.LOAD_BOOKMARK_FAIL:
@@ -100,24 +99,29 @@ export const loadBookmarkAsync = () => {
 
         return new Promise((resolve, reject) => {
             api.bookmark.getBookmarks()
-            .then((bookmarks: any) => {
-                resolve(
-                    dispatch(loadBookmarkSuccess(bookmarks))
-                );
-            })
-            .catch((err: any) => {
-                reject(
-                    dispatch(loadBookmarkFail())
-                );
-            });
-        })
-        .then((test: any) => {
-            console.log('loadBookmarkAsync', test)
+                .then((bookmarks: any) => {
+
+                    // const parseBookmarks = (bk) => {
+                    //     if (bookmarks.children) {
+                    //         return parseBookmarks
+                    //     }
+                    //     return bookmarks
+                    // }
+
+                    resolve(
+                        dispatch(loadBookmarkSuccess(bookmarks))
+                    );
+                })
+                .catch((err: any) => {
+                    reject(
+                        dispatch(loadBookmarkFail())
+                    );
+                });
         })
 
+        // return api.bookmark.getBookmarks()
+        //     .then((bookmarks: any) => dispatch(loadBookmarkSuccess(bookmarks)))
+        //     .catch((err: any) => dispatch(loadBookmarkFail()));
 
-        return api.bookmark.getBookmarks()
-            .then((bookmarks: any) => dispatch(loadBookmarkSuccess(bookmarks)))
-            .catch((err: any) => dispatch(loadBookmarkFail()));
     };
 }

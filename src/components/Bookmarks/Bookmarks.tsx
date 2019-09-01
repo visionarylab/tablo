@@ -36,7 +36,7 @@ const data = {
 };
 
 interface Props {
-    bookmarks: [];
+    bookmarks: any;
 }
 
 interface State {
@@ -48,7 +48,7 @@ interface State {
 class Bookmarks extends Component<Props, State> {
 
     static defaultProps: Props = {
-        bookmarks: [],
+        bookmarks: null,
     };
 
     constructor(props: any) {
@@ -77,7 +77,9 @@ class Bookmarks extends Component<Props, State> {
         const { bookmarks } = this.props;
 
         const decorators = {
-            Header: (props) => {
+            Header: (props: any) => {
+
+                console.log('Header', props);
                 return (
                     <div style={props.style}>
                         {props.node.title}
@@ -90,12 +92,16 @@ class Bookmarks extends Component<Props, State> {
         if (!bookmarks) {
             return(null);
         }
-        console.log('bookmarks', bookmarks);
+        bookmarks[0].title = 'root';
+        bookmarks[0].name = 'root';
+        bookmarks[0].toggled = true;
+
+        console.log('bookmarks', bookmarks[0]);
 
         return (
         <div className="bookmarks-wrapper">
           <Treebeard
-                data={bookmarks}
+                data={bookmarks[0]}
                 onToggle={this.onToggle}
                 decorators={decorators}
             />
@@ -105,7 +111,6 @@ class Bookmarks extends Component<Props, State> {
 }
 
 const mapStateToProps = (rootState: RootState) => {
-    console.log('mapStateToProps', rootState)
     return {
         bookmarks: rootState.bookmarkState.bookmarks,
     };

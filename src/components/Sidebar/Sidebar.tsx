@@ -13,7 +13,7 @@ interface Props {
     onHide: () => void;
 }
 
-export default class Sidebar extends Component<Props> {
+class Sidebar extends Component<Props> {
 
     // rootEl = document.getElementById('root');
     rootEl = document.body;
@@ -127,3 +127,5 @@ export default class Sidebar extends Component<Props> {
         );
     }
 }
+
+export default Sidebar;

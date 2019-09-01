@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'components/Buttons/Button';
+import Button from 'components/Buttons/Button';
 import Icon from '@mdi/react';
 import { mdiMagnify } from '@mdi/js';
 
@@ -9,7 +9,7 @@ interface props {
     query: any;
     onChange: any;
 }
-export class SearchInputBookmarks extends Component<props> {
+class SearchInputBookmarks extends Component<props> {
     render() {
         const { query, onChange } = this.props;
 
@@ -28,3 +28,5 @@ export class SearchInputBookmarks extends Component<props> {
         );
     }
 }
+
+export default SearchInputBookmarks;

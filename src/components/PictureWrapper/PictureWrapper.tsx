@@ -1,5 +1,5 @@
 import React, { Component, CSSProperties } from 'react';
-import { Spinner } from 'components/Spinner/Spinner';
+import Spinner from 'components/Spinner/Spinner';
 import classNames from 'classnames';
 import './PictureWrapper.scss';
 
@@ -17,7 +17,7 @@ interface State {
     isLoading: boolean;
 }
 
-export class PictureWrapper extends Component<Props, State> {
+class PictureWrapper extends Component<Props, State> {
     img: HTMLImageElement | null = null;
     static defaultProps = {
         src: '',
@@ -75,3 +75,5 @@ export class PictureWrapper extends Component<Props, State> {
         );
     }
 }
+
+export default PictureWrapper;

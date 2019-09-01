@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { Picture, setPictureIndex } from 'store/picture';
 import { closeAllSidebarSidebar } from 'store/ui';
-import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
+import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import './PictureHistorique.scss';
 
 interface Props {

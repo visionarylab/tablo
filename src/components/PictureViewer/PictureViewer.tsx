@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Picture } from 'store/picture';
 import { RootState } from 'store/rootReducer';
-import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
+import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import './PictureViewer.scss';
 
 const Zooming: any = require('zooming/build/zooming');

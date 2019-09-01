@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Icon from '@mdi/react'
 import { mdiMagnify, mdiChevronRight } from '@mdi/js'
 import { SearchEngine } from 'store/search';
-import { Button } from 'components/Buttons/Button';
+import Button from 'components/Buttons/Button';
 
 import './SearchInput.scss';
 
@@ -16,7 +16,7 @@ interface State {
     searchInputPlaceHolder: string;
 }
 
-export default class SearchInput extends Component<Props, State> {
+class SearchInput extends Component<Props, State> {
 
     static defaultProps: Props = {
         selectedSearchEngine: null,
@@ -97,3 +97,5 @@ export default class SearchInput extends Component<Props, State> {
         );
     }
 }
+
+export default SearchInput;

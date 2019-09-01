@@ -15,7 +15,7 @@ interface State {
     searchInputPlaceHolder: string;
 }
 
-export default class SearchEngineMenu extends Component<Props, State> {
+class SearchEngineMenu extends Component<Props, State> {
 
     static defaultProps: Props = {
         searchEngines: [],
@@ -51,3 +51,5 @@ export default class SearchEngineMenu extends Component<Props, State> {
         );
     }
 }
+
+export default SearchEngineMenu;

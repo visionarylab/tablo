@@ -1,6 +1,6 @@
 import React, { Component, CSSProperties } from 'react';
 import classNames from 'classnames';
-import "./Button.scss";
+import './Button.scss';
 
 interface ButtonProps {
   isIcon?: boolean;
@@ -11,7 +11,7 @@ interface ButtonProps {
   styles?: CSSProperties;
 }
 
-export class Button extends Component<ButtonProps> {
+export default class Button extends Component<ButtonProps> {
   render() {
     let { isIcon, children, onClick, onBlur, className, styles } = this.props;
 
