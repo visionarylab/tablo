@@ -34,6 +34,7 @@
     "react-scripts": "3.0.1",
     "react-skylight": "^0.5.1",
     "react-transition-group": "^4.2.2",
+    "react-treebeard": "^3.2.4",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
