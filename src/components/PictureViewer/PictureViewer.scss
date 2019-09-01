@@ -5,25 +5,14 @@
 
 .picture-viewer-wrapper {
     position: relative;
-    width: calc(100% - 80px - 80px);
-    padding:
-        calc(80px - var(--toolbarHeight))
-        80px
-        10px //calc(80px - var(--toolbarHeight))
-        80px;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 30px var(--toolbarHeight);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    grid-template-areas:
-        "image"
-        "."
-        "caption";
+    padding: var(--toolbarHeight) 80px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 
     .picture-caption {
         height: var(--toolbarHeight);
+        min-height: var(--toolbarHeight);
         display: flex;
         grid-area: caption;
         flex-direction: column;
@@ -32,6 +21,7 @@
         white-space: nowrap;
         max-width: 100%;
         overflow: hidden;
+
 
         span {
             overflow: hidden;
@@ -43,11 +33,13 @@
     .picture-container {
         grid-area: image;
         position: relative;
-        height: 100%;
+        max-width: 100%;
         text-align: center;
         justify-content: center;
         display: flex;
         align-items: center;
+        flex: 1;
+        max-height: calc(100% - 40px);
 
         .picture-loader {
             position: absolute;

@@ -20,8 +20,9 @@
   }
 
   .app-content {
-    height: calc(100% - var(--toolbarHeight));
+    max-height: calc(100% - var(--toolbarHeight));
     width: 100%;
+    flex: 1;
   }
 }
 

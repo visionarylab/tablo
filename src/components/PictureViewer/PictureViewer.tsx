@@ -117,7 +117,7 @@ class PictureViewer extends Component<Props, State> {
             return (null);
         }
 
-        const pictureViewerClass = classNames('picture-viewer-wrapper', className)
+        const pictureViewerClass = classNames('picture-viewer-wrapper', className);
 
         return (
             <div className={pictureViewerClass}>
