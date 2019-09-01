@@ -6,11 +6,14 @@
   "minimum_chrome_version": "0",
   "version": "1.0.0",
   "offline_enabled": true,
-  "web_accessible_resources": ["index.html"],
+  "web_accessible_resources": [
+    "index.html"
+  ],
   "icons": {
-    "128": "favicon.ico",
-    "16": "favicon.ico",
-    "48": "favicon.ico"
+    "512": "/assets/icons/android-chrome-512x512.png",
+    "192": "/assets/icons/android-chrome-192x192.png",
+    "32": "/assets/icons/favicon-32x32.png",
+    "16": "/assets/icons/favicon-16x16.png"
   },
   "chrome_url_overrides": {
     "newtab": "index.html"
