@@ -72,6 +72,7 @@ class PictureViewer extends Component<Props, State> {
             // enableGrab: false,
             // customSize: '100%'
             scaleBase: 0.9,
+            scaleExtra: 0.7
         });
     }
 
