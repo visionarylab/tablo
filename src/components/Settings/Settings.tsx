@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { toggleShowSettings } from 'store/settings';
-import { Modal } from 'components/Modal/Modal';
+import { Sidebar } from 'components/Sidebar/Sidebar';
 import './Settings.scss';
 
 interface Props {
@@ -21,11 +21,11 @@ export class Settings extends Component<Props> {
         const { showSettings, toggleShowSettings } = this.props;
 
         return (
-        <Modal
+        <Sidebar
             title="Settings"
             show={showSettings}
             onHide={toggleShowSettings}>
-        </Modal>
+        </Sidebar>
         );
     }
 }

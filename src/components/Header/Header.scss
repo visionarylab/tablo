@@ -1,12 +1,12 @@
-.toolbar-wrapper{
+.Header-wrapper{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
 
-    .toolbar-controls {
+    .Header-controls {
 
-        .toolbar-btn {
+        .Header-btn {
             cursor: pointer;
             border: 0;
             background-color: transparent;

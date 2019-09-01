@@ -5,7 +5,7 @@ import { mdiImagePlus, mdiViewGrid, mdiAlertBoxOutline, mdiSettings } from '@mdi
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync, toggleShowDetails, toggleShowHistory } from 'store/picture';
-import './Toolbar.scss';
+import './Header.scss';
 import { toggleShowSettings } from 'store/settings';
 
 interface Props {
@@ -34,28 +34,28 @@ class Header extends Component<Props> {
       toggleShowDetails,
       toggleShowSettings } = this.props;
 
-    const toolbarClass = classNames('toolbar-wrapper', className)
+    const headerClass = classNames('Header-wrapper', className)
 
     return (
-      <div className={toolbarClass}>
+      <div className={headerClass}>
 
-        <div className="toolbar-controls">
-          <button className="toolbar-btn"
+        <div className="Header-controls">
+          <button className="Header-btn"
             data-tip="New picture"
             onClick={getRandomPicture}>
             <Icon path={mdiImagePlus} size={1} color="white" />
           </button>
-          <button className="toolbar-btn"
+          <button className="Header-btn"
             data-tip="Show history"
             onClick={toggleShowHistory}>
             <Icon path={mdiViewGrid} size={1} color="white" />
           </button>
-          <button className="toolbar-btn"
+          <button className="Header-btn"
             data-tip="Show details"
             onClick={toggleShowDetails}>
             <Icon path={mdiAlertBoxOutline} size={1} color="white" />
           </button>
-          <button className="toolbar-btn" onClick={toggleShowSettings}>
+          <button className="Header-btn" onClick={toggleShowSettings}>
           <Icon path={mdiSettings} size={1} color="white" />
           </button>
 

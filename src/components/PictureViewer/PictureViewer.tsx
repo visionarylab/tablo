@@ -9,7 +9,7 @@ import {
     toggleShowHistory } from 'store/picture';
 import classNames from 'classnames';
 import { RootState } from 'store/rootReducer';
-import { Modal } from '../Modal/Modal';
+import { Sidebar } from '../Sidebar/Sidebar';
 import { PictureCartel } from 'components/PictureCartel/PictureCartel';
 import { PictureHistorique } from 'components/PictureHistorique/PictureHistorique';
 import { PictureWrapper } from 'components/PictureWrapper/PictureWrapper';
@@ -137,14 +137,14 @@ class PictureViewer extends Component<Props, State> {
                     <div>{currentPicture.artiste}</div>
                 </div>
 
-                <Modal
+                <Sidebar
                     title="Details"
                     show={showDetails}
                     onHide={toggleShowDetails}>
                     <PictureCartel picture={currentPicture} />
-                </Modal>
+                </Sidebar>
 
-                <Modal
+                <Sidebar
                     title="History"
                     show={showHistory}
                     onHide={toggleShowHistory}>
@@ -153,7 +153,7 @@ class PictureViewer extends Component<Props, State> {
                         selectedPictureIndex={currentPictureIndex}
                         onSelectPicture={this.setCurrentPicture}>
                     </PictureHistorique>
-                </Modal>
+                </Sidebar>
             </div>
         );
     }

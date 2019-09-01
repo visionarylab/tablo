@@ -2,8 +2,7 @@ import React, { Component, CSSProperties } from 'react';
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
 import classNames from 'classnames';
-import './Modal.scss';
-// import Modal, { closeStyle } from 'simple-react-modal';
+import './Sidebar.scss';
 
 interface Props {
     title?: string;
@@ -13,7 +12,7 @@ interface Props {
     onHide: () => void;
 }
 
-export class Modal extends Component<Props> {
+export class Sidebar extends Component<Props> {
 
     ref: HTMLElement | null;
 
@@ -66,31 +65,31 @@ export class Modal extends Component<Props> {
             style,
             children } = this.props;
 
-        const modalOverlayClass = classNames('modal-overlay', {
-            'modal-overlay-show': show,
-            'modal-overlay-hide': !show,
+        const sidebarOverlayClass = classNames('sidebar-overlay', {
+            'sidebar-overlay-show': show,
+            'sidebar-overlay-hide': !show,
         });
 
-        const modalContentClass = classNames('modal-content', {
-            'modal-content-show': show,
-            'modal-content-hide': !show,
+        const sidebarContentClass = classNames('sidebar-content', {
+            'sidebar-content-show': show,
+            'sidebar-content-hide': !show,
         });
 
         return (
         <>
             {show &&
-                <div onClick={onHide} className={modalOverlayClass}></div>
+                <div onClick={onHide} className={sidebarOverlayClass}></div>
             }
 
-            <div className={modalContentClass} style={{...style, width: '400px'}}>
-                <div className="modal-content-header">
-                    <div className="modal-content-title">{title}</div>
-                    <button className="modal-close-btn" onClick={onHide}>
+            <div className={sidebarContentClass} style={{...style, width: '400px'}}>
+                <div className="sidebar-content-header">
+                    <div className="sidebar-content-title">{title}</div>
+                    <button className="sidebar-close-btn" onClick={onHide}>
                         <Icon path={mdiClose} size={1.1} color="white" />
                     </button>
                 </div>
 
-                <div className="modal-content-inner" ref={this.handleRef}>
+                <div className="sidebar-content-inner" ref={this.handleRef}>
                     {children}
                 </div>
             </div>

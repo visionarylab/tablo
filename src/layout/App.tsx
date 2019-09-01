@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
-import Toolbar from 'components/Toolbar/Toolbar';
+import Header from 'components/Header/Header';
 import Settings from 'components/Settings/Settings';
 import './App.scss';
 
 const App: FC = () => {
   return (
     <div className="app-wrapper">
-        <Toolbar className="app-header"/>
+        <Header className="app-header"/>
         <PictureViewer className="app-content"/>
         <Settings/>
     </div>

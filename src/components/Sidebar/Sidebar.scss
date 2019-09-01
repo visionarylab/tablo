@@ -1,4 +1,4 @@
-.modal-overlay {
+.sidebar-overlay {
     cursor: zoom-out;
     width: 100%;
     height: 100%;
@@ -9,7 +9,7 @@
     z-index: 97;
 }
 
-.modal-content {
+.sidebar-content {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -22,17 +22,17 @@
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 
 
-    &.modal-content-show {
+    &.sidebar-content-show {
         // opacity: 1;
         transform: translateX(0); // scale(1);
     }
 
-    &.modal-content-hide {
+    &.sidebar-content-hide {
         // opacity: 0;
         transform: translateX(-100%); // scale(0);
     }
 
-    .modal-content-inner {
+    .sidebar-content-inner {
         cursor: default;
         position: relative;
         width: 100%;
@@ -40,19 +40,19 @@
         overflow: auto;
     }
 
-    .modal-content-header {
+    .sidebar-content-header {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
 
-        .modal-content-title {
+        .sidebar-content-title {
             flex: 1;
             font-size: 1.5rem;
             padding: 5px 10px;
         }
 
-        .modal-close-btn {
+        .sidebar-close-btn {
             cursor: pointer;
             // position: fixed;
             margin: 0;
@@ -68,11 +68,11 @@
                 opacity: 1;
             }
 
-            &.modal-close-btn-show {
+            &.sidebar-close-btn-show {
                 opacity: 0.6;
             }
 
-            &.modal-close-btn-hidden {
+            &.sidebar-close-btn-hidden {
                 opacity: 0;
             }
         }
