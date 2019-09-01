@@ -1,3 +1,12 @@
+
+:root {
+  --color: white;
+  --bgColor: #282c34;
+
+  --toolbarHeight: 40px;
+}
+
+
 body {
   margin: 0;
   padding: 0;
@@ -13,7 +22,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background-color: #282c34;
+  background-color: var(--bgColor);
 }
 
 code {
