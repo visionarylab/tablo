@@ -4,17 +4,15 @@ import React, { FC } from 'react';
 // import Content from './Content/Content';
 import './App.scss';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
-import Settings from 'components/Settings/Settings';
+import Toolbar from './Toolbar/Toolbar';
 
 const App: FC = () => {
   return (
     <div className="app-wrapper">
 
-        <Settings></Settings>
+        <Toolbar className="app-header"/>
 
-        <div className="app-content">
-        <PictureViewer />
-        </div>
+        <PictureViewer className="app-content"/>
 
         {/*
         <Header />
