@@ -9,12 +9,12 @@
     padding:
         calc(80px - var(--toolbarHeight))
         80px
-        0 //calc(80px - var(--toolbarHeight))
+        10px //calc(80px - var(--toolbarHeight))
         80px;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr var(--toolbarHeight) var(--toolbarHeight);
+    grid-template-rows: 1fr 30px var(--toolbarHeight);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     grid-template-areas:
