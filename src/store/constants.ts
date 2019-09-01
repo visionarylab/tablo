@@ -15,7 +15,9 @@ export const pictureStateKey: string = 'pictureState';
 export const defaultPictureState: PictureState = {
     currentPictureIndex: null,
     pictures: [],
-    maxPicturesCount: 100
+    maxPicturesCount: 100,
+    showDetails: false,
+    showHistory: false
 };
 
 export const searchStatekey: string = 'searchState';

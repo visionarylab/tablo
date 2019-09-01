@@ -7,8 +7,6 @@ export interface PictureState {
     currentPictureIndex: Picture | any;
     pictures: Picture[];
     maxPicturesCount: number;
-    showDetails: boolean;
-    showHistory: boolean;
 }
 
 export interface Picture {
@@ -49,9 +47,6 @@ export enum PictureActions {
 
     SET_PICTURE_INDEX = 'PICTURE/SET_PICTURE_INDEX',
     SET_MAX_PICTURES_COUNT = 'PICTURE/SET_MAX_PICTURES_COUNT',
-
-    TOGGLE_SHOW_DETAILS = 'PICTURE/TOGGLE_SHOW_DETAILS',
-    TOGGLE_SHOW_HISTORY = 'PICTURE/TOGGLE_SHOW_HISTORY',
 }
 
 export interface LoadPictureStateAction extends Action<PictureActions.LOAD_PICTURE_STATE> {
@@ -102,14 +97,6 @@ export interface SetPictureIndexAction extends Action<PictureActions.SET_PICTURE
     payload: number;
 }
 
-export interface ShowDetailsAction extends Action<PictureActions.TOGGLE_SHOW_DETAILS> {
-    type: PictureActions.TOGGLE_SHOW_DETAILS;
-}
-
-export interface ShowHistoryAction extends Action<PictureActions.TOGGLE_SHOW_HISTORY> {
-    type: PictureActions.TOGGLE_SHOW_HISTORY;
-}
-
 export type PictureActionType =
     | LoadPictureStateAction
     | LoadPictureStateSuccessAction
@@ -121,9 +108,7 @@ export type PictureActionType =
     | GetRandomPictureSuccessAction
     | GetRandomPictureFailAction
     | SetPictureIndexAction
-    | SetMaxPicturesCountAction
-    | ShowDetailsAction
-    | ShowHistoryAction;
+    | SetMaxPicturesCountAction;
 
 export const loadPictureState = () => ({
     type: PictureActions.LOAD_PICTURE_STATE,
@@ -173,21 +158,10 @@ export const setMaxPicturesCount = (payload: number) => ({
     payload: payload
 });
 
-export const toggleShowDetails = () => ({
-    type: PictureActions.TOGGLE_SHOW_DETAILS,
-});
-
-export const toggleShowHistory = () => ({
-    type: PictureActions.TOGGLE_SHOW_HISTORY,
-});
-
-
 const INITIAL_STATE: PictureState = {
     currentPictureIndex: 0,
     pictures: [],
-    maxPicturesCount: 10,
-    showDetails: false,
-    showHistory: false,
+    maxPicturesCount: 10
 };
 
 export const pictureState = (
@@ -239,18 +213,10 @@ export const pictureState = (
                 ? state.currentPictureIndex
                 : state.pictures.length - 1
             return {
-                ...state,
                 pictures: state.pictures,
                 currentPictureIndex: currentPictureIndex,
                 maxPicturesCount: maxPicturesCount,
             };
-
-        case PictureActions.TOGGLE_SHOW_DETAILS:
-            return { ...state, showDetails: !state.showDetails };
-
-        case PictureActions.TOGGLE_SHOW_HISTORY:
-            return { ...state, showHistory: !state.showHistory };
-
         default:
             return state;
     }
