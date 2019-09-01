@@ -32,9 +32,6 @@ interface Props {
 }
 
 interface State {
-    isShowDetails: boolean;
-    isShowHistorique: boolean;
-    magnifierSize: any;
     currentPicture: Picture | null;
 }
 
@@ -61,9 +58,6 @@ class PictureViewer extends Component<Props, State> {
 
         this.img = null;
         this.state = {
-            isShowDetails: false,
-            isShowHistorique: false,
-            magnifierSize: { w: 0, h: 0 },
             currentPicture: null
         };
 
@@ -117,10 +111,7 @@ class PictureViewer extends Component<Props, State> {
             showHistory,
             toggleShowDetails,
             toggleShowHistory } = this.props;
-        const {
-            isShowDetails,
-            isShowHistorique,
-            currentPicture } = this.state;
+        const { currentPicture } = this.state;
 
         if (!currentPicture) {
             return (null);
@@ -146,12 +137,14 @@ class PictureViewer extends Component<Props, State> {
                 </div>
 
                 <Modal
+                    title="Details"
                     show={showDetails}
                     onHide={toggleShowDetails}>
                     <PictureCartel picture={currentPicture} />
                 </Modal>
 
                 <Modal
+                    title="History"
                     show={showHistory}
                     onHide={toggleShowHistory}>
                     <PictureHistorique

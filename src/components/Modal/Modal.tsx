@@ -6,6 +6,7 @@ import './Modal.scss';
 // import Modal, { closeStyle } from 'simple-react-modal';
 
 interface Props {
+    title?: string;
     children: any;
     show: boolean;
     style: CSSProperties;
@@ -14,7 +15,10 @@ interface Props {
 
 export class Modal extends Component<Props> {
 
+    ref: HTMLElement | null;
+
     static defaultProps: Props = {
+        title: '',
         children: null,
         show: false,
         style: {},
@@ -23,6 +27,7 @@ export class Modal extends Component<Props> {
 
     constructor(props: Props) {
         super(props);
+        this.ref = null;
         this.handleRef = this.handleRef.bind(this);
     }
 
@@ -34,6 +39,13 @@ export class Modal extends Component<Props> {
         document.removeEventListener('keydown', this.onEscape.bind(this), false);
     }
 
+    componentWillReceiveProps(nextProps: Props) {
+        const { show } = this.props;
+        if (this.ref && show && show !== nextProps.show) {
+            this.ref.scrollTo(0, 0);
+        }
+    }
+
     onEscape(event: any) {
         if (event.keyCode === 27) {
             //Do whatever when esc is pressed
@@ -42,11 +54,13 @@ export class Modal extends Component<Props> {
     }
 
     handleRef = (ref: any) => {
-        console.log('ref')
+        this.ref = ref;
     }
 
     render() {
         let {
+            title,
+
             show,
             onHide,
             style,
@@ -63,22 +77,24 @@ export class Modal extends Component<Props> {
         });
 
         return (
-            <>
-                {show &&
-                    <div onClick={onHide} className={modalOverlayClass}></div>
-                }
+        <>
+            {show &&
+                <div onClick={onHide} className={modalOverlayClass}></div>
+            }
 
-                <div className={modalContentClass} style={{...style, width: '400px'}}>
-
+            <div className={modalContentClass} style={{...style, width: '400px'}}>
+                <div className="modal-content-header">
+                    <div className="modal-content-title">{title}</div>
                     <button className="modal-close-btn" onClick={onHide}>
                         <Icon path={mdiClose} size={1.1} color="white" />
                     </button>
-
-                    <div className="modal-content-inner">
-                        {children}
-                    </div>
                 </div>
-            </>
+
+                <div className="modal-content-inner" ref={this.handleRef}>
+                    {children}
+                </div>
+            </div>
+        </>
         );
     }
 }
