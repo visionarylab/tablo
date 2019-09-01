@@ -4,6 +4,8 @@
   --bgColor: #282c34;
 
   --toolbarHeight: 40px;
+  --sidebarWidth: 50%;
+  --sidebarTransition: all ease-in-out .2s;
 }
 
 
@@ -22,7 +24,7 @@ body,
 #root {
   width: 100%;
   height: 100%;
-  background-color: var(--bgColor);
+  // background-color: var(--bgColor);
 }
 
 code {

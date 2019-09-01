@@ -9,6 +9,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
+  background-color: var(--bgColor);
 
   .app-header {
     height: var(--toolbarHeight);
