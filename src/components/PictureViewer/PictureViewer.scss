@@ -10,26 +10,6 @@
     flex-direction: column;
     flex-wrap: nowrap;
 
-    .picture-caption {
-        height: var(--toolbarHeight);
-        min-height: var(--toolbarHeight);
-        display: flex;
-        grid-area: caption;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        white-space: nowrap;
-        max-width: 100%;
-        overflow: hidden;
-
-
-        span {
-            overflow: hidden;
-            width: 100%;
-            text-overflow: ellipsis;
-        }
-    }
-
     .picture-container {
         grid-area: image;
         position: relative;
@@ -64,9 +44,22 @@
         }
     }
 
-    .picture-viewer-image-wrapper {
-        flex: 1 1 auto;
-        height: 100%;
-        position: relative;
+    .picture-caption {
+        height: var(--toolbarHeight);
+        min-height: var(--toolbarHeight);
+        display: flex;
+        grid-area: caption;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+
+        span {
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+        }
     }
 }
