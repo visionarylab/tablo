@@ -7,14 +7,13 @@ import { searchSaga, loadSearchStateAsync } from './search';
 import { pictureSaga, loadPictureStateAsync, getRandomPictureAsync } from './picture';
 import { all } from 'redux-saga/effects';
 import thunk from 'redux-thunk';
-import { bookmarkSaga, LoadBookmarkStateAsync } from './bookmarks';
+import { loadBookmarkAsync } from './bookmarks';
 
 // Sagas
 const rootSaga = function*() {
   yield all([
     ...searchSaga,
     ...pictureSaga,
-    ...bookmarkSaga,
   ]);
 };
 
@@ -40,6 +39,6 @@ sagaMiddleware.run(rootSaga);
 store.dispatch<any>(loadSearchStateAsync());
 store.dispatch<any>(loadPictureStateAsync());
 store.dispatch<any>(getRandomPictureAsync());
-store.dispatch<any>(LoadBookmarkStateAsync());
+store.dispatch<any>(loadBookmarkAsync());
 
 export default store;

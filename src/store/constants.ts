@@ -5,9 +5,8 @@ import { BookmarkState } from './bookmarks';
 
 export const bookmarkStateKey: string = 'bookmarkState';
 export const defaultBookmarkState: BookmarkState = {
-    folders: [],
-    foldersFiltered: [],
-    isAllExpanded: false,
+    bookmarks: null,
+    bookmarksFiltered: null,
     query: ''
 };
 

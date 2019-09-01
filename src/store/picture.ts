@@ -258,7 +258,7 @@ export const pictureState = (
 
 // ASYNC ACTIONS
 export const loadPictureStateAsync = () => {
-    return (dispatch: any, getState: any) => {
+    return async (dispatch: any, getState: any) => {
         dispatch(loadPictureState())
         return api.storage.getItems(pictureStateKey, defaultPictureState)
             .then((pictureState: PictureState) => dispatch(loadPictureStateSuccess(pictureState)))
