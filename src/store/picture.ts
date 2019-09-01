@@ -256,16 +256,6 @@ export const pictureState = (
     }
 };
 
-const updatePictures = (pictures: Picture[], maxPicturesCount: number): Picture[] => {
-    if (pictures.length > maxPicturesCount) {
-        const countToRm = pictures.length - maxPicturesCount;
-        for (let i = 0; i < countToRm; i++) {
-            pictures.shift();
-        }
-    }
-    return pictures;
-}
-
 // ASYNC ACTIONS
 export const loadPictureStateAsync = () => {
     return (dispatch: any, getState: any) => {
