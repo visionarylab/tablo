@@ -21,11 +21,11 @@ const rootSaga = function*() {
 // Middlewares
 const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger({ collapsed: true });
-const middlewares = applyMiddleware(
-    sagaMiddleware,
-    thunk,
-    logger,
-);
+
+const middlewares = process.env.NODE_ENV === 'production'
+  ? applyMiddleware(sagaMiddleware, thunk)
+  : applyMiddleware(sagaMiddleware, thunk, logger);
+
 const composeEnhancers = (window as any).REDUX_DEVTOOLS_EXTENSION_COMPOSE
     ? (window as any).REDUX_DEVTOOLS_EXTENSION_COMPOSE
     : compose;
