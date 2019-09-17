@@ -6,14 +6,17 @@
     overflow: hidden;
     display: grid;
 
+    // calc(100% - var(--sidebarWidth) - var(--sidebarWidth) - var(--gridMargin) - var(--gridMargin))
     grid-template-columns:
         var(--sidebarWidth)
-        calc(100% - var(--sidebarWidth) - var(--sidebarWidth) - var(--gridMargin) - var(--gridMargin))
+        minmax(0, 1fr)
         var(--sidebarWidth);
 
+        // calc(100% - var(--headerHeight))
     grid-template-rows:
         var(--headerHeight)
-        calc(100% - var(--headerHeight));
+        minmax(0, 1fr)
+        ;
 
     grid-column-gap: var(--gridMargin);
     grid-row-gap: var(--gridMargin);
