@@ -12,7 +12,7 @@
     "@mdi/js": "^3.6.95",
     "@mdi/react": "^1.1.0",
     "@types/classnames": "^2.2.7",
-    "@types/lodash": "^4.14.132",
+    "@types/lodash": "^4.14.138",
     "@types/node": "11.13.8",
     "@types/react": "16.8.17",
     "@types/react-dom": "16.8.4",
@@ -22,19 +22,17 @@
     "@types/redux-thunk": "^2.1.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
-    "grommet": "^2.7.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
-    "primeicons": "^1.0.0",
-    "primereact": "^3.1.2",
     "react": "^16.8.6",
     "react-animate-height": "^2.0.9",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "react-scripts": "3.0.1",
-    "react-skylight": "^0.5.1",
+    "react-sortable-hoc": "^1.10.1",
+    "react-sortable-tree": "^2.6.2",
+    "react-sortable-tree-theme-file-explorer": "^2.0.0",
     "react-transition-group": "^4.2.2",
-    "react-treebeard": "^3.2.4",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
@@ -43,6 +41,10 @@
     "tslint-react": "^4.0.0",
     "typescript": "3.4.5",
     "zooming": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.88",
+    "redux-devtools": "^3.5.0"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -58,9 +60,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/chrome": "0.0.86",
-    "redux-devtools": "^3.5.0"
   }
 }
