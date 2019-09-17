@@ -19,7 +19,11 @@
     "noEmit": true,
     "jsx": "preserve",
     "baseUrl": "src",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": [
+      "@types/chrome",
+      "node"
+    ]
   },
   "include": [
     "src"
