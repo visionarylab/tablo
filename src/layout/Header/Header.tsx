@@ -80,13 +80,13 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                         onChange={this.handleChange}
                     />
 
-                    <div className="separator"></div>
-
                     <button className="header-btn"
                         data-tip="Bookmarks"
                         onClick={openBookmarksSidebar}>
                         <Icon path={mdiBookmarkOutline} size={1} />
                     </button>
+
+                    <div className="separator"></div>
 
                     <button className="header-btn"
                         data-tip="New picture"
@@ -105,6 +105,8 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                         onClick={openDetailsSidebar}>
                         <Icon path={mdiAlertBoxOutline} size={1} />
                     </button>
+
+                    <div className="separator"></div>
 
                     <button className="header-btn"
                         onClick={openSettingsSidebar}>
