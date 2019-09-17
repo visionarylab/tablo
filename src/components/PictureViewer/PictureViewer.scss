@@ -1,11 +1,5 @@
-
-
-
-// pointer-events: none;
-
 .picture-viewer-wrapper {
     position: relative;
-    padding: var(--toolbarHeight) 80px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -13,17 +7,15 @@
     flex-wrap: nowrap;
 
     .picture-container {
-        grid-area: image;
-        position: relative;
         max-width: 100%;
-        text-align: center;
         justify-content: center;
         display: flex;
         align-items: center;
-        flex: 1;
-        height: calc(100% - 40px);
-        max-height: calc(100% - 40px);
+        height:     calc(100% - 10px - var(--headerHeight));
+        min-height: calc(100% - 10px - var(--headerHeight));
+        max-height: calc(100% - 10px - var(--headerHeight));
         width: 100%;
+        padding: var(--headerHeight);
 
         .picture-loader {
             position: absolute;
@@ -36,8 +28,6 @@
         }
 
         img.picture-el {
-            // height: auto;
-            // width: auto;
             max-height: 100%;
             max-width: 100%;
             transform: translateZ(0);
@@ -51,8 +41,8 @@
     }
 
     .picture-caption {
-        height: var(--toolbarHeight);
-        min-height: var(--toolbarHeight);
+        height: calc(var(10px + --headerHeight));
+        min-height: calc(10px + var(--headerHeight));
         display: flex;
         grid-area: caption;
         flex-direction: column;
