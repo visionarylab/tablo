@@ -1,46 +1,62 @@
+// @import '../node_modules/react-resizable/css/styles.css';
 
 :root {
-  --color: white;
-  --bgColor: #282c34;
+    --color: white;
+    --bgColor: #282c34;
+    --bgColor2: rgba(0, 0, 0, 0.2);
 
-  --toolbarHeight: 40px;
-  --sidebarWidth: 50%;
-  --sidebarTransition: all ease-in-out .2s;
+    --sidebarWidth: 220px;
+    --headerHeight: 40px;
+    --gridMargin: 10px;
+
+    --toolbarHeight: 40px;
+    --modalTransition: all ease-in-out .2s;
 }
 
+html {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    // background: url('/images/lowpoly.png') center no-repeat;
+    background-color: var(--bgColor);
 
+}
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: var(--color);
+    // background-color: var(--bgColor);
+
+    // background:
+    //     linear-gradient(135deg, hsla(285.85, 94.8%, 40.75%, 1) 0%, hsla(285.85, 94.8%, 40.75%, 0) 70%),
+    //     linear-gradient(25deg, hsla(21.83, 92.02%, 46.34%, 1) 10%, hsla(21.83, 92.02%, 46.34%, 0) 80%),
+    //     linear-gradient(315deg, hsla(253.14, 95.69%, 48.14%, 1) 15%, hsla(253.14, 95.69%, 48.14%, 0) 80%),
+    //     linear-gradient(245deg, hsla(171.93, 91.3%, 48.23%, 1) 100%, hsla(171.93, 91.3%, 48.23%, 0) 70%);
 }
 
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
-  // background-color: var(--bgColor);
+    width: 100%;
+    height: 100%;
+    // background-color: var(--bgColor);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-
-
-
-
-

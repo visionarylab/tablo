@@ -5,22 +5,8 @@ export interface UIState {
     showBookmarks: boolean;
     showDetails: boolean;
     showHistory: boolean;
-    sidebarPosition: SidebarPositionType;
-    sidebarMode: SidebarModeType;
     textColor: string;
     backgroundColor: string;
-}
-
-export enum SidebarPositionType {
-    TOP = 'top',
-    BOTTOM = 'bottom',
-    LEFT = 'left',
-    RIGHT = 'right'
-}
-
-export enum SidebarModeType {
-    HALF = 'half',
-    FULL = 'full',
 }
 
 export enum UIActions {
@@ -50,7 +36,6 @@ export interface OpenHistorySidebarAction extends Action<UIActions.OPEN_HISTORY_
 export interface CloseAllSidebarAction extends Action<UIActions.CLOSE_ALL_SIDEBAR> {
     type: UIActions.CLOSE_ALL_SIDEBAR;
 }
-
 
 export type UIActionType = OpenSettingsSidebarAction
                          | OpenBookmarksSidebarAction
@@ -83,8 +68,6 @@ const INITIAL_STATE: UIState = {
     showBookmarks: false,
     showDetails: false,
     showHistory: false,
-    sidebarPosition: SidebarPositionType.LEFT,
-    sidebarMode: SidebarModeType.HALF,
     textColor: 'white',
     backgroundColor: '#282c34',
 };
@@ -96,16 +79,40 @@ export const uiState = (
     switch (action.type) {
 
         case UIActions.OPEN_SETTINGS_SIDEBAR:
-            return { ...state, showSettings: true };
+            return {
+                ...state,
+                showSettings: !state.showSettings,
+                showBookmarks: false,
+                showDetails: false,
+                showHistory: false,
+            };
 
         case UIActions.OPEN_BOOKMARKS_SIDEBAR:
-            return { ...state, showBookmarks: true };
+            return {
+                ...state,
+                showSettings: false,
+                showBookmarks: !state.showBookmarks,
+                showDetails: false,
+                showHistory: false,
+            };
 
         case UIActions.OPEN_DETAILS_SIDEBAR:
-            return { ...state, showDetails: true };
+            return {
+                ...state,
+                showSettings: false,
+                showBookmarks: false,
+                showDetails: !state.showDetails,
+                showHistory: false,
+            };
 
         case UIActions.OPEN_HISTORY_SIDEBAR:
-            return { ...state, showHistory: true };
+            return {
+                ...state,
+                showSettings: false,
+                showBookmarks: false,
+                showDetails: false,
+                showHistory: !state.showHistory,
+            };
 
         case UIActions.CLOSE_ALL_SIDEBAR:
             return {
@@ -113,7 +120,7 @@ export const uiState = (
                 showSettings: false,
                 showBookmarks: false,
                 showDetails: false,
-                showHistory: false
+                showHistory: false,
             };
 
         default:

@@ -1,30 +1,46 @@
 .app-wrapper {
-  height: 100%;
-  max-height: 100%;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  color: var(--color);
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  background-color: var(--bgColor);
-
-  .app-header {
-    height: var(--toolbarHeight);
-    min-height: var(--toolbarHeight);
+    height: 100%;
+    max-height: 100%;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
+    max-width: 100%;
+    overflow: hidden;
+    display: grid;
 
-  .app-content {
-    max-height: calc(100% - var(--toolbarHeight));
-    width: 100%;
-    flex: 1;
-  }
+    grid-template-columns:
+        var(--sidebarWidth)
+        calc(100% - var(--sidebarWidth) - var(--sidebarWidth) - var(--gridMargin) - var(--gridMargin))
+        var(--sidebarWidth);
+
+    grid-template-rows:
+        var(--headerHeight)
+        calc(100% - var(--headerHeight));
+
+    grid-column-gap: var(--gridMargin);
+    grid-row-gap: var(--gridMargin);
+
+    .app-sidebar {
+        height: 100%;
+        min-width: var(--sidebarWidth) ;
+        background-color: var(--bgColor2);
+
+        &.sidebar-left {
+            grid-area: 1 / 1 / 3 / 2;
+        }
+        &.sidebar-right {
+            grid-area: 1 / 3 / 3 / 4;
+        }
+
+    }
+
+    .header {
+        height: 100%;
+        width: 100%;
+        grid-area: 1 / 2 / 2 / 3;
+        background-color: var(--bgColor2);
+    }
+
+    .content {
+        background-color: var(--bgColor2);
+        grid-area: 2 / 2 / 3 / 3;
+    }
 }
-
-

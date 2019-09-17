@@ -1,0 +1,120 @@
+.sidebar-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow: hidden;
+    user-select: none;
+
+    .sidebar-wrapper-inner {
+        padding-right: 17px;
+        box-sizing: content-box;
+        overflow: auto;
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+
+        .sidebar-section {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            width: 100%;
+
+            .sidebar-header {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+
+                font-size: 0.8rem;
+                height: 45px;
+                min-height: 45px;
+                line-height: 45px;
+                padding-left: 10px;
+
+                .sidebar-header-title {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+
+                }
+
+                .sidebar-header-btn {
+                    height: 30px;
+                    width: 30px;
+                    margin-right: 5px;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    svg {
+                        padding: 5px;
+                        box-sizing: content-box;
+                    }
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.1);
+                    }
+                }
+
+            }
+
+            .sidebar-content {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                width: 100%;
+
+                .sidebar-content-item {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: 100%;
+                    border: 0;
+                    background-color: transparent;
+                    padding: 0;
+                    margin: 0;
+                    height: 35px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.1);
+                    }
+
+                    .sidebar-content-item-img {
+                        height: 20px;
+                        width: 20px;
+                    }
+
+                    .sidebar-content-item-icon {
+                        margin: 7.5px 15px 7.5px 7.5px;
+                        img {
+                            height: 20px;
+                            width: 20px;
+                        }
+                    }
+
+                    .sidebar-content-item-label {
+                        color: var(--color);
+                        font-size: 1rem;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+
+
+                    }
+                }
+            }
+        }
+    }
+
+    svg {
+        path {
+            fill: var(--color);
+        }
+    }
+}

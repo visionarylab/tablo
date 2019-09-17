@@ -79,7 +79,6 @@ export const bookmarkState = (
         case BookmarkActions.LOAD_BOOKMARK_FAIL:
             return state;
 
-
         case BookmarkActions.SEARCH_BOOKMARK:
             return {
                 ...state,
@@ -97,7 +96,7 @@ export const loadBookmarkAsync = () => {
     return async (dispatch: any, getState: any) => {
         dispatch(loadBookmark());
 
-        return new Promise((resolve, reject) => {
+      /*   return new Promise((resolve, reject) => {
             api.bookmark.getBookmarks()
                 .then((bookmarks: any) => {
 
@@ -117,11 +116,36 @@ export const loadBookmarkAsync = () => {
                         dispatch(loadBookmarkFail())
                     );
                 });
-        })
+        }) */
 
-        // return api.bookmark.getBookmarks()
-        //     .then((bookmarks: any) => dispatch(loadBookmarkSuccess(bookmarks)))
-        //     .catch((err: any) => dispatch(loadBookmarkFail()));
+         return api.bookmark.getBookmarks()
+             .then((bookmarks: any) => {
+
+                const parse = (bk: any) => {
+                    if (!bk.title && bk.url) {
+                        bk.title = bk.url
+                    }
+                    bk.expanded = false;
+                    bk.subtitle = 'test';
+                    if (bk.children) {
+                        bk.children.forEach((el: any) => {
+                            parse(el)
+                        });
+                    }
+                }
+
+
+                parse(bookmarks[0]);
+
+                bookmarks[0].children[0].expanded = true
+                bookmarks[0].children[1].expanded = true
+
+                console.log('getBookmarks', bookmarks)
+
+
+                return dispatch(loadBookmarkSuccess(bookmarks));
+             })
+             .catch((err: any) => dispatch(loadBookmarkFail()));
 
     };
 }

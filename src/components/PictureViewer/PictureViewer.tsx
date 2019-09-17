@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Picture } from 'store/picture';
@@ -9,7 +9,6 @@ import './PictureViewer.scss';
 const Zooming: any = require('zooming/build/zooming');
 
 interface Props {
-    className: string;
     currentPictureIndex: number;
     pictures: Picture[];
 }
@@ -18,12 +17,11 @@ interface State {
     currentPicture: Picture | null;
 }
 
-class PictureViewer extends Component<Props, State> {
+class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
     zoom: any;
     img: HTMLImageElement | null;
 
     static defaultProps: Props = {
-        className: '',
         currentPictureIndex: 0,
         pictures: [],
     };
@@ -41,20 +39,26 @@ class PictureViewer extends Component<Props, State> {
 
     componentDidMount() {
         this.zoom = new Zooming({
-            bgColor: 'var(--bgColor)',
+            bgColor: 'var(--bgColor2)',
             // enableGrab: false,
             // customSize: '100%'
             scaleBase: 0.9,
             scaleExtra: 0.7
         });
+        this.initSelectedPicture(this.props)
     }
 
     componentWillReceiveProps(nextProps: Props) {
-        const { pictures, currentPictureIndex } = nextProps;
+        this.initSelectedPicture(nextProps);
+    }
+
+    initSelectedPicture(props: Props) {
+        const { pictures, currentPictureIndex } = props;
         let currentPicture: any;
         if (currentPictureIndex < pictures.length) {
             currentPicture = pictures[currentPictureIndex];
         }
+        console.log('pictureViewer componentWillReceiveProps', props)
         this.setState({ currentPicture: currentPicture });
     }
 
@@ -75,7 +79,9 @@ class PictureViewer extends Component<Props, State> {
         const pictureViewerClass = classNames('picture-viewer-wrapper', className);
 
         return (
+            <>
             <div className={pictureViewerClass}>
+            <div className="blurred"></div>
                 <div className="picture-container">
                     <PictureWrapper
                         onImageLoad={this.onImageLoad}
@@ -90,6 +96,7 @@ class PictureViewer extends Component<Props, State> {
                     <div>{currentPicture.artiste}</div>
                 </div>
             </div>
+            </>
         );
     }
 }

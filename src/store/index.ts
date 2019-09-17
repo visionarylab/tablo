@@ -36,7 +36,7 @@ const store = createStore(
 );
 
 sagaMiddleware.run(rootSaga);
-store.dispatch<any>(loadSearchStateAsync());
+// store.dispatch<any>(loadSearchStateAsync());
 store.dispatch<any>(loadPictureStateAsync());
 store.dispatch<any>(getRandomPictureAsync());
 store.dispatch<any>(loadBookmarkAsync());
