@@ -81,7 +81,6 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
         return (
             <>
             <div className={pictureViewerClass}>
-            <div className="blurred"></div>
                 <div className="picture-container">
                     <PictureWrapper
                         onImageLoad={this.onImageLoad}
