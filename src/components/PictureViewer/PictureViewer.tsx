@@ -80,21 +80,21 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
 
         return (
             <>
-            <div className={pictureViewerClass}>
-                <div className="picture-container">
-                    <PictureWrapper
-                        onImageLoad={this.onImageLoad}
-                        className="image-zoom"
-                        src={currentPicture.medias.max}
-                        alt={currentPicture.title + ' ' + currentPicture.artiste}
-                    />
-                </div>
+                <div className={pictureViewerClass}>
+                    <div className="picture-container">
+                        <PictureWrapper
+                            onImageLoad={this.onImageLoad}
+                            className="image-zoom"
+                            src={currentPicture.medias.max}
+                            alt={currentPicture.title + ' ' + currentPicture.artiste}
+                        />
+                    </div>
 
-                <div className="picture-caption">
-                    <div><i>{currentPicture.title}</i></div>
-                    <div>{currentPicture.artiste}</div>
+                    <div className="picture-caption">
+                        <div><i>{currentPicture.title}</i></div>
+                        <div>{currentPicture.artiste}</div>
+                    </div>
                 </div>
-            </div>
             </>
         );
     }
@@ -111,5 +111,3 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureViewer);
-
-
