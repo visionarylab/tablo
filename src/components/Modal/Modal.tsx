@@ -31,14 +31,6 @@ class Modal extends Component<Props> {
         this.onHideSidebar = this.onHideSidebar.bind(this);
     }
 
-    componentDidMount() {
-        document.addEventListener('keydown', this.onEscape.bind(this), false);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.onEscape.bind(this), false);
-    }
-
     componentWillReceiveProps(nextProps: Props) {
         const { show } = this.props;
         if (this.ref && show && show !== nextProps.show) {
@@ -51,17 +43,9 @@ class Modal extends Component<Props> {
         onHide();
     }
 
-    onEscape(event: any) {
-        const { show } = this.props;
-        if (event.keyCode === 27 && show) {
-            this.props.onHide();
-        }
-    }
-
     handleRef = (ref: any) => {
         this.ref = ref;
     }
-
 
     render() {
         let {

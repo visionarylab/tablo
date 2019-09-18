@@ -12,7 +12,8 @@ import {
     openSettingsSidebar,
     openHistorySidebar,
     openDetailsSidebar,
-    openBookmarksSidebar } from 'store/ui';
+    openBookmarksSidebar,
+    closeAllSidebarSidebar} from 'store/ui';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture';
 
@@ -24,6 +25,7 @@ interface Props {
     openBookmarksSidebar: () => void;
     openDetailsSidebar: () => void;
     openHistorySidebar: () => void;
+    closeAllSidebarSidebar: () => void;
 }
 
 interface State {
@@ -38,6 +40,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
         openBookmarksSidebar: () => { },
         openDetailsSidebar: () => { },
         openHistorySidebar: () => { },
+        closeAllSidebarSidebar: () => { },
     };
 
 
@@ -47,10 +50,41 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
         this.state = {
             searchQuery: '',
         }
-        this.handleChange = this.handleChange.bind(this);
+
+        this.handleQueryChange = this.handleQueryChange.bind(this);
     }
 
-    handleChange(event: any) {
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyboard.bind(this), false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyboard.bind(this), false);
+    }
+
+    handleKeyboard(event: any) {
+        console.log('event', event);
+
+        if (event.keyCode === 27) {
+            this.props.closeAllSidebarSidebar();
+            this.setState({ searchQuery: '' })
+        }
+
+        if (event.key.length == 1) {
+            const newQuery = this.state.searchQuery + event.key + '';
+            this.setState({ searchQuery: newQuery.trim() })
+        }
+
+        if (event.keyCode == 8 && this.state.searchQuery.length > 0) {
+            const newQuery = this.state.searchQuery.slice(0, -1);
+            this.setState({ searchQuery: newQuery.trim()})
+            console.log('backspace')
+        }
+
+        console.log(this.state.searchQuery)
+    }
+
+    handleQueryChange(event: any) {
         this.setState({ searchQuery: event.target.value })
     }
 
@@ -72,12 +106,11 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                     <div className="texttt">{this.state.searchQuery}</div>
                 }
 
-
                 <div className="header-controls">
 
                     <input className="header-search" type="text" name="" id=""
                         value={this.state.searchQuery}
-                        onChange={this.handleChange}
+                        onChange={this.handleQueryChange}
                     />
 
                     <button className="header-btn"
@@ -131,7 +164,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     openBookmarksSidebar: () => dispatch(openBookmarksSidebar()),
     openDetailsSidebar: () => dispatch(openDetailsSidebar()),
     openHistorySidebar: () => dispatch(openHistorySidebar()),
-
+    closeAllSidebarSidebar: () => dispatch(closeAllSidebarSidebar()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
