@@ -63,25 +63,25 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
     }
 
     handleKeyboard(event: any) {
-        console.log('event', event);
+        // console.log('event', event);
 
         if (event.keyCode === 27) {
             this.props.closeAllSidebarSidebar();
             this.setState({ searchQuery: '' })
         }
 
-        if (event.key.length == 1) {
+        if (event.key.length === 1) {
             const newQuery = this.state.searchQuery + event.key + '';
-            this.setState({ searchQuery: newQuery.trim() })
+            // this.setState({ searchQuery: newQuery.trim() })
         }
 
-        if (event.keyCode == 8 && this.state.searchQuery.length > 0) {
+        if (event.keyCode === 8 && this.state.searchQuery.length > 0) {
             const newQuery = this.state.searchQuery.slice(0, -1);
-            this.setState({ searchQuery: newQuery.trim()})
-            console.log('backspace')
+            // this.setState({ searchQuery: newQuery.trim()})
+            // console.log('backspace');
         }
 
-        console.log(this.state.searchQuery)
+        // console.log(this.state.searchQuery)
     }
 
     handleQueryChange(event: any) {
