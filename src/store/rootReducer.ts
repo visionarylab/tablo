@@ -1,21 +1,24 @@
 import { combineReducers, Reducer } from 'redux';
-import { searchState, SearchState } from './search';
 import { pictureState, PictureState } from './picture';
+import { sidebarState, SidebarState } from './Sidebar';
 import { bookmarkState, BookmarkState } from './bookmarks';
 import { uiState, UIState } from './ui';
+import { searchState, SearchState } from './search';
 
 export interface RootState {
-  searchState: SearchState;
-  pictureState: PictureState;
-  bookmarkState: BookmarkState;
-  uiState: UIState;
+    pictureState: PictureState;
+    sidebarState: SidebarState;
+    bookmarkState: BookmarkState;
+    uiState: UIState;
+    searchState: SearchState;
 }
 
 const rootReducer: Reducer<RootState> = combineReducers<RootState>({
-  searchState,
-  pictureState,
-  bookmarkState,
-  uiState,
+    pictureState,
+    sidebarState,
+    bookmarkState,
+    uiState,
+    searchState,
 });
 
 export default rootReducer;
