@@ -5,17 +5,13 @@ import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
 import api from '../../api';
 import './Sidebar.scss';
+import { SidebarSectionItem, SidebarItem } from 'store/Sidebar';
 
-interface SidebarItem {
-    icon: string;
-    label: string;
-    link: string;
-}
+
 
 interface Props {
-    title: string;
+    section: SidebarSectionItem | null;
     iconType: 'icon' | 'img';
-    items: SidebarItem[];
     onItemsChange: (items: SidebarItem[]) => void;
 }
 
@@ -26,9 +22,8 @@ interface State {
 class SidebarSection extends Component<Props, State> {
 
     static defaultProps: Props = {
-        title: 'section',
+        section: null,
         iconType: 'img',
-        items: [],
         onItemsChange: (items: SidebarItem[]) => { },
     };
 
@@ -62,19 +57,23 @@ class SidebarSection extends Component<Props, State> {
 
     openLink(url: string) {
         if (window.chrome.tabs) {
-            window.chrome.tabs.update({ url })
+            // window.chrome.tabs.update({ url });
+            window.chrome.tabs.create({ url });
         }
     }
 
     render() {
         //const { } = this.props;
         const {
-            title,
+            section,
             iconType,
-            items,
             // onItemsChange
         } = this.props;
         // const { isOnEdit } = this.state;
+
+        if (!section) {
+            return (null);
+        }
 
         const iconSizeHeader = '15px';
         const iconSize = '20px';
@@ -82,7 +81,7 @@ class SidebarSection extends Component<Props, State> {
         return (
             <div className="sidebar-section">
                 <div className="sidebar-header">
-                    <div className="sidebar-header-title">{title}</div>
+                    <div className="sidebar-header-title">{section.title}</div>
                     <div className="sidebar-header-btn sidebar-btn" onClick={this.toggleIsOnEdit}>
                         <Icon path={mdIcon['mdiPlus']} size={iconSizeHeader} />
                     </div>
@@ -95,7 +94,7 @@ class SidebarSection extends Component<Props, State> {
 
                 <div className="sidebar-content">
 
-                    {items.map((item: SidebarItem, index: number) => {
+                    {section.items.map((item: SidebarItem, index: number) => {
 
                         let icon: any;
 

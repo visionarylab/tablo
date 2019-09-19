@@ -2,18 +2,22 @@ import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import Sidebar from './Sidebar';
 import SidebarSection from './SidebarSection';
-import { SITE_ITEMS } from './SidebarData';
+import { RootState } from 'store/rootReducer';
+import { connect } from 'react-redux';
+import { SidebarSectionItem } from 'store/Sidebar';
 import './Sidebar.scss';
 
 interface Props {
+    userSection: SidebarSectionItem | null,
 }
 
 interface State {
 }
 
-export default class SidebarRight extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
+class SidebarRight extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
     static defaultProps: Props = {
+        userSection: null
     };
 
     constructor(props: any) {
@@ -21,18 +25,35 @@ export default class SidebarRight extends Component<Props & HTMLAttributes<HTMLD
     }
 
     render() {
-        const { className } = this.props;
+        const { className, userSection } = this.props;
 
-        const sidebarClass = classNames('sidebar-wrapper', className)
+        if (!userSection) {
+            return (null);
+        }
+
+        const sidebarClass = classNames('sidebar-wrapper', className);
+
         return (
             <Sidebar className={sidebarClass}>
                 <SidebarSection
-                    title="Site"
+                    section={userSection}
                     iconType="img"
-                    items={SITE_ITEMS}
                     onItemsChange={(items: any[]) => {}}
                 />
             </Sidebar>
         );
     }
 }
+
+
+const mapStateToProps = (state: RootState) => {
+    return {
+        userSection: state.sidebarState.userSection,
+    }
+};
+
+const mapDispatchToProps = (dispatch: any) => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarRight);
+
