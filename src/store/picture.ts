@@ -276,7 +276,7 @@ export const getRandomPictureAsync = () => {
 }
 
 /// SAGA
-const saveSearchStateSaga = takeEvery([
+const savePictureStateSaga = takeEvery([
     PictureActions.GET_RANDOM_PICTURE_SUCCESS,
     PictureActions.SET_MAX_PICTURES_COUNT,
 ],
@@ -292,5 +292,5 @@ function* () {
 });
 
 export const pictureSaga = [
-    saveSearchStateSaga,
+    savePictureStateSaga,
 ];
