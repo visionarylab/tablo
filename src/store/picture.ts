@@ -1,7 +1,8 @@
 import { Action } from 'redux';
 import { takeEvery, select, put } from 'redux-saga/effects';
 import { pictureStateKey, defaultPictureState } from './constants';
-import api from 'api';
+import StorageApi from 'api/StorageApi';
+import PictureApi from 'api/PictureApi';
 
 export interface PictureState {
     currentPictureIndex: Picture | any;
@@ -260,7 +261,7 @@ export const pictureState = (
 export const loadPictureStateAsync = () => {
     return async (dispatch: any, getState: any) => {
         dispatch(loadPictureState())
-        return api.storage.getItems(pictureStateKey, defaultPictureState)
+        return StorageApi.getItems(pictureStateKey, defaultPictureState)
             .then((pictureState: PictureState) => dispatch(loadPictureStateSuccess(pictureState)))
             .catch((err: any) => dispatch(loadPictureStateFail()));
     };
@@ -269,7 +270,7 @@ export const loadPictureStateAsync = () => {
 export const getRandomPictureAsync = () => {
     return (dispatch: any, getState: any) => {
         dispatch(getRandomPicture())
-        return api.picture.getRandomPicture()
+        return PictureApi.getRandomPicture()
             .then((picture: Picture) => dispatch(getRandomPictureSuccess(picture)))
             .catch((err: any) => dispatch(getRandomPictureFail()));
     };
@@ -283,7 +284,7 @@ const savePictureStateSaga = takeEvery([
 function* () {
     const rootState = yield select();
     yield put(savePictureState());
-    const saved = yield api.storage.setItems(pictureStateKey, rootState.pictureState);
+    const saved = yield StorageApi.setItems(pictureStateKey, rootState.pictureState);
     if (saved) {
         yield put(savePictureStateSuccess());
     } else {

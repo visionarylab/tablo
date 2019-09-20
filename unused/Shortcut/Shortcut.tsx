@@ -7,7 +7,7 @@ import {
     SortableHandle,
     arrayMove
 } from 'react-sortable-hoc';
-import api from 'api';
+import BrowserApi from 'api/BrowserApi';
 import './Shortcut.scss';
 
 
@@ -67,7 +67,7 @@ const Controls = ({ onEdit, onDelete }) => (
 );
 
 const GridItem = SortableElement(({ item, isEditable }) => {
-    const img = api.favicon.getFaviconUrl(item.link);
+    const img = BrowserApi.getFaviconUrl(item.link);
 
     return (
         <div className="grid-item">

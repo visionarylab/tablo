@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { takeEvery, select, put } from 'redux-saga/effects';
 import { defaultSidebarState, sidebarStateKey } from './constants';
-import api from 'api';
+import StorageApi from 'api/StorageApi';
 
 export interface SidebarState {
     browserSection: SidebarSectionItem;
@@ -146,7 +146,7 @@ export const sidebarState = (
 export const loadSidebarStateAsync = () => {
     return async (dispatch: any, getState: any) => {
         dispatch(loadSidebarState())
-        return api.storage.getItems(sidebarStateKey, defaultSidebarState)
+        return StorageApi.getItems(sidebarStateKey, defaultSidebarState)
             .then((sidebarState: SidebarState) => dispatch(loadSidebarStateSuccess(sidebarState)))
             .catch((err: any) => dispatch(loadSidebarStateFail()));
     };
@@ -160,7 +160,7 @@ const saveSidebarSaga = takeEvery([
 function* () {
     const rootState = yield select();
     yield put(saveSidebarState());
-    const saved = yield api.storage.setItems(sidebarStateKey, rootState.sidebarState);
+    const saved = yield StorageApi.setItems(sidebarStateKey, rootState.sidebarState);
     if (saved) {
         yield put(saveSidebarStateSuccess());
     } else {

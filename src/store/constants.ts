@@ -23,10 +23,11 @@ export const defaultPictureState: PictureState = {
 };
 
 // Sidebar state
-
-
-export const CHROME_ITEMS = [
-    {
+export const CHROME_SECTION = {
+    title: 'Chrome tools',
+    openInCurrentTab: true,
+    items: [
+        {
         link: 'chrome://apps',
         icon: 'mdiViewGrid',
         label: 'apps',
@@ -71,10 +72,63 @@ export const CHROME_ITEMS = [
         icon: 'mdiPoll',
         label: 'site engagement',
     }
-];
+]};
 
+export const FIREFOX_SECTION = {
+    title: 'Chrome tools',
+    openInCurrentTab: true,
+    items: [
+        {
+        link: 'chrome://apps',
+        icon: 'mdiViewGrid',
+        label: 'apps',
+    },
+    {
+        link: 'chrome://bookmarks',
+        icon: 'mdiStarOutline',
+        label: 'bookmarks',
+    },
+    {
+        link: 'chrome://downloads',
+        icon: 'mdiDownload',
+        label: 'downloads',
+    },
+    {
+        link: 'chrome://history',
+        icon: 'mdiClockOutline',
+        label: 'history',
+    },
+    {
+        link: 'chrome://extensions/',
+        icon: 'mdiPuzzle',
+        label: 'Extensions',
+    },
+    {
+        link: 'chrome://settings',
+        icon: 'mdiSettingsOutline',
+        label: 'settings',
+    },
+    {
+        link: 'chrome://inspect/#devices',
+        icon: 'mdiAndroidDebugBridge',
+        label: 'Inspect',
+    },
+    {
+        link: 'chrome://omnibox/',
+        icon: 'mdiSearchWeb',
+        label: 'omnibox',
+    },
+    {
+        link: 'chrome://site-engagement/',
+        icon: 'mdiPoll',
+        label: 'site engagement',
+    }
+]};
 
-export const SITE_ITEMS = [
+export const SITE_SECTION = {
+    title: 'Site',
+    openInCurrentTab: true,
+    items: [
     {
         label: 'internetactu',
         icon: 'mdiWeb',
@@ -115,21 +169,12 @@ export const SITE_ITEMS = [
         icon: 'mdiWeb',
         link: 'http://www.torrent9.red/',
     },
-];
+]};
 
 export const sidebarStateKey: string = 'sidebarState';
 export const defaultSidebarState: SidebarState = {
-    browserSection: {
-        title: '',
-        openInCurrentTab: true,
-        items: CHROME_ITEMS
-
-    },
-    userSection: {
-        title: '',
-        openInCurrentTab: true,
-        items: SITE_ITEMS
-    },
+    browserSection: CHROME_SECTION,
+    userSection: SITE_SECTION,
 };
 
 

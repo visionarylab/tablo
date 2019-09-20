@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import api from 'api';
+import BrowserApi from 'api/BrowserApi';
 
 export interface BookmarkState {
     bookmarks: any;
@@ -97,7 +97,7 @@ export const loadBookmarkAsync = () => {
         dispatch(loadBookmark());
 
       /*   return new Promise((resolve, reject) => {
-            api.bookmark.getBookmarks()
+            BrowserApi.getBookmarks()
                 .then((bookmarks: any) => {
 
                     // const parseBookmarks = (bk) => {
@@ -118,7 +118,7 @@ export const loadBookmarkAsync = () => {
                 });
         }) */
 
-         return api.bookmark.getBookmarks()
+         return BrowserApi.getBookmarksTree()
              .then((bookmarks: any) => {
 
                 const parse = (bk: any) => {
@@ -139,9 +139,6 @@ export const loadBookmarkAsync = () => {
 
                 bookmarks[0].children[0].expanded = true
                 bookmarks[0].children[1].expanded = true
-
-                console.log('getBookmarks', bookmarks)
-
 
                 return dispatch(loadBookmarkSuccess(bookmarks));
              })

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { RootState } from '../../store/rootReducer';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
-import api from '../../api';
 import './Sidebar.scss';
 import { SidebarSectionItem, SidebarItem } from 'store/Sidebar';
-
+import BrowserApi from 'api/BrowserApi';
 
 
 interface Props {
@@ -56,9 +55,13 @@ class SidebarSection extends Component<Props, State> {
     }
 
     openLink(url: string) {
-        if (window.chrome.tabs) {
-            // window.chrome.tabs.update({ url });
-            window.chrome.tabs.create({ url });
+        const { section } = this.props;
+        if (section) {
+            if (!section.openInCurrentTab) {
+                BrowserApi.openUrlInCurrentTab(url)
+            } else {
+                BrowserApi.openUrlInNewTab(url)
+            }
         }
     }
 
@@ -106,7 +109,7 @@ class SidebarSection extends Component<Props, State> {
                         if (iconType === 'icon') {
                             icon = (<Icon path={mdIcon[item.icon]} size={iconSize} />)
                         } else if (iconType === 'img') {
-                            const img = api.favicon.getFaviconUrl(item.link);
+                            const img = BrowserApi.getFaviconUrl(item.link);
                             icon = (<img onError={onError} src={img} />);
                             // <Icon className="sidebar-content-item-icon" path={mdIcon['mdiWeb']} size={iconSize} />
                         }

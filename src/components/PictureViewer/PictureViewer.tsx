@@ -58,7 +58,6 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
         if (currentPictureIndex < pictures.length) {
             currentPicture = pictures[currentPictureIndex];
         }
-        console.log('pictureViewer componentWillReceiveProps', props)
         this.setState({ currentPicture: currentPicture });
     }
 
