@@ -6,6 +6,7 @@ import * as mdIcon from '@mdi/js';
 import './Sidebar.scss';
 import { SidebarSectionItem, SidebarItem } from 'store/Sidebar';
 import BrowserApi from 'api/BrowserApi';
+import FaviconWrapper from 'components/FaviconWrapper/FaviconWrapper';
 
 
 interface Props {
@@ -99,20 +100,9 @@ class SidebarSection extends Component<Props, State> {
 
                     {section.items.map((item: SidebarItem, index: number) => {
 
-                        let icon: any;
-
-                        const onError = (e) => {
-                            console.log(e)
-                            e.target.src = encodeURI(`data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><path fill="white" d="${mdIcon['mdiWeb']}"/></svg>`);
-                        }
-
-                        if (iconType === 'icon') {
-                            icon = (<Icon path={mdIcon[item.icon]} size={iconSize} />)
-                        } else if (iconType === 'img') {
-                            const img = BrowserApi.getFaviconUrl(item.link);
-                            icon = (<img onError={onError} src={img} />);
-                            // <Icon className="sidebar-content-item-icon" path={mdIcon['mdiWeb']} size={iconSize} />
-                        }
+                        let icon = iconType === 'icon'
+                            ? (<Icon path={mdIcon[item.icon]} size={iconSize} />)
+                            : (<FaviconWrapper url={item.link}/>);
 
                         return (
                             <button key={index} className="sidebar-content-item" onClick={(e) => {this.openLink(item.link)}}>
