@@ -121,24 +121,26 @@ export const loadBookmarkAsync = () => {
          return BrowserApi.getBookmarksTree()
              .then((bookmarks: any) => {
 
-                const parse = (bk: any) => {
-                    if (!bk.title && bk.url) {
-                        bk.title = bk.url
+                const parse = (node: any) => {
+                    if (!node.title && node.url) {
+                        node.title = node.url
                     }
-                    bk.expanded = false;
-                    bk.subtitle = 'test';
-                    if (bk.children) {
-                        bk.children.forEach((el: any) => {
-                            parse(el)
-                        });
+
+                    if (node.children) {
+                        node.expanded = false;
+                        for (let i = 0; i < node.children.length; i++) {
+                            parse(node.children[i])
+                        }
+                    } else {
+                        node.visible = true;
                     }
                 }
 
-
                 parse(bookmarks[0]);
 
-                bookmarks[0].children[0].expanded = true
-                bookmarks[0].children[1].expanded = true
+                bookmarks.title = 'Root'
+                bookmarks[0].children[0].expanded = true;
+                bookmarks[0].children[1].expanded = true;
 
                 return dispatch(loadBookmarkSuccess(bookmarks));
              })
