@@ -1,7 +1,73 @@
 .bookmarks-wrapper {
     height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 
     .bookmarks-header {
         display: flex;
+    }
+}
+
+
+
+.tree-wrapper {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: flex-start;
+
+
+    .tree-item-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: flex-start;
+        align-items: flex-start;
+
+        .tree-item {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: flex-start;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 4px 6px;
+            cursor: pointer;
+
+
+            &:hover {
+                background-color: rgba(255, 255, 255, .2);
+            }
+
+            .tree-item-icon  {
+                margin-right: 10px;
+            }
+
+            .tree-item-title  {
+                width: 100%;
+                word-break: keep-all;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+            }
+
+
+        }
+
+        .tree-item-children {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: flex-start;
+            align-items: flex-start;
+            margin-left: 30px;
+        }
     }
 }

@@ -1,13 +1,43 @@
-import React, { Component } from 'react';
+import React, { Component, FC } from 'react';
+import Icon from '@mdi/react';
+import { mdiFolderOpen, mdiFolder } from '@mdi/js';
 import { connect } from 'react-redux';
-
-import SortableTree, { toggleExpandedForAll } from 'react-sortable-tree';
-import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
-import 'react-sortable-tree/style.css';
-
 import { RootState } from 'store/rootReducer';
 import { searchBookmark } from 'store/bookmarks';
+import FaviconWrapper from 'components/FaviconWrapper/FaviconWrapper';
 import './Bookmarks.scss';
+
+const TreeItem: FC<any> = ({ node, click }) => {
+    if (!node) {
+        return (null);
+    }
+    return (
+        <div className="tree-item-wrapper">
+            <div className="tree-item" onClick={() => {click(node)}}>
+            {node.children &&
+                <div className="tree-item-icon">
+                    <Icon path={node.expanded ? mdiFolderOpen : mdiFolder} size={0.7} color="white" />
+                </div>
+                }
+
+                {!node.children &&
+                <FaviconWrapper className="tree-item-img" url={node.url}/>
+                }
+                <div className="tree-item-title">{node.title}</div>
+            </div>
+
+            {node.children && node.expanded &&
+                <div className="tree-item-children">
+
+                    {node.children.map((childNode: any) => {
+                        return (<TreeItem key={childNode.id} node={childNode} click={click}/>);
+                    })}
+
+                </div>
+            }
+        </div>
+    );
+};
 
 interface Props {
     data: any;
@@ -16,7 +46,7 @@ interface Props {
 }
 
 interface State {
-    bookmarks: any;
+    treeData: any;
     searchString: string,
     searchFocusIndex: number,
     searchFoundCount: number,
@@ -34,7 +64,7 @@ class Bookmarks extends Component<Props, State> {
         super(props);
 
         this.state = {
-            bookmarks: null,
+            treeData: null,
             searchString: '',
             searchFocusIndex: 0,
             searchFoundCount: 0,
@@ -45,8 +75,9 @@ class Bookmarks extends Component<Props, State> {
         this.searchFinishCallback = this.searchFinishCallback.bind(this);
         this.selectPrevMatch = this.selectPrevMatch.bind(this);
         this.selectNextMatch = this.selectNextMatch.bind(this);
-        this.expandNodeAll = this.expandNodeAll.bind(this);
-        this.collapseNodeAll = this.collapseNodeAll.bind(this);
+        this.expandAll = this.expandAll.bind(this);
+        this.collapseAll = this.collapseAll.bind(this);
+        this.handleClickNode = this.handleClickNode.bind(this);
         this.generateNodeProps = this.generateNodeProps.bind(this);
     }
 
@@ -60,12 +91,12 @@ class Bookmarks extends Component<Props, State> {
 
     initBookmarks(props: Props) {
         if (props.data) {
-            this.setState({ bookmarks: props.data[0].children });
+            this.setState({ treeData: props.data[0] });
         }
     }
 
     handleTreeOnChange(treeData: any) {
-        this.setState({ bookmarks: treeData });
+        this.setState({ treeData: treeData });
     };
 
     handleSearchOnChange(event: any) {
@@ -77,7 +108,7 @@ class Bookmarks extends Component<Props, State> {
         this.setState({
             searchFoundCount: matches.length,
             searchFocusIndex:
-            matches.length > 0 ? searchFocusIndex % matches.length : 0,
+                matches.length > 0 ? searchFocusIndex % matches.length : 0,
         })
     }
 
@@ -102,44 +133,77 @@ class Bookmarks extends Component<Props, State> {
         });
     };
 
+    setExpandAll(expanded: boolean) {
+        const { treeData } = this.state;
+        const parse = (node: any) => {
+            if (node.children) {
+                node.expanded = expanded;
+                for (let i = 0; i < node.children.length; i++) {
+                    parse(node.children[i])
+                }
+            }
+        }
+        parse(treeData);
+        this.setState({ treeData });
+    }
 
-    expandNodeAll() {
-        const { bookmarks } = this.state;
-        this.setState({
-            bookmarks: toggleExpandedForAll({ treeData: bookmarks, expanded: true }),
-        });
+    expandAll() {
+        this.setExpandAll(true);
     };
 
-    collapseNodeAll() {
-        const { bookmarks } = this.state;
-        this.setState({
-            bookmarks: toggleExpandedForAll({ treeData: bookmarks, expanded: false }),
-        });
+    collapseAll() {
+        this.setExpandAll(false);
     };
+
+    handleClickNode(selectedNode: any) {
+        const { treeData } = this.state;
+
+        if (selectedNode.children) {
+            let updated = false;
+            const parse = (node: any) => {
+                if (!updated) {
+
+                    if (node.id === selectedNode.id) {
+                        node.expanded = !node.expanded;
+                        updated = true;
+                    }
+
+                    if (node.children) {
+                        for (let i = 0; i < node.children.length; i++) {
+                            parse(node.children[i])
+                        }
+                    }
+                }
+                return;
+            }
+            parse(treeData);
+            this.setState({treeData});
+        }
+    }
 
     generateNodeProps(rowInfo: any) {
-         return {
+        return {
             buttons: [
-              <button
-                className="btn btn-outline-success"
-                style={{ verticalAlign: 'middle' }}
-                onClick={() => {
-                     console.log('rowInfo', rowInfo)
-                }}>
-                Hello
+                <button
+                    className="btn btn-outline-success"
+                    style={{ verticalAlign: 'middle' }}
+                    onClick={() => {
+                        console.log('rowInfo', rowInfo)
+                    }}>
+                    Hello
               </button>,
             ],
-          }
+        }
     }
 
     render() {
         const {
-            bookmarks,
+            treeData,
             searchString,
             searchFocusIndex,
             searchFoundCount } = this.state;
 
-        if (!bookmarks) {
+        if (!treeData) {
             return (null);
         }
 
@@ -147,12 +211,12 @@ class Bookmarks extends Component<Props, State> {
             <div className="bookmarks-wrapper">
 
                 <div className="bookmarks-header">
-                    <button onClick={this.expandNodeAll}>
+                    <button onClick={this.expandAll}>
                         Expand all
                     </button>
                     <button
                         className="collapse"
-                        onClick={this.collapseNodeAll}>
+                        onClick={this.collapseAll}>
                         Collapse all
                     </button>
                     <input type="text" name="" id=""
@@ -171,8 +235,34 @@ class Bookmarks extends Component<Props, State> {
                     </label>
                 </div>
 
+                <div className="tree-wrapper">
+                    {treeData.children.map((node: any) => {
+                        return (
+                            <TreeItem
+                                key={node.id}
+                                node={node}
+                                click={this.handleClickNode}
+                            />
+                        );
+                    })}
+                </div>
+
+                {/*
+
+                <TreeMenu data={treeData}>
+                    {({ items }) => (
+                        <ul className="tree-item-group">
+                            {items.map(props => (
+                                <ItemComponent {...props} />
+                            ))}
+                        </ul>
+                    )}
+                </TreeMenu> */}
+
+
+                {/*
                 <SortableTree
-                    treeData={bookmarks}
+                    treeData={treeData}
                     theme={FileExplorerTheme}
                     searchQuery={searchString}
                     searchFocusOffset={searchFocusIndex}
@@ -183,6 +273,8 @@ class Bookmarks extends Component<Props, State> {
                     onChange={this.handleTreeOnChange}
                     generateNodeProps={this.generateNodeProps}
                 />
+                */}
+
             </div>
         );
     }
@@ -190,20 +282,20 @@ class Bookmarks extends Component<Props, State> {
 
 /*
 theme={{
-                        ...FileExplorerTheme,
-                        rowHeight: 50,
-                        innerStyle: {
-                            borderColor: '3px solid blue'
-                        }
-                       /  nodeContentRenderer: (infos: any) => {
-                            console.log('nodeContentRenderer', infos)
-                            return (
-                                <div>
-                                    hello
-                                </div>
-                            )
-                        } /
-                    }}
+    ...FileExplorerTheme,
+    rowHeight: 50,
+    innerStyle: {
+        borderColor: '3px solid blue'
+    }
+    /  nodeContentRenderer: (infos: any) => {
+        console.log('nodeContentRenderer', infos)
+        return (
+            <div>
+                hello
+            </div>
+        )
+    } /
+}}
 */
 
 const mapStateToProps = (rootState: RootState) => {
