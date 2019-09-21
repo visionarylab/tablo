@@ -64,7 +64,7 @@ class Modal extends Component<Props> {
                 <div className="modal-content-header">
                     <div className="modal-content-title">{title}</div>
                     <button className="modal-close-btn" onClick={this.onHideSidebar}>
-                        <Icon path={mdiClose} size={1.1} color="white" />
+                        <Icon path={mdiClose} size="var(--iconSizeBtn)" color="white" />
                     </button>
                 </div>
 

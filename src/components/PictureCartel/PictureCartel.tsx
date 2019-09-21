@@ -127,13 +127,13 @@ class PictureCartel extends Component<Props, State> {
                     <div className="cartel-header-controls">
                         <button className="cartel-header-btn"
                             onClick={this.openImageWebsite}>
-                            <Icon path={mdiOpenInNew} size={1} color={'white'} />
+                            <Icon path={mdiOpenInNew} size="var(--iconSizeBtn)" color="var(--color)" />
                             <span>Visit {currentPicture.from} page</span>
                         </button>
 
                         <button className="cartel-header-btn"
                             onClick={this.downloadImage}>
-                            <Icon path={mdiDownload} size={1} color={'white'} />
+                            <Icon path={mdiDownload} size="var(--iconSizeBtn)" color="var(--color)" />
                             <span>Download</span>
                         </button>
                     </div>

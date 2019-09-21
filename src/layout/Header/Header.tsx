@@ -43,7 +43,6 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
         closeAllSidebarSidebar: () => { },
     };
 
-
     constructor(props: any) {
         super(props);
 
@@ -116,7 +115,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                     <button className="header-btn"
                         data-tip="Bookmarks"
                         onClick={openBookmarksSidebar}>
-                        <Icon path={mdiBookmarkOutline} size={1} />
+                        <Icon path={mdiBookmarkOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                     <div className="separator"></div>
@@ -124,26 +123,26 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                     <button className="header-btn"
                         data-tip="New picture"
                         onClick={getRandomPicture}>
-                        <Icon path={mdiImagePlus} size={1} />
+                        <Icon path={mdiImagePlus} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                     <button className="header-btn"
                         data-tip="Show history"
                         onClick={openHistorySidebar}>
-                        <Icon path={mdiViewGrid} size={1} />
+                        <Icon path={mdiViewGrid} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                     <button className="header-btn"
                         data-tip="Show details"
                         onClick={openDetailsSidebar}>
-                        <Icon path={mdiAlertBoxOutline} size={1} />
+                        <Icon path={mdiAlertBoxOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                     <div className="separator"></div>
 
                     <button className="header-btn"
                         onClick={openSettingsSidebar}>
-                        <Icon path={mdiSettings} size={1} />
+                        <Icon path={mdiSettings} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                 </div>

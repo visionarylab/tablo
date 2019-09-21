@@ -1,10 +1,16 @@
 // @import '../node_modules/react-resizable/css/styles.css';
 
 :root {
+    // colors
     --color: white;
     --bgColor: #282c34;
     --bgColor2: rgba(0, 0, 0, 0.2);
 
+    // Icons/Favicons
+    --iconSizeBtn: 24px;
+    --iconSize: 18px;
+
+    // Grid
     --sidebarWidth: 200px;
     --headerHeight: 40px;
     --gridMargin: 10px;

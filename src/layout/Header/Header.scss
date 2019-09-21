@@ -10,7 +10,7 @@
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        padding: 0 var(--gridMargin);
+        padding: 5px 10px;
 
         .separator {
             flex: 1 1 auto;
@@ -58,15 +58,6 @@
                 color: var(--color);
                 background-color: var(--bgColor);
                 font-size: 0.8rem;
-            }
-
-            svg {
-                width: var(--headerHeight);
-                height: var(--headerHeight);
-
-                path {
-                    fill: var(--color);
-                }
             }
         }
     }

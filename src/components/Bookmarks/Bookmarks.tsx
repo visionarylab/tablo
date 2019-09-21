@@ -16,12 +16,12 @@ const TreeItem: FC<any> = ({ node, click }) => {
             <div className="tree-item" onClick={() => {click(node)}}>
             {node.children &&
                 <div className="tree-item-icon">
-                    <Icon path={node.expanded ? mdiFolderOpen : mdiFolder} size={0.7} color="white" />
+                    <Icon style={{ marginRight: '10px' }} path={node.expanded ? mdiFolderOpen : mdiFolder} size="var(--iconSize)" color="var(--color)" />
                 </div>
                 }
 
                 {!node.children &&
-                <FaviconWrapper className="tree-item-img" url={node.url}/>
+                <FaviconWrapper className="tree-item-img" style={{ marginRight: '10px' }} url={node.url}/>
                 }
                 <div className="tree-item-title">{node.title}</div>
             </div>

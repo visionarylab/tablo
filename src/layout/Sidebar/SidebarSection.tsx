@@ -87,11 +87,11 @@ class SidebarSection extends Component<Props, State> {
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">{section.title}</div>
                     <div className="sidebar-header-btn sidebar-btn" onClick={this.toggleIsOnEdit}>
-                        <Icon path={mdIcon['mdiPlus']} size={iconSizeHeader} />
+                        <Icon path={mdIcon['mdiPlus']} size="var(--iconSize)" color="var(--color)" />
                     </div>
 
                     <div className="sidebar-header-btn sidebar-btn" onClick={this.toggleIsOnEdit}>
-                        <Icon path={mdIcon['mdiPencil']} size={iconSizeHeader} />
+                        <Icon path={mdIcon['mdiPencil']} size="var(--iconSize)" color="var(--color)" />
                     </div>
                 </div>
 
@@ -101,7 +101,7 @@ class SidebarSection extends Component<Props, State> {
                     {section.items.map((item: SidebarItem, index: number) => {
 
                         let icon = iconType === 'icon'
-                            ? (<Icon path={mdIcon[item.icon]} size={iconSize} />)
+                            ? (<Icon path={mdIcon[item.icon]} size="var(--iconSize)" color="var(--color)"/>)
                             : (<FaviconWrapper url={item.link}/>);
 
                         return (

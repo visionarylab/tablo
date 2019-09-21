@@ -12,6 +12,7 @@ interface Props {
 
 interface State {
     faviconUrl: string;
+    isLoading: boolean;
     useFallback: boolean;
 }
 
@@ -23,6 +24,7 @@ class FaviconWrapper extends Component<Props & HTMLAttributes<HTMLDivElement>, S
 
     state = {
         faviconUrl: '',
+        isLoading: true,
         useFallback: false
     };
 
@@ -39,6 +41,7 @@ class FaviconWrapper extends Component<Props & HTMLAttributes<HTMLDivElement>, S
     }
 
     onImageLoad(event: any) {
+        this.setState({ isLoading: false })
     }
 
     onImageError(event: any) {
@@ -46,19 +49,24 @@ class FaviconWrapper extends Component<Props & HTMLAttributes<HTMLDivElement>, S
     }
 
     render() {
-        let { className } = this.props;
-        let { faviconUrl, useFallback } = this.state;
+        let { className, style } = this.props;
+        let { faviconUrl, isLoading, useFallback } = this.state;
 
-        const faviconClass = classNames('favicon-wrapper', className)
+        const faviconClass = classNames('favicon-wrapper', className, {
+            'is-loading': isLoading
+        })
         return (
-            <div className={faviconClass}>
-                {useFallback
-                    ? <Icon className="favicon-icon" path={mdiWeb} size="20px" />
-                    : <img className="favicon-img"
+            <div className={faviconClass} style={style}>
+                {!useFallback &&
+                    <img className="favicon-img"
                         src={faviconUrl}
                         onLoad={this.onImageLoad}
                         onError={this.onImageError}
                     />
+                }
+
+                {useFallback &&
+                    <Icon className="favicon-icon" path={mdiWeb} size="var(--iconSize)" color="var(--color)" />
                 }
             </div>
         );
