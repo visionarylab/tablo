@@ -1,0 +1,18 @@
+.favicon-wrapper {
+    height: 26px;
+    width: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .favicon-icon {
+
+    }
+
+    .favicon-img {
+        height: 20px;
+        width: auto;
+        max-width: 20px;
+        object-fit: cover;
+    }
+}
