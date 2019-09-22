@@ -28,26 +28,28 @@
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
-
                 font-size: 0.8rem;
                 height: 45px;
                 min-height: 45px;
                 line-height: 45px;
                 padding-left: 10px;
+                padding-right: 5px;
 
                 .sidebar-header-title {
                     text-overflow: ellipsis;
                     overflow: hidden;
                     white-space: nowrap;
-
                 }
 
                 .sidebar-header-btn {
-                    height: 30px;
-                    width: 30px;
-                    margin-right: 5px;
+                    height: 25px;
+                    width: 25px;
+                    // margin-right: 5px;
                     cursor: pointer;
                     border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.1);

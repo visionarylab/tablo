@@ -12,6 +12,7 @@ import PictureHistorique from 'components/PictureHistorique/PictureHistorique';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
 
 import './Content.scss';
+import { Settings } from 'components/Settings/Settings';
 
 interface Props {
     showSettings: boolean;
@@ -60,7 +61,7 @@ class Content extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                     title="Settings"
                     show={showSettings}
                     onHide={closeAllSidebarSidebar}>
-                    Settings
+                    <Settings/>
                 </Modal>
 
                 <Modal

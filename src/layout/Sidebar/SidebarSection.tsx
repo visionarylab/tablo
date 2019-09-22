@@ -86,6 +86,9 @@ class SidebarSection extends Component<Props, State> {
             <div className="sidebar-section">
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">{section.title}</div>
+
+                    <div className="flex-separator"></div>
+
                     <div className="sidebar-header-btn sidebar-btn" onClick={this.toggleIsOnEdit}>
                         <Icon path={mdIcon['mdiPlus']} size="var(--iconSize)" color="var(--color)" />
                     </div>
