@@ -44,6 +44,25 @@ export class Settings extends Component<Props, State> {
                 </section>
 
                 <section className="settings-section">
+                    <div className="settings-section-title">Chrome tools</div>
+                    <div className="settings-section-content">
+
+                        <div className="settings-section-content-row">
+                            <button>Import</button>
+                        </div>
+
+                        <div className="settings-section-content-row">
+                            <button>Export</button>
+                        </div>
+
+                        <div className="settings-section-content-row">
+                            <button>Reset</button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section className="settings-section">
                     <div className="settings-section-title">Danger</div>
                     <div className="settings-section-content">
 
