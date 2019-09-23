@@ -10,9 +10,9 @@ import Bookmarks from 'components/Bookmarks/Bookmarks';
 import PictureCartel from 'components/PictureCartel/PictureCartel';
 import PictureHistorique from 'components/PictureHistorique/PictureHistorique';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
+import Settings from 'components/Settings/Settings';
 
 import './Content.scss';
-import { Settings } from 'components/Settings/Settings';
 
 interface Props {
     showSettings: boolean;

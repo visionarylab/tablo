@@ -42,6 +42,8 @@ export enum SidebarActions {
 
     SET_BROWSER_SECTION = 'SIDEBAR/SET_BROWSER_SECTION',
     SET_USER_SECTION = 'SIDEBAR/SET_USER_SECTION',
+
+    SET_OPEN_IN_CURRENT_TAB = 'SIDEBAR/SET_OPEN_IN_CURRENT_TAB',
 }
 
 export interface LoadSidebarStateAction extends Action<SidebarActions.LOAD_SIDEBAR_STATE> {
@@ -79,6 +81,11 @@ export interface SetUserSectionAction extends Action<SidebarActions.SET_USER_SEC
     payload: UserSectionType;
 }
 
+export interface SetOpenInCurrentTabAction extends Action<SidebarActions.SET_OPEN_IN_CURRENT_TAB> {
+    type: SidebarActions.SET_OPEN_IN_CURRENT_TAB;
+    payload: boolean;
+}
+
 export type SidebarActionType = LoadSidebarStateAction
                               | LoadSidebarStateFailAction
                               | LoadSidebarStateSuccessAction
@@ -86,7 +93,8 @@ export type SidebarActionType = LoadSidebarStateAction
                               | SaveSidebarStateFailAction
                               | SaveSidebarStateSuccessAction
                               | SetBrowserSectionAction
-                              | SetUserSectionAction;
+                              | SetUserSectionAction
+                              | SetOpenInCurrentTabAction;
 
 export const loadSidebarState = () => ({
     type: SidebarActions.LOAD_SIDEBAR_STATE,
@@ -123,6 +131,11 @@ export const setUserSection = (payload: UserSectionType) => ({
     payload: payload,
 });
 
+export const setOpenInCurrentTab = (payload: boolean) => ({
+    type: SidebarActions.SET_OPEN_IN_CURRENT_TAB,
+    payload: payload,
+});
+
 export const sidebarState = (
     state: SidebarState = defaultSidebarState,
     action: SidebarActionType
@@ -147,6 +160,9 @@ export const sidebarState = (
             return { ...state, browserSection: action.payload };
         case SidebarActions.SET_USER_SECTION:
             return { ...state, userSection: action.payload };
+
+        case SidebarActions.SET_OPEN_IN_CURRENT_TAB:
+            return { ...state, openInCurrentTab: action.payload };
 
         default:
             return state;

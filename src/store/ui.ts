@@ -5,6 +5,7 @@ export interface UIState {
     showBookmarks: boolean;
     showDetails: boolean;
     showHistory: boolean;
+    theme: 'dark' | 'light';
     textColor: string;
     backgroundColor: string;
 }
@@ -15,33 +16,40 @@ export enum UIActions {
     OPEN_DETAILS_SIDEBAR = 'UI/OPEN_DETAILS_SIDEBAR',
     OPEN_HISTORY_SIDEBAR = 'UI/OPEN_HISTORY_SIDEBAR',
     CLOSE_ALL_SIDEBAR = 'UI/CLOSE_ALL_SIDEBAR',
+    SET_THEME = 'UI/SET_THEME',
 }
 
-export interface OpenSettingsSidebarAction extends Action<UIActions.OPEN_SETTINGS_SIDEBAR> {
+export interface OpenSettingsAction extends Action<UIActions.OPEN_SETTINGS_SIDEBAR> {
     type: UIActions.OPEN_SETTINGS_SIDEBAR;
 }
 
-export interface OpenBookmarksSidebarAction extends Action<UIActions.OPEN_BOOKMARKS_SIDEBAR> {
+export interface OpenBookmarksAction extends Action<UIActions.OPEN_BOOKMARKS_SIDEBAR> {
     type: UIActions.OPEN_BOOKMARKS_SIDEBAR;
 }
 
-export interface OpenDetailsSidebarAction extends Action<UIActions.OPEN_DETAILS_SIDEBAR> {
+export interface OpenDetailsAction extends Action<UIActions.OPEN_DETAILS_SIDEBAR> {
     type: UIActions.OPEN_DETAILS_SIDEBAR;
 }
 
-export interface OpenHistorySidebarAction extends Action<UIActions.OPEN_HISTORY_SIDEBAR> {
+export interface OpenHistoryAction extends Action<UIActions.OPEN_HISTORY_SIDEBAR> {
     type: UIActions.OPEN_HISTORY_SIDEBAR;
 }
 
-export interface CloseAllSidebarAction extends Action<UIActions.CLOSE_ALL_SIDEBAR> {
+export interface CloseAllAction extends Action<UIActions.CLOSE_ALL_SIDEBAR> {
     type: UIActions.CLOSE_ALL_SIDEBAR;
 }
 
-export type UIActionType = OpenSettingsSidebarAction
-                         | OpenBookmarksSidebarAction
-                         | OpenDetailsSidebarAction
-                         | OpenHistorySidebarAction
-                         | CloseAllSidebarAction;
+export interface SetThemeAction extends Action<UIActions.SET_THEME> {
+    type: UIActions.SET_THEME;
+    payload: 'dark' | 'light';
+}
+
+export type UIActionType = OpenSettingsAction
+                         | OpenBookmarksAction
+                         | OpenDetailsAction
+                         | OpenHistoryAction
+                         | CloseAllAction
+                         | SetThemeAction;
 
 export const openSettingsSidebar = () => ({
     type: UIActions.OPEN_SETTINGS_SIDEBAR,
@@ -59,8 +67,14 @@ export const openHistorySidebar = () => ({
     type: UIActions.OPEN_HISTORY_SIDEBAR,
 });
 
+
 export const closeAllSidebarSidebar = () => ({
     type: UIActions.CLOSE_ALL_SIDEBAR,
+});
+
+export const setTheme = (payload: 'dark' | 'light') => ({
+    type: UIActions.SET_THEME,
+    payload: payload
 });
 
 const INITIAL_STATE: UIState = {
@@ -68,6 +82,7 @@ const INITIAL_STATE: UIState = {
     showBookmarks: false,
     showDetails: false,
     showHistory: false,
+    theme: 'dark',
     textColor: 'white',
     backgroundColor: '#282c34',
 };
@@ -122,6 +137,13 @@ export const uiState = (
                 showDetails: false,
                 showHistory: false,
             };
+
+        case UIActions.SET_THEME:
+            return {
+                ...state,
+                theme: action.payload
+            }
+
 
         default:
             return state;

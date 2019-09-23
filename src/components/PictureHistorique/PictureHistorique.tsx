@@ -33,6 +33,7 @@ class PictureHistorique extends Component<Props> {
             currentPictureIndex,
             setPictureIndex,
             closeAllSidebarSidebar } = this.props;
+
         if (index !== currentPictureIndex && setPictureIndex) {
             setPictureIndex(index);
         }
