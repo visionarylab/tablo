@@ -4,21 +4,32 @@ import { defaultSidebarState, sidebarStateKey } from './constants';
 import StorageApi from 'api/StorageApi';
 
 export interface SidebarState {
-    browserSection: SidebarSectionItem;
-    userSection: SidebarSectionItem;
-}
-
-export interface SidebarSectionItem {
-    title: string;
-    items: SidebarItem[];
+    browserSection: BrowserSectionType;
+    userSection: UserSectionType;
     openInCurrentTab: boolean;
 }
 
-export interface SidebarItem {
+export interface BrowserSectionType {
+    title: string;
+    items: BrowserItemType[];
+}
+export interface BrowserItemType {
+    label: string;
+    link: string;
     icon: string;
+    visible: boolean;
+}
+
+export interface UserSectionType {
+    title: string;
+    items: UserItemType[];
+}
+export interface UserItemType {
     label: string;
     link: string;
 }
+
+
 
 export enum SidebarActions {
     LOAD_SIDEBAR_STATE = 'SIDEBAR/LOAD_SIDEBAR_STATE',
@@ -60,12 +71,12 @@ export interface SaveSidebarStateSuccessAction extends Action<SidebarActions.SAV
 
 export interface SetBrowserSectionAction extends Action<SidebarActions.SET_BROWSER_SECTION> {
     type: SidebarActions.SET_BROWSER_SECTION;
-    payload: SidebarSectionItem;
+    payload: BrowserSectionType;
 }
 
 export interface SetUserSectionAction extends Action<SidebarActions.SET_USER_SECTION> {
     type: SidebarActions.SET_USER_SECTION;
-    payload: SidebarSectionItem;
+    payload: UserSectionType;
 }
 
 export type SidebarActionType = LoadSidebarStateAction
@@ -102,12 +113,12 @@ export const saveSidebarStateFail = () => ({
     type: SidebarActions.SAVE_SIDEBAR_STATE,
 });
 
-export const setBrowserSection = (payload: SidebarSectionItem) => ({
+export const setBrowserSection = (payload: BrowserSectionType) => ({
     type: SidebarActions.SET_BROWSER_SECTION,
     payload: payload,
 });
 
-export const setUserSection = (payload: SidebarSectionItem) => ({
+export const setUserSection = (payload: UserSectionType) => ({
     type: SidebarActions.SET_USER_SECTION,
     payload: payload,
 });

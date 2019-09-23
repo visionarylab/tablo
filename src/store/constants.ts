@@ -25,148 +25,155 @@ export const defaultPictureState: PictureState = {
 // Sidebar state
 export const CHROME_SECTION = {
     title: 'Chrome tools',
-    openInCurrentTab: true,
     items: [
-        {
+    {
         link: 'chrome://apps',
-        icon: 'mdiViewGrid',
         label: 'apps',
+        icon: 'mdiViewGrid',
+        visible: true,
     },
     {
         link: 'chrome://bookmarks',
-        icon: 'mdiStarOutline',
         label: 'bookmarks',
+        icon: 'mdiStarOutline',
+        visible: true,
     },
     {
         link: 'chrome://downloads',
-        icon: 'mdiDownload',
         label: 'downloads',
+        icon: 'mdiDownload',
+        visible: true,
     },
     {
         link: 'chrome://history',
-        icon: 'mdiClockOutline',
         label: 'history',
+        icon: 'mdiClockOutline',
+        visible: true,
     },
     {
         link: 'chrome://extensions/',
-        icon: 'mdiPuzzle',
         label: 'Extensions',
+        icon: 'mdiPuzzle',
+        visible: true,
     },
     {
         link: 'chrome://settings',
-        icon: 'mdiSettingsOutline',
         label: 'settings',
+        icon: 'mdiSettingsOutline',
+        visible: true,
     },
     {
         link: 'chrome://inspect/#devices',
-        icon: 'mdiAndroidDebugBridge',
         label: 'Inspect',
+        icon: 'mdiAndroidDebugBridge',
+        visible: true,
     },
     {
         link: 'chrome://omnibox/',
-        icon: 'mdiSearchWeb',
         label: 'omnibox',
+        icon: 'mdiSearchWeb',
+        visible: true,
     },
     {
         link: 'chrome://site-engagement/',
-        icon: 'mdiPoll',
         label: 'site engagement',
+        icon: 'mdiPoll',
+        visible: true,
     }
 ]};
 
 export const FIREFOX_SECTION = {
     title: 'Chrome tools',
-    openInCurrentTab: true,
     items: [
         {
         link: 'chrome://apps',
-        icon: 'mdiViewGrid',
         label: 'apps',
+        icon: 'mdiViewGrid',
+        visible: true,
     },
     {
         link: 'chrome://bookmarks',
-        icon: 'mdiStarOutline',
         label: 'bookmarks',
+        icon: 'mdiStarOutline',
+        visible: true,
     },
     {
         link: 'chrome://downloads',
-        icon: 'mdiDownload',
         label: 'downloads',
+        icon: 'mdiDownload',
+        visible: true,
     },
     {
         link: 'chrome://history',
-        icon: 'mdiClockOutline',
         label: 'history',
+        icon: 'mdiClockOutline',
+        visible: true,
     },
     {
         link: 'chrome://extensions/',
-        icon: 'mdiPuzzle',
         label: 'Extensions',
+        icon: 'mdiPuzzle',
+        visible: true,
     },
     {
         link: 'chrome://settings',
-        icon: 'mdiSettingsOutline',
         label: 'settings',
+        icon: 'mdiSettingsOutline',
+        visible: true,
     },
     {
         link: 'chrome://inspect/#devices',
-        icon: 'mdiAndroidDebugBridge',
         label: 'Inspect',
+        icon: 'mdiAndroidDebugBridge',
+        visible: true,
     },
     {
         link: 'chrome://omnibox/',
-        icon: 'mdiSearchWeb',
         label: 'omnibox',
+        icon: 'mdiSearchWeb',
+        visible: true,
     },
     {
         link: 'chrome://site-engagement/',
-        icon: 'mdiPoll',
         label: 'site engagement',
+        icon: 'mdiPoll',
+        visible: true,
     }
 ]};
 
 export const SITE_SECTION = {
     title: 'Site',
-    openInCurrentTab: true,
     items: [
     {
         label: 'internetactu',
-        icon: 'mdiWeb',
         link: 'http://www.internetactu.net/',
     },
     {
         label: 'youtube',
-        icon: 'mdiWeb',
         link: 'https://www.youtube.com/?gl=FR&hl=fr',
     },
     {
         label: 'duckduckgo',
-        icon: 'mdiWeb',
         link: 'https://duckduckgo.com/',
     },
     {
         label: 'torrent9',
-        icon: 'mdiWeb',
         link: 'http://www.torrent9.red/',
     },
     {
         label: 'ygg',
-        icon: 'mdiWeb',
         link: 'https://yggtorrent.is/',
     },
     {
         label: '9gag',
-        icon: 'mdiWeb',
         link: 'http://9gag.com/',
     },
     {
         label: 'korben',
-        icon: 'mdiWeb',
         link: 'https://korben.info/',
     },
     {
         label: 'torrent9',
-        icon: 'mdiWeb',
         link: 'http://www.torrent9.red/',
     },
 ]};
@@ -175,6 +182,7 @@ export const sidebarStateKey: string = 'sidebarState';
 export const defaultSidebarState: SidebarState = {
     browserSection: CHROME_SECTION,
     userSection: SITE_SECTION,
+    openInCurrentTab: true,
 };
 
 
