@@ -2,9 +2,17 @@
 
 :root {
     // colors
+    /*
     --color: white;
     --bgColor: #282c34;
-    --bgColor2: rgba(0, 0, 0, 0.2);
+    --bgColorPanel: rgba(0, 0, 0, 0.2);
+    --bgColorHover: rgba(255, 255, 255, 0.1);
+    */
+
+    --color: #222831;
+    --bgColor: #F0ECE2;
+    --bgColorPanel: rgba(0, 0, 0, 0.2);
+    --bgColorHover: rgba(0, 0, 0, 0.1);
 
     // Icons/Favicons
     --iconSizeBtn: 24px;

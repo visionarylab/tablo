@@ -42,7 +42,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
 
     componentDidMount() {
         this.zoom = new Zooming({
-            bgColor: 'var(--bgColor2)',
+            bgColor: 'var(--bgColorPanel)',
             // enableGrab: false,
             // customSize: '100%'
             scaleBase: 0.9,

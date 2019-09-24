@@ -31,6 +31,21 @@ export enum UIActions {
     SET_OPEN_LINK = 'UI/SET_OPEN_LINK',
 }
 
+export const theme = {
+    dark: {
+        color: 'white',
+        bgColor: '#282c34',
+        bgColorPanel: 'rgba(0, 0, 0, 0.2)',
+        bgColorHover: 'rgba(255, 255, 255, 0.1)',
+    },
+    light: {
+        color: '#222831',
+        bgColor: '#F0ECE2',
+        bgColorPanel: 'rgba(0, 0, 0, 0.2)',
+        bgColorHover: 'rgba(0, 0, 0, 0.1)',
+    }
+}
+
 export interface ToggleSettingsAction extends Action<UIActions.TOGGLE_SETTINGS> {
     type: UIActions.TOGGLE_SETTINGS;
 }
