@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.88",
+    "cross-env": "^6.0.0",
     "redux-devtools": "^3.5.0"
   },
   "eslintConfig": {
