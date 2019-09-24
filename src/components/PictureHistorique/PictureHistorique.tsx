@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
-import { Picture, setPictureIndex } from 'store/picture';
-import { closeAll } from 'store/ui';
+import { Picture, setPictureIndex } from 'store/picture/picture';
+import { closeAll } from 'store/ui/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import './PictureHistorique.scss';
 

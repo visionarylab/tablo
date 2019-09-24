@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
+import { closeAll } from 'store/ui/ui';
+import { Section, SectionItem, setUserSection } from 'store/sidebar/sidebar';
 import './Edit.scss';
-import { setTheme, closeAll } from 'store/ui';
-import { setOpenInCurrentTab, Section, SectionItem, setUserSection } from 'store/Sidebar';
-import { setMaxPicturesCount } from 'store/picture';
 
 interface Props {
     section: Section | null;
@@ -34,6 +33,7 @@ class Edit extends Component<Props, State> {
         this.handleLabelChange = this.handleLabelChange.bind(this);
         this.handleLinkChange = this.handleLinkChange.bind(this);
         this.saveItem = this.saveItem.bind(this);
+        this.resetItem = this.resetItem.bind(this);
     }
 
     componentWillReceiveProps(nextProps: Props) {
@@ -56,13 +56,19 @@ class Edit extends Component<Props, State> {
     }
 
     saveItem() {
-        const { section, setUserSection, closeAll } = this.props;
+        const { section, setUserSection } = this.props;
         const { item } = this.state;
         if (section) {
             section.items.push(item);
             setUserSection(section);
-            closeAll();
+            this.resetItem();
         }
+    }
+
+    resetItem() {
+        const { closeAll } = this.props;
+        this.setState({ item: { label: '', link: '' } });
+        closeAll();
     }
 
     render() {
@@ -84,6 +90,7 @@ class Edit extends Component<Props, State> {
                     <input type="text" name="link"  value={item.link} onChange={this.handleLinkChange}/>
                 </div>
 
+                <input type="submit" value="Cancel" onClick={this.resetItem}/>
                 <input type="submit" value="Save" onClick={this.saveItem}/>
             </div>
         );

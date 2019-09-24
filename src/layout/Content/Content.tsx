@@ -1,19 +1,16 @@
 import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
-import { closeAll } from 'store/ui';
-
+import { closeAll } from 'store/ui/ui';
 import Modal from 'components/Modal/Modal';
 import Bookmarks from 'components/Bookmarks/Bookmarks';
 import PictureCartel from 'components/PictureCartel/PictureCartel';
 import PictureHistorique from 'components/PictureHistorique/PictureHistorique';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
 import Settings from 'components/Settings/Settings';
-
-import './Content.scss';
 import Edit from 'components/Edit/Edit';
+import './Content.scss';
 
 interface Props {
     showSettings: boolean;

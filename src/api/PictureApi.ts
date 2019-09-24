@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Picture } from 'store/picture';
+import { Picture } from 'store/picture/picture';
 
 export default class PictureApi {
   static ENDPOINT = 'assets/artworks_data/';

@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-
 import Header from './Header/Header';
 import SidebarLeft from './Sidebar/SidebarLeft';
 import SidebarRight from './Sidebar/SidebarRight';
 import Content from './Content/Content';
-
 import './App.scss';
 
 const App: FC = () => (

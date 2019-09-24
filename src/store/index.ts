@@ -1,22 +1,20 @@
 import { createStore } from 'redux';
 import rootReducer from './rootReducer';
 import { applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import createSagaMiddleware from 'redux-saga';
-import { searchSaga, loadSearchStateAsync } from './search';
-import { pictureSaga, loadPictureStateAsync, getRandomPictureAsync } from './picture';
 import { all } from 'redux-saga/effects';
-import thunk from 'redux-thunk';
-import { loadBookmarkAsync } from './bookmarks';
-import { sidebarSaga, loadSidebarStateAsync } from './Sidebar';
+import { loadBookmarkAsync } from './bookmarks/bookmarks';
+import { sidebarSaga, loadSidebarStateAsync } from './sidebar/sidebar';
+import { pictureSaga, loadPictureStateAsync, getRandomPictureAsync } from './picture/picture';
 
 // Sagas
-const rootSaga = function*() {
-  yield all([
-    ...searchSaga,
-    ...pictureSaga,
-    ...sidebarSaga
-  ]);
+const rootSaga = function* () {
+    yield all([
+        ...pictureSaga,
+        ...sidebarSaga
+    ]);
 };
 
 // Middlewares
@@ -24,8 +22,8 @@ const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger({ collapsed: true });
 
 const middlewares = process.env.NODE_ENV === 'production'
-  ? applyMiddleware(sagaMiddleware, thunk)
-  : applyMiddleware(sagaMiddleware, thunk, logger);
+    ? applyMiddleware(sagaMiddleware, thunk)
+    : applyMiddleware(sagaMiddleware, thunk, logger);
 
 const composeEnhancers = (window as any).REDUX_DEVTOOLS_EXTENSION_COMPOSE
     ? (window as any).REDUX_DEVTOOLS_EXTENSION_COMPOSE
@@ -33,8 +31,8 @@ const composeEnhancers = (window as any).REDUX_DEVTOOLS_EXTENSION_COMPOSE
 
 // Store
 const store = createStore(
-  rootReducer,
-  composeEnhancers(middlewares)
+    rootReducer,
+    composeEnhancers(middlewares)
 );
 
 sagaMiddleware.run(rootSaga);

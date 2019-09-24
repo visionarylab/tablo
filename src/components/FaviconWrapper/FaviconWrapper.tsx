@@ -1,5 +1,4 @@
 import React, { Component, HTMLAttributes } from 'react';
-import Spinner from 'components/Spinner/Spinner';
 import classNames from 'classnames';
 import Icon from '@mdi/react';
 import { mdiWeb } from '@mdi/js';

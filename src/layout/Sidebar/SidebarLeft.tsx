@@ -2,7 +2,7 @@ import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { RootState } from 'store/rootReducer';
 import { connect } from 'react-redux';
-import { Section, setBrowserSection } from 'store/Sidebar';
+import { Section, setBrowserSection } from 'store/sidebar/sidebar';
 import SidebarSection from 'components/SidebarSection/SidebarSection';
 
 interface Props {

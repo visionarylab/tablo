@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { takeEvery, select, put } from 'redux-saga/effects';
-import { pictureStateKey, defaultPictureState } from './constants';
+import { pictureStateKey, defaultPictureState } from '../constants';
 import StorageApi from 'api/StorageApi';
 import PictureApi from 'api/PictureApi';
 

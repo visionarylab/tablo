@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { Picture } from 'store/picture';
-import './PictureCartel.scss';
 import Icon from '@mdi/react';
 import { mdiOpenInNew, mdiDownload } from '@mdi/js';
 import { RootState } from 'store/rootReducer';
 import { connect } from 'react-redux';
+import { Picture } from 'store/picture/picture';
+import './PictureCartel.scss';
 
 interface Props {
     pictures: Picture[];

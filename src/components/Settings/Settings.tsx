@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
+import { setTheme, setOpenLink, ThemeType, OpenLinkType } from 'store/ui/ui';
+import { setMaxPicturesCount } from 'store/picture/picture';
 import './Settings.scss';
-import { setTheme } from 'store/ui';
-import { setOpenInCurrentTab } from 'store/Sidebar';
-import { setMaxPicturesCount } from 'store/picture';
 
 interface Props {
-    openInCurrentTab: boolean;
-    theme: 'dark' | 'light';
+    openLink: OpenLinkType;
+    theme: ThemeType;
     maxPicturesCount: number;
-    setOpenInCurrentTab: (payload: boolean) => void;
-    setTheme: (payload: 'dark' | 'light') => void,
+    setOpenLink: (payload: OpenLinkType) => void;
+    setTheme: (payload: ThemeType) => void,
     setMaxPicturesCount: (payload: number) => void,
 }
 
@@ -21,10 +20,10 @@ interface State {
 class Settings extends Component<Props, State> {
 
     static defaultProps: Props = {
-        openInCurrentTab: false,
-        theme: 'dark',
+        openLink: OpenLinkType.NEW,
+        theme: ThemeType.DARK,
         maxPicturesCount: 100,
-        setOpenInCurrentTab: (payload: boolean) => {},
+        setOpenLink: (payload: OpenLinkType) => {},
         setTheme: (payload: 'dark' | 'light') => {},
         setMaxPicturesCount: (payload: number) => {},
     };
@@ -33,7 +32,7 @@ class Settings extends Component<Props, State> {
         super(props);
 
         this.handleThemeChange = this.handleThemeChange.bind(this);
-        this.handleOpenInCurrentTabChange = this.handleOpenInCurrentTabChange.bind(this);
+        this.handleOpenLinkChange = this.handleOpenLinkChange.bind(this);
         this.handleMaxPicturesCountChange = this.handleMaxPicturesCountChange.bind(this);
     }
 
@@ -42,9 +41,9 @@ class Settings extends Component<Props, State> {
         setTheme(event.target.value);
     }
 
-    handleOpenInCurrentTabChange(event: any) {
-        const { setOpenInCurrentTab } = this.props;
-        setOpenInCurrentTab(event.target.value);
+    handleOpenLinkChange(event: any) {
+        const { setOpenLink } = this.props;
+        setOpenLink(event.target.value);
     }
 
     handleMaxPicturesCountChange(event: any) {
@@ -54,7 +53,7 @@ class Settings extends Component<Props, State> {
 
     render() {
         const {
-            openInCurrentTab,
+            openLink,
             theme,
             maxPicturesCount } = this.props;
 
@@ -68,16 +67,16 @@ class Settings extends Component<Props, State> {
                         <div className="settings-section-content-row">
                             <label htmlFor="theme">Theme</label>
                             <select name="theme" value={theme} onChange={this.handleThemeChange}>
-                                <option value="dark">dark</option>
-                                <option value="dark">light</option>
+                                <option value={ThemeType.DARK}>dark</option>
+                                <option value={ThemeType.LIGHT}>light</option>
                             </select>
                         </div>
 
                         <div className="settings-section-content-row">
                             <label htmlFor="theme">Open link in </label>
-                            <select name="openLink" value={openInCurrentTab.toString()} onChange={this.handleOpenInCurrentTabChange}>
-                                <option value="true">current tab</option>
-                                <option value="false">new tab</option>
+                            <select name="openLink" value={openLink} onChange={this.handleOpenLinkChange}>
+                                <option value={OpenLinkType.CURRENT}>current tab</option>
+                                <option value={OpenLinkType.NEW}>new tab</option>
                             </select>
                         </div>
 
@@ -92,7 +91,7 @@ class Settings extends Component<Props, State> {
                 </section>
 
                 <section className="settings-section">
-                    <div className="settings-section-title">Danger</div>
+                    <div className="settings-section-title">Import/Export</div>
                     <div className="settings-section-content">
 
                         <div className="settings-section-content-row">
@@ -102,6 +101,13 @@ class Settings extends Component<Props, State> {
                         <div className="settings-section-content-row">
                             <button>Export</button>
                         </div>
+
+                    </div>
+                </section>
+
+                <section className="settings-section">
+                    <div className="settings-section-title">Danger</div>
+                    <div className="settings-section-content">
 
                         <div className="settings-section-content-row">
                             <button>Reset</button>
@@ -116,14 +122,14 @@ class Settings extends Component<Props, State> {
 }
 
 const mapStateToProps = (rootState: RootState) => ({
-    openInCurrentTab: rootState.sidebarState.openInCurrentTab,
+    openLink: rootState.uiState.openLink,
     theme: rootState.uiState.theme,
     maxPicturesCount: rootState.pictureState.maxPicturesCount
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-    setOpenInCurrentTab: (payload: boolean) => dispatch(setOpenInCurrentTab(payload)),
-    setTheme: (payload: 'dark' | 'light') => dispatch(setTheme(payload)),
+    setOpenLink: (payload: OpenLinkType) => dispatch(setOpenLink(payload)),
+    setTheme: (payload: ThemeType) => dispatch(setTheme(payload)),
     setMaxPicturesCount: (payload: number) => dispatch(setMaxPicturesCount(payload)),
 });
 

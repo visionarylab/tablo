@@ -6,7 +6,18 @@ export interface UIState {
     showDetails: boolean;
     showHistory: boolean;
     showEdit: boolean;
-    theme: 'dark' | 'light';
+    theme: ThemeType;
+    openLink: OpenLinkType;
+}
+
+export enum ThemeType {
+    DARK = 'dark',
+    LIGHT = 'light',
+}
+
+export enum OpenLinkType {
+    CURRENT = 'current',
+    NEW = 'NEW',
 }
 
 export enum UIActions {
@@ -17,6 +28,7 @@ export enum UIActions {
     TOGGLE_EDIT = 'UI/TOGGLE_EDIT',
     CLOSE_ALL = 'UI/CLOSE_ALL',
     SET_THEME = 'UI/SET_THEME',
+    SET_OPEN_LINK = 'UI/SET_OPEN_LINK',
 }
 
 export interface ToggleSettingsAction extends Action<UIActions.TOGGLE_SETTINGS> {
@@ -45,7 +57,12 @@ export interface CloseAllAction extends Action<UIActions.CLOSE_ALL> {
 
 export interface SetThemeAction extends Action<UIActions.SET_THEME> {
     type: UIActions.SET_THEME;
-    payload: 'dark' | 'light';
+    payload: ThemeType;
+}
+
+export interface SetOpenLinkAction extends Action<UIActions.SET_OPEN_LINK> {
+    type: UIActions.SET_OPEN_LINK;
+    payload: OpenLinkType;
 }
 
 export type UIActionType = ToggleSettingsAction
@@ -54,7 +71,8 @@ export type UIActionType = ToggleSettingsAction
                          | ToggleHistoryAction
                          | ToggleEditAction
                          | CloseAllAction
-                         | SetThemeAction;
+                         | SetThemeAction
+                         | SetOpenLinkAction;
 
 export const toggleSettings = () => ({
     type: UIActions.TOGGLE_SETTINGS,
@@ -80,8 +98,13 @@ export const closeAll = () => ({
     type: UIActions.CLOSE_ALL,
 });
 
-export const setTheme = (payload: 'dark' | 'light') => ({
+export const setTheme = (payload: ThemeType) => ({
     type: UIActions.SET_THEME,
+    payload: payload
+});
+
+export const setOpenLink = (payload: OpenLinkType) => ({
+    type: UIActions.SET_OPEN_LINK,
     payload: payload
 });
 
@@ -91,7 +114,8 @@ const INITIAL_STATE: UIState = {
     showDetails: false,
     showHistory: false,
     showEdit: false,
-    theme: 'dark',
+    theme: ThemeType.DARK,
+    openLink: OpenLinkType.NEW,
 };
 
 export const uiState = (
@@ -157,6 +181,7 @@ export const uiState = (
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: false,
+                showEdit: false,
             };
 
         case UIActions.SET_THEME:
@@ -165,6 +190,11 @@ export const uiState = (
                 theme: action.payload
             }
 
+        case UIActions.SET_OPEN_LINK:
+            return {
+                ...state,
+                openLink: action.payload
+            }
 
         default:
             return state;

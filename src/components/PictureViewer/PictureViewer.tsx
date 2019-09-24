@@ -1,11 +1,11 @@
 import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { Picture } from 'store/picture';
 import { RootState } from 'store/rootReducer';
+import { Picture } from 'store/picture/picture';
+import { toggleDetails } from 'store/ui/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import './PictureViewer.scss';
-import { toggleDetails } from 'store/ui';
 
 const Zooming: any = require('zooming/build/zooming');
 

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
 import { SortableHandle } from 'react-sortable-hoc';
-import { SectionItem } from 'store/Sidebar';
+import { SectionItem } from 'store/sidebar/sidebar';
 import FaviconWrapper from 'components/FaviconWrapper/FaviconWrapper';
 import './SidebarSectionItem.scss';
 

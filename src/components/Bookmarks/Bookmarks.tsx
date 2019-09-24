@@ -3,7 +3,7 @@ import Icon from '@mdi/react';
 import { mdiFolderOpen, mdiFolder } from '@mdi/js';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
-import { searchBookmark } from 'store/bookmarks';
+import { searchBookmark } from 'store/bookmarks/bookmarks';
 import FaviconWrapper from 'components/FaviconWrapper/FaviconWrapper';
 import './Bookmarks.scss';
 

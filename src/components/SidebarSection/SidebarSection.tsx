@@ -1,9 +1,9 @@
 import React, { Component, HTMLAttributes } from 'react';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
-import { Section, SectionItem } from 'store/Sidebar';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
-import SidebarSectionItem from 'components/SidebarSectionItem/SidebarItem';
+import SidebarSectionItem from 'components/SidebarSectionItem/SidebarSectionItem';
+import { Section, SectionItem } from 'store/sidebar/sidebar';
 import './SidebarSection.scss';
 
 const List = SortableContainer(({ children }) => (

@@ -15,10 +15,9 @@ import {
     toggleDetails,
     toggleBookmarks,
     closeAll,
-    toggleEdit} from 'store/ui';
+    toggleEdit} from 'store/ui/ui';
 import { RootState } from 'store/rootReducer';
-import { getRandomPictureAsync } from 'store/picture';
-
+import { getRandomPictureAsync } from 'store/picture/picture';
 import './Header.scss';
 
 interface Props {
