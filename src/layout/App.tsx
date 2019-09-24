@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 
 import Header from './Header/Header';
-import BrowserSidebar from './Sidebar/BrowserSidebar';
-import UserSidebar from './Sidebar/UserSidebar';
+import SidebarLeft from './Sidebar/SidebarLeft';
+import SidebarRight from './Sidebar/SidebarRight';
 import Content from './Content/Content';
 
 import './App.scss';
 
 const App: FC = () => (
     <div className="app-wrapper">
-        <BrowserSidebar className="app-sidebar sidebar-left"/>
+        <SidebarLeft className="app-sidebar sidebar-left"/>
         <Header className="header" />
         <Content className="content" />
-        <UserSidebar className="app-sidebar sidebar-right"/>
+        <SidebarRight className="app-sidebar sidebar-right"/>
     </div>
 );
 
