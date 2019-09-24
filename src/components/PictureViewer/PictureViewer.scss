@@ -41,6 +41,7 @@
     }
 
     .picture-caption {
+        cursor: pointer;
         height: calc(10px + var( --headerHeight));
         min-height: calc(10px + var(--headerHeight));
         display: flex;

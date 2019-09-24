@@ -5,12 +5,14 @@ import { Picture } from 'store/picture';
 import { RootState } from 'store/rootReducer';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import './PictureViewer.scss';
+import { toggleDetails } from 'store/ui';
 
 const Zooming: any = require('zooming/build/zooming');
 
 interface Props {
     currentPictureIndex: number;
     pictures: Picture[];
+    showDetails: () => void;
 }
 
 interface State {
@@ -24,6 +26,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
     static defaultProps: Props = {
         currentPictureIndex: 0,
         pictures: [],
+        showDetails: () => { },
     };
 
     constructor(props: any) {
@@ -68,7 +71,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
     }
 
     render() {
-        const { className } = this.props;
+        const { className, showDetails } = this.props;
         const { currentPicture } = this.state;
 
         if (!currentPicture) {
@@ -89,7 +92,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
                         />
                     </div>
 
-                    <div className="picture-caption">
+                    <div className="picture-caption" onClick={() => showDetails()}>
                         <div><i>{currentPicture.title}</i></div>
                         <div>{currentPicture.artiste}</div>
                     </div>
@@ -107,6 +110,7 @@ const mapStateToProps = (rootState: RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
+    showDetails: () => dispatch(toggleDetails()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureViewer);
