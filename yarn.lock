@@ -9098,11 +9098,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rodal@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/rodal/-/rodal-1.6.3.tgz#27c4810ca2d34fd6aedcbdbf7721a06c78a5b9a8"
-  integrity sha512-OWry49Kga2lRUqPiSimPaowdNjZlX/kwfVQZNpkwf5NayROFioPmhawA9lQ8MDILFiIh777WspqsmrV2jSUn0Q==
-
 rsvp@^4.8.4:
   version "4.8.4"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.4.tgz#b50e6b34583f3dd89329a2f23a8a2be072845911"
