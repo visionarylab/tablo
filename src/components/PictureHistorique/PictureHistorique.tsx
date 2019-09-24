@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { Picture, setPictureIndex } from 'store/picture';
-import { closeAllSidebarSidebar } from 'store/ui';
+import { closeAll } from 'store/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import './PictureHistorique.scss';
 
@@ -11,7 +11,7 @@ interface Props {
     pictures: Picture[];
     currentPictureIndex: number;
     setPictureIndex?: (index: number) => void,
-    closeAllSidebarSidebar: () => void;
+    closeAll: () => void;
 }
 
 class PictureHistorique extends Component<Props> {
@@ -20,7 +20,7 @@ class PictureHistorique extends Component<Props> {
         pictures: [],
         currentPictureIndex: 0,
         setPictureIndex: (index: number) => {},
-        closeAllSidebarSidebar: () => {},
+        closeAll: () => {},
     }
 
     constructor(props: any) {
@@ -32,12 +32,12 @@ class PictureHistorique extends Component<Props> {
         const {
             currentPictureIndex,
             setPictureIndex,
-            closeAllSidebarSidebar } = this.props;
+            closeAll } = this.props;
 
         if (index !== currentPictureIndex && setPictureIndex) {
             setPictureIndex(index);
         }
-        closeAllSidebarSidebar();
+        closeAll();
     }
 
     render() {
@@ -70,7 +70,7 @@ const mapStateToProps = (rootState: RootState) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
     setPictureIndex: (payload: number) => dispatch(setPictureIndex(payload)),
-    closeAllSidebarSidebar: () => dispatch(closeAllSidebarSidebar()),
+    closeAll: () => dispatch(closeAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureHistorique);
