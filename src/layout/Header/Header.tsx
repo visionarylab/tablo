@@ -7,13 +7,15 @@ import {
     mdiViewGrid,
     mdiAlertBoxOutline,
     mdiSettings,
-    mdiBookmarkOutline} from '@mdi/js';
+    mdiBookmarkOutline,
+    mdiPlus} from '@mdi/js';
 import {
-    openSettingsSidebar,
-    openHistorySidebar,
-    openDetailsSidebar,
-    openBookmarksSidebar,
-    closeAllSidebarSidebar} from 'store/ui';
+    toggleSettings,
+    toggleHistory,
+    toggleDetails,
+    toggleBookmarks,
+    closeAll,
+    toggleEdit} from 'store/ui';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture';
 
@@ -21,11 +23,12 @@ import './Header.scss';
 
 interface Props {
     getRandomPicture: () => void;
-    openSettingsSidebar: () => void;
-    openBookmarksSidebar: () => void;
-    openDetailsSidebar: () => void;
-    openHistorySidebar: () => void;
-    closeAllSidebarSidebar: () => void;
+    toggleSettings: () => void;
+    toggleBookmarks: () => void;
+    toggleDetails: () => void;
+    toggleHistory: () => void;
+    toggleEdit: () => void;
+    closeAll: () => void;
 }
 
 interface State {
@@ -36,11 +39,12 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
     static defaultProps: Props = {
         getRandomPicture: () => { },
-        openSettingsSidebar: () => { },
-        openBookmarksSidebar: () => { },
-        openDetailsSidebar: () => { },
-        openHistorySidebar: () => { },
-        closeAllSidebarSidebar: () => { },
+        toggleSettings: () => { },
+        toggleBookmarks: () => { },
+        toggleDetails: () => { },
+        toggleHistory: () => { },
+        toggleEdit: () => { },
+        closeAll: () => { },
     };
 
     constructor(props: any) {
@@ -65,7 +69,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
         // console.log('event', event);
 
         if (event.keyCode === 27) {
-            this.props.closeAllSidebarSidebar();
+            this.props.closeAll();
             this.setState({ searchQuery: '' })
         }
 
@@ -91,10 +95,11 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
         const {
             className,
             getRandomPicture,
-            openSettingsSidebar,
-            openBookmarksSidebar,
-            openDetailsSidebar,
-            openHistorySidebar } = this.props;
+            toggleSettings,
+            toggleBookmarks,
+            toggleDetails,
+            toggleHistory,
+            toggleEdit } = this.props;
 
         const headerClass = classNames('header-wrapper', className)
 
@@ -114,7 +119,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
                     <button className="header-btn"
                         data-tip="Bookmarks"
-                        onClick={openBookmarksSidebar}>
+                        onClick={toggleBookmarks}>
                         <Icon path={mdiBookmarkOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
@@ -128,21 +133,26 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
                     <button className="header-btn"
                         data-tip="Show history"
-                        onClick={openHistorySidebar}>
+                        onClick={toggleHistory}>
                         <Icon path={mdiViewGrid} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                     <button className="header-btn"
                         data-tip="Show details"
-                        onClick={openDetailsSidebar}>
+                        onClick={toggleDetails}>
                         <Icon path={mdiAlertBoxOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                     <div className="separator"></div>
 
                     <button className="header-btn"
-                        onClick={openSettingsSidebar}>
+                        onClick={toggleSettings}>
                         <Icon path={mdiSettings} size="var(--iconSizeBtn)" color="var(--color)"/>
+                    </button>
+
+                    <button className="header-btn"
+                        onClick={toggleEdit}>
+                        <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
                     </button>
 
                 </div>
@@ -159,11 +169,12 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
     getRandomPicture: () => dispatch(getRandomPictureAsync()),
-    openSettingsSidebar: () => dispatch(openSettingsSidebar()),
-    openBookmarksSidebar: () => dispatch(openBookmarksSidebar()),
-    openDetailsSidebar: () => dispatch(openDetailsSidebar()),
-    openHistorySidebar: () => dispatch(openHistorySidebar()),
-    closeAllSidebarSidebar: () => dispatch(closeAllSidebarSidebar()),
+    toggleSettings: () => dispatch(toggleSettings()),
+    toggleBookmarks: () => dispatch(toggleBookmarks()),
+    toggleDetails: () => dispatch(toggleDetails()),
+    toggleHistory: () => dispatch(toggleHistory()),
+    toggleEdit: () => dispatch(toggleEdit()),
+    closeAll: () => dispatch(closeAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

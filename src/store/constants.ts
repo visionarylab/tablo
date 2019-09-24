@@ -25,6 +25,9 @@ export const defaultPictureState: PictureState = {
 // Sidebar state
 export const CHROME_SECTION = {
     title: 'Chrome tools',
+    isDeletable: false,
+    isHidable: true,
+    expanded: true,
     items: [
     {
         link: 'chrome://apps',
@@ -83,7 +86,10 @@ export const CHROME_SECTION = {
 ]};
 
 export const FIREFOX_SECTION = {
-    title: 'Chrome tools',
+    title: 'Firefox tools',
+    isDeletable: false,
+    isHidable: true,
+    expanded: true,
     items: [
         {
         link: 'chrome://apps',
@@ -143,6 +149,9 @@ export const FIREFOX_SECTION = {
 
 export const SITE_SECTION = {
     title: 'Site',
+    isDeletable: true,
+    isHidable: false,
+    expanded: true,
     items: [
     {
         label: 'internetactu',

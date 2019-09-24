@@ -1,10 +1,7 @@
 import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import Sidebar from './Sidebar';
-import SidebarSection from './SidebarSection';
-import { RootState } from 'store/rootReducer';
 import { connect } from 'react-redux';
-import { SidebarSectionItem } from 'store/Sidebar';
 import './Sidebar.scss';
 
 interface Props {

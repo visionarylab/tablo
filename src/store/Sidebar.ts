@@ -4,32 +4,25 @@ import { defaultSidebarState, sidebarStateKey } from './constants';
 import StorageApi from 'api/StorageApi';
 
 export interface SidebarState {
-    browserSection: BrowserSectionType;
-    userSection: UserSectionType;
+    browserSection: Section;
+    userSection: Section;
     openInCurrentTab: boolean;
 }
 
-export interface BrowserSectionType {
+export interface Section {
     title: string;
-    items: BrowserItemType[];
+    items: SectionItem[];
+    isHidable: boolean;
+    isDeletable: boolean;
+    expanded: boolean;
 }
-export interface BrowserItemType {
+
+export interface SectionItem {
     label: string;
     link: string;
-    icon: string;
-    visible: boolean;
+    icon?: string;
+    visible?: boolean;
 }
-
-export interface UserSectionType {
-    title: string;
-    items: UserItemType[];
-}
-export interface UserItemType {
-    label: string;
-    link: string;
-}
-
-
 
 export enum SidebarActions {
     LOAD_SIDEBAR_STATE = 'SIDEBAR/LOAD_SIDEBAR_STATE',
@@ -73,12 +66,12 @@ export interface SaveSidebarStateSuccessAction extends Action<SidebarActions.SAV
 
 export interface SetBrowserSectionAction extends Action<SidebarActions.SET_BROWSER_SECTION> {
     type: SidebarActions.SET_BROWSER_SECTION;
-    payload: BrowserSectionType;
+    payload: Section;
 }
 
 export interface SetUserSectionAction extends Action<SidebarActions.SET_USER_SECTION> {
     type: SidebarActions.SET_USER_SECTION;
-    payload: UserSectionType;
+    payload: Section;
 }
 
 export interface SetOpenInCurrentTabAction extends Action<SidebarActions.SET_OPEN_IN_CURRENT_TAB> {
@@ -121,12 +114,12 @@ export const saveSidebarStateFail = () => ({
     type: SidebarActions.SAVE_SIDEBAR_STATE,
 });
 
-export const setBrowserSection = (payload: BrowserSectionType) => ({
+export const setBrowserSection = (payload: Section) => ({
     type: SidebarActions.SET_BROWSER_SECTION,
     payload: payload,
 });
 
-export const setUserSection = (payload: UserSectionType) => ({
+export const setUserSection = (payload: Section) => ({
     type: SidebarActions.SET_USER_SECTION,
     payload: payload,
 });
@@ -157,9 +150,9 @@ export const sidebarState = (
             return state;
 
         case SidebarActions.SET_BROWSER_SECTION:
-            return { ...state, browserSection: action.payload };
+            return { ...state, browserSection: {...action.payload} };
         case SidebarActions.SET_USER_SECTION:
-            return { ...state, userSection: action.payload };
+            return { ...state, userSection: {...action.payload} };
 
         case SidebarActions.SET_OPEN_IN_CURRENT_TAB:
             return { ...state, openInCurrentTab: action.payload };

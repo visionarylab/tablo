@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
-import { closeAllSidebarSidebar } from 'store/ui';
+import { closeAll } from 'store/ui';
 
 import Modal from 'components/Modal/Modal';
 import Bookmarks from 'components/Bookmarks/Bookmarks';
@@ -13,13 +13,15 @@ import PictureViewer from 'components/PictureViewer/PictureViewer';
 import Settings from 'components/Settings/Settings';
 
 import './Content.scss';
+import Edit from 'components/Edit/Edit';
 
 interface Props {
     showSettings: boolean;
     showBookmarks: boolean;
     showDetails: boolean;
     showHistory: boolean;
-    closeAllSidebarSidebar: () => void;
+    showEdit: boolean;
+    closeAll: () => void;
 }
 
 interface State {
@@ -32,13 +34,13 @@ class Content extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
         showBookmarks: false,
         showDetails: false,
         showHistory: false,
-        closeAllSidebarSidebar: () => { },
+        showEdit: false,
+        closeAll: () => { },
     };
 
     constructor(props: any) {
         super(props);
     }
-
 
     render() {
         const {
@@ -47,7 +49,8 @@ class Content extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
             showBookmarks,
             showDetails,
             showHistory,
-            closeAllSidebarSidebar
+            showEdit,
+            closeAll
         } = this.props;
         // const { } = this.state;
 
@@ -60,29 +63,43 @@ class Content extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                 <Modal
                     title="Settings"
                     show={showSettings}
-                    onHide={closeAllSidebarSidebar}>
+                    onHide={closeAll}>
                     <Settings/>
                 </Modal>
 
                 <Modal
                     title="Bookmarks"
                     show={showBookmarks}
-                    onHide={closeAllSidebarSidebar}>
+                    onHide={closeAll}>
                     <Bookmarks />
                 </Modal>
 
                 <Modal
                     title="Details"
                     show={showDetails}
-                    onHide={closeAllSidebarSidebar}>
+                    onHide={closeAll}>
                     <PictureCartel />
                 </Modal>
 
                 <Modal
                     title="History"
                     show={showHistory}
-                    onHide={closeAllSidebarSidebar}>
+                    onHide={closeAll}>
                     <PictureHistorique />
+                </Modal>
+
+                <Modal
+                    title="Sidebar"
+                    show={showHistory}
+                    onHide={closeAll}>
+                    <PictureHistorique />
+                </Modal>
+
+                <Modal
+                    title="Edit"
+                    show={showEdit}
+                    onHide={closeAll}>
+                    <Edit />
                 </Modal>
 
             </div>
@@ -96,11 +113,12 @@ const mapStateToProps = (state: RootState) => {
         showBookmarks: state.uiState.showBookmarks,
         showDetails: state.uiState.showDetails,
         showHistory: state.uiState.showHistory,
+        showEdit: state.uiState.showEdit,
     }
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-    closeAllSidebarSidebar: () => dispatch(closeAllSidebarSidebar()),
+    closeAll: () => dispatch(closeAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);

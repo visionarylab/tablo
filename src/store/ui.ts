@@ -5,38 +5,42 @@ export interface UIState {
     showBookmarks: boolean;
     showDetails: boolean;
     showHistory: boolean;
+    showEdit: boolean;
     theme: 'dark' | 'light';
-    textColor: string;
-    backgroundColor: string;
 }
 
 export enum UIActions {
-    OPEN_SETTINGS_SIDEBAR = 'UI/OPEN_SETTINGS_SIDEBAR',
-    OPEN_BOOKMARKS_SIDEBAR = 'UI/OPEN_BOOKMARKS_SIDEBAR',
-    OPEN_DETAILS_SIDEBAR = 'UI/OPEN_DETAILS_SIDEBAR',
-    OPEN_HISTORY_SIDEBAR = 'UI/OPEN_HISTORY_SIDEBAR',
-    CLOSE_ALL_SIDEBAR = 'UI/CLOSE_ALL_SIDEBAR',
+    TOGGLE_SETTINGS = 'UI/TOGGLE_SETTINGS',
+    TOGGLE_BOOKMARKS = 'UI/TOGGLE_BOOKMARKS',
+    TOGGLE_DETAILS = 'UI/TOGGLE_DETAILS',
+    TOGGLE_HISTORY = 'UI/TOGGLE_HISTORY',
+    TOGGLE_EDIT = 'UI/TOGGLE_EDIT',
+    CLOSE_ALL = 'UI/CLOSE_ALL',
     SET_THEME = 'UI/SET_THEME',
 }
 
-export interface OpenSettingsAction extends Action<UIActions.OPEN_SETTINGS_SIDEBAR> {
-    type: UIActions.OPEN_SETTINGS_SIDEBAR;
+export interface ToggleSettingsAction extends Action<UIActions.TOGGLE_SETTINGS> {
+    type: UIActions.TOGGLE_SETTINGS;
 }
 
-export interface OpenBookmarksAction extends Action<UIActions.OPEN_BOOKMARKS_SIDEBAR> {
-    type: UIActions.OPEN_BOOKMARKS_SIDEBAR;
+export interface ToggleBookmarksAction extends Action<UIActions.TOGGLE_BOOKMARKS> {
+    type: UIActions.TOGGLE_BOOKMARKS;
 }
 
-export interface OpenDetailsAction extends Action<UIActions.OPEN_DETAILS_SIDEBAR> {
-    type: UIActions.OPEN_DETAILS_SIDEBAR;
+export interface ToggleDetailsAction extends Action<UIActions.TOGGLE_DETAILS> {
+    type: UIActions.TOGGLE_DETAILS;
 }
 
-export interface OpenHistoryAction extends Action<UIActions.OPEN_HISTORY_SIDEBAR> {
-    type: UIActions.OPEN_HISTORY_SIDEBAR;
+export interface ToggleHistoryAction extends Action<UIActions.TOGGLE_HISTORY> {
+    type: UIActions.TOGGLE_HISTORY;
 }
 
-export interface CloseAllAction extends Action<UIActions.CLOSE_ALL_SIDEBAR> {
-    type: UIActions.CLOSE_ALL_SIDEBAR;
+export interface ToggleEditAction extends Action<UIActions.TOGGLE_EDIT> {
+    type: UIActions.TOGGLE_EDIT;
+}
+
+export interface CloseAllAction extends Action<UIActions.CLOSE_ALL> {
+    type: UIActions.CLOSE_ALL;
 }
 
 export interface SetThemeAction extends Action<UIActions.SET_THEME> {
@@ -44,32 +48,36 @@ export interface SetThemeAction extends Action<UIActions.SET_THEME> {
     payload: 'dark' | 'light';
 }
 
-export type UIActionType = OpenSettingsAction
-                         | OpenBookmarksAction
-                         | OpenDetailsAction
-                         | OpenHistoryAction
+export type UIActionType = ToggleSettingsAction
+                         | ToggleBookmarksAction
+                         | ToggleDetailsAction
+                         | ToggleHistoryAction
+                         | ToggleEditAction
                          | CloseAllAction
                          | SetThemeAction;
 
-export const openSettingsSidebar = () => ({
-    type: UIActions.OPEN_SETTINGS_SIDEBAR,
+export const toggleSettings = () => ({
+    type: UIActions.TOGGLE_SETTINGS,
 });
 
-export const openBookmarksSidebar = () => ({
-    type: UIActions.OPEN_BOOKMARKS_SIDEBAR,
+export const toggleBookmarks = () => ({
+    type: UIActions.TOGGLE_BOOKMARKS,
 });
 
-export const openDetailsSidebar = () => ({
-    type: UIActions.OPEN_DETAILS_SIDEBAR,
+export const toggleDetails= () => ({
+    type: UIActions.TOGGLE_DETAILS,
 });
 
-export const openHistorySidebar = () => ({
-    type: UIActions.OPEN_HISTORY_SIDEBAR,
+export const toggleHistory = () => ({
+    type: UIActions.TOGGLE_HISTORY,
 });
 
+export const toggleEdit = () => ({
+    type: UIActions.TOGGLE_EDIT,
+});
 
-export const closeAllSidebarSidebar = () => ({
-    type: UIActions.CLOSE_ALL_SIDEBAR,
+export const closeAll = () => ({
+    type: UIActions.CLOSE_ALL,
 });
 
 export const setTheme = (payload: 'dark' | 'light') => ({
@@ -82,9 +90,8 @@ const INITIAL_STATE: UIState = {
     showBookmarks: false,
     showDetails: false,
     showHistory: false,
+    showEdit: false,
     theme: 'dark',
-    textColor: 'white',
-    backgroundColor: '#282c34',
 };
 
 export const uiState = (
@@ -93,43 +100,57 @@ export const uiState = (
 ): UIState => {
     switch (action.type) {
 
-        case UIActions.OPEN_SETTINGS_SIDEBAR:
+        case UIActions.TOGGLE_SETTINGS:
             return {
                 ...state,
                 showSettings: !state.showSettings,
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: false,
+                showEdit: false,
             };
 
-        case UIActions.OPEN_BOOKMARKS_SIDEBAR:
+        case UIActions.TOGGLE_BOOKMARKS:
             return {
                 ...state,
                 showSettings: false,
                 showBookmarks: !state.showBookmarks,
                 showDetails: false,
                 showHistory: false,
+                showEdit: false,
             };
 
-        case UIActions.OPEN_DETAILS_SIDEBAR:
+        case UIActions.TOGGLE_DETAILS:
             return {
                 ...state,
                 showSettings: false,
                 showBookmarks: false,
                 showDetails: !state.showDetails,
                 showHistory: false,
+                showEdit: false,
             };
 
-        case UIActions.OPEN_HISTORY_SIDEBAR:
+        case UIActions.TOGGLE_HISTORY:
             return {
                 ...state,
                 showSettings: false,
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: !state.showHistory,
+                showEdit: false,
             };
 
-        case UIActions.CLOSE_ALL_SIDEBAR:
+        case UIActions.TOGGLE_EDIT:
+            return {
+                ...state,
+                showSettings: false,
+                showBookmarks: false,
+                showDetails: false,
+                showHistory: false,
+                showEdit: !state.showEdit,
+            };
+
+        case UIActions.CLOSE_ALL:
             return {
                 ...state,
                 showSettings: false,
