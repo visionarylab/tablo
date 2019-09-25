@@ -8,8 +8,6 @@
     }
 }
 
-
-
 .tree-wrapper {
     width: 100%;
     max-width: 100%;
@@ -40,7 +38,7 @@
             cursor: pointer;
 
             &:hover {
-                background-color: rgba(255, 255, 255, .2);
+                background-color: var(--bgColorHover);
             }
 
             .tree-item-title  {
@@ -49,10 +47,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-
             }
-
-
         }
 
         .tree-item-children {
