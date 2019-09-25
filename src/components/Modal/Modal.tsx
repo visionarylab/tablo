@@ -61,10 +61,14 @@ class Modal extends Component<Props> {
 
         return (
             <div className={modalContentClass} style={{ ...style }}>
+
+                <div className="modal-background"></div>
+                <div className="modal-background-overlay"></div>
+
                 <div className="modal-content-header">
                     <div className="modal-content-title">{title}</div>
                     <button className="modal-close-btn" onClick={this.onHideSidebar}>
-                        <Icon path={mdiClose} size="var(--iconSizeBtn)" color="white" />
+                        <Icon path={mdiClose} size="var(--iconSizeBtn)" color="var(--color)" />
                     </button>
                 </div>
 

@@ -1,16 +1,35 @@
 .modal-content {
     position: absolute;
-    z-index: 98;
+    z-index: 96;
     height: 100%;
     width: 100%;
     color: var(--color);
-    background-color: var(--bgColor);
     transition: var(--modalTransition);
     display: flex;
     flex-direction: column;
 
+    .modal-background {
+        z-index: 97;
+        background-color: var(--bgColor);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .modal-background-overlay {
+        z-index: 98;
+        background-color: var(--bgColorPanel);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
     &.modal-content-show {
-        transform: translateY(-100%);
+        transform: translateY(calc(-100% - 20px));
     }
 
     &.modal-content-hide {
@@ -18,6 +37,7 @@
     }
 
     .modal-content-inner {
+        z-index: 99;
         cursor: default;
         position: relative;
         width: 100%;
@@ -26,6 +46,7 @@
     }
 
     .modal-content-header {
+        z-index: 99;
         height: var(--headerHeight);
         display: flex;
         flex-direction: row;
