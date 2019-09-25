@@ -3,6 +3,7 @@ import Utils from './Utils';
 const ENV = process.env.NODE_ENV;
 // import * as browser from 'webextension-polyfill/dist/browser-polyfill.min';
 const browser = require("webextension-polyfill/dist/browser-polyfill.min");
+// const browser = (window as any).browser;
 
 export default class BrowserApi {
     static getBookmarksTree() {
@@ -24,11 +25,15 @@ export default class BrowserApi {
     }
 
     static getFaviconUrl(url: string) {
+
+        console.log('getFaviconUrl', Utils.isFirefoxExtension())
+        console.log(Utils.isFirefoxExtension())
         if (ENV === 'development' || Utils.isFirefoxExtension()) {
             const prefixLessUrl = new URL(url || "").hostname;
             return `https://api.faviconkit.com/${prefixLessUrl}/40`;
         } else {
             return `chrome://favicon/size/16@2x/${url}`;
+            // return '';
         }
     }
 }
