@@ -25,15 +25,12 @@ export default class BrowserApi {
     }
 
     static getFaviconUrl(url: string) {
-
-        console.log('getFaviconUrl', Utils.isFirefoxExtension())
-        console.log(Utils.isFirefoxExtension())
         if (ENV === 'development' || Utils.isFirefoxExtension()) {
             const prefixLessUrl = new URL(url || "").hostname;
             return `https://api.faviconkit.com/${prefixLessUrl}/40`;
         } else {
             return `chrome://favicon/size/16@2x/${url}`;
-            // return '';
+            return '';
         }
     }
 }
