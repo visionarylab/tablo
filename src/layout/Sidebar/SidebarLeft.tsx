@@ -4,15 +4,18 @@ import { RootState } from 'store/rootReducer';
 import { connect } from 'react-redux';
 import { Section, setBrowserSection } from 'store/sidebar/sidebar';
 import SidebarSection from 'components/SidebarSection';
+import { OpenLinkType } from 'store/ui/ui';
 
 interface Props {
     section: any;
+    isOnEdit: boolean;
+    openLink: OpenLinkType;
     setBrowserSection: (section: Section) => void;
 }
 
 class SidebarLeft extends Component<Props & HTMLAttributes<HTMLDivElement>> {
     render() {
-        const { section, setBrowserSection, className  } = this.props;
+        const { section, setBrowserSection, className, isOnEdit  } = this.props;
         const classnames = classNames('sidebar-wrapper', className);
 
         if (!section) {
@@ -22,6 +25,7 @@ class SidebarLeft extends Component<Props & HTMLAttributes<HTMLDivElement>> {
         return (
             <div className={classnames}>
                 <SidebarSection
+                    isOnEdit={isOnEdit}
                     section={section}
                     onSectionChange={setBrowserSection}
                 />
@@ -33,6 +37,8 @@ class SidebarLeft extends Component<Props & HTMLAttributes<HTMLDivElement>> {
 const mapStateToProps = (state: RootState) => {
     return {
         section: state.sidebarState.browserSection,
+        isOnEdit: state.sidebarState.isOnEdit,
+        openLink: state.uiState.openLink,
     }
 };
 

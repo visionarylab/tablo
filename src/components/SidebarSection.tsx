@@ -5,6 +5,8 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 import SidebarSectionItem from 'components/SidebarSectionItem';
 import { Section, SectionItem } from 'store/sidebar/sidebar';
 import { FlexContainer, FlexSeparator, Toolbar, Text, IconButton } from 'components/ui';
+import { OpenLinkType } from 'store/ui/ui';
+import BrowserApi from 'api/BrowserApi';
 
 const List = SortableContainer(({ children }) => (
     <div className="section-content">
@@ -12,9 +14,10 @@ const List = SortableContainer(({ children }) => (
     </div>
 ));
 
-const ListItem = SortableElement(({ item, index, isOnEdit, isHidable, isDeletable, editItem, deleteItem, toggleShowItem }) => {
+const ListItem = SortableElement(({ item, index, isOnEdit, isHidable, isDeletable, editItem, deleteItem, toggleShowItem, click }) => {
     return (
         <SidebarSectionItem
+            click={click}
             item={item}
             isOnEdit={isOnEdit}
             isHidable={isHidable}
@@ -27,35 +30,44 @@ const ListItem = SortableElement(({ item, index, isOnEdit, isHidable, isDeletabl
 });
 
 interface Props {
+    isOnEdit: boolean;
     section: Section;
+    openLink: OpenLinkType;
     onSectionChange: (section: Section) => void;
 }
 
 interface State {
-    isOnEdit: boolean;
 }
 
 class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
+
+    static defaultProps = {
+        isOnEdit: false,
+        section: null,
+        openLink: OpenLinkType.NEW,
+        onSectionChange: (section: Section) => { },
+    }
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            isOnEdit: false,
+            // isOnEdit: false,
         };
 
-        this.toggleEditSection = this.toggleEditSection.bind(this);
+        // this.toggleEditSection = this.toggleEditSection.bind(this);
         this.editItem = this.editItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.toggleShowItem = this.toggleShowItem.bind(this);
         this.onSortStart = this.onSortStart.bind(this);
         this.onSortEnd = this.onSortEnd.bind(this);
+        this.handleOpenLink = this.handleOpenLink.bind(this);
     }
 
-    toggleEditSection() {
-        const { isOnEdit } = this.state;
-        this.setState({ isOnEdit: !isOnEdit });
-    }
+    // toggleEditSection() {
+    //     const { isOnEdit } = this.state;
+    //     this.setState({ isOnEdit: !isOnEdit });
+    // }
 
     editItem(item: SectionItem, index: number) {
         // const { section, onSectionChange } = this.props;
@@ -90,9 +102,23 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
         onSectionChange(section);
     }
 
+    handleOpenLink(item: SectionItem) {
+        const { openLink, isOnEdit } = this.props;
+
+        console.log('handleOpenLink', openLink, isOnEdit);
+
+        if (!isOnEdit) {
+            if (openLink === OpenLinkType.CURRENT) {
+                BrowserApi.openUrlInCurrentTab(item.link);
+            } else if (openLink === OpenLinkType.NEW) {
+                BrowserApi.openUrlInNewTab(item.link);
+            }
+        }
+    }
+
     render() {
-        const { section } = this.props;
-        const { isOnEdit } = this.state;
+        const { section, isOnEdit } = this.props;
+        // const { isOnEdit } = this.state;
 
         if (!section) {
             return (null);
@@ -113,11 +139,12 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
                     <IconButton onClick={()=> {}}>
                         <Icon path={mdIcon.mdiPlus} size="var(--iconSize)" color="var(--color)" />
                     </IconButton>
-                    */}
 
                     <IconButton onClick={this.toggleEditSection}>
                         <Icon path={mdIcon.mdiPencil} size="var(--iconSize)" color="var(--color)" />
                     </IconButton>
+                    */}
+
                 </Toolbar>
 
                 <List
@@ -131,6 +158,7 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
                     {items.map((item: SectionItem, index: number) => (
 
                         <ListItem
+                            click={() => this.handleOpenLink(item)}
                             key={index}
                             item={item}
                             index={index}

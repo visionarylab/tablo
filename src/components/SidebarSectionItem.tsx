@@ -21,6 +21,7 @@ interface Props {
     editItem: () => void;
     deleteItem: () => void;
     toggleShowItem: () => void;
+    click: () => void;
 }
 
 interface State {
@@ -36,7 +37,8 @@ export default class SidebarSectionItem extends Component<Props & HTMLAttributes
             isDeletable,
             // editItem,
             deleteItem,
-            toggleShowItem } = this.props;
+            toggleShowItem,
+            click } = this.props;
 
         if (!item) {
             return (null);
@@ -45,7 +47,7 @@ export default class SidebarSectionItem extends Component<Props & HTMLAttributes
         const opacity = (isHidable && !item.visible) ? 0.5 : 1;
 
         return (
-            <SidebarItem opacity={opacity}>
+            <SidebarItem opacity={opacity} onClick={click}>
                 {isOnEdit &&
                     <Handle />
                 }

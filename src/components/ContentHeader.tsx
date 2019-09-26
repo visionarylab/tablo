@@ -7,7 +7,8 @@ import {
     mdiAlertBoxOutline,
     mdiSettings,
     mdiBookmarkOutline,
-    mdiPlus} from '@mdi/js';
+    mdiPlus,
+    mdiPencil} from '@mdi/js';
 import {
     toggleSettings,
     toggleHistory,
@@ -18,6 +19,7 @@ import {
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture/picture';
 import { Toolbar, Input, ToolbarSeparator, IconButton, FlexSeparator } from 'components/ui';
+import { toggleIsOnEdit } from 'store/sidebar/sidebar';
 
 interface Props {
     getRandomPicture: () => void;
@@ -25,8 +27,8 @@ interface Props {
     toggleBookmarks: () => void;
     toggleDetails: () => void;
     toggleHistory: () => void;
-    toggleEdit: () => void;
     closeAll: () => void;
+    toggleIsOnEdit: () => void;
 }
 
 interface State {
@@ -41,8 +43,8 @@ class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, St
         toggleBookmarks: () => { },
         toggleDetails: () => { },
         toggleHistory: () => { },
-        toggleEdit: () => { },
         closeAll: () => { },
+        toggleIsOnEdit: () => { },
     };
 
     constructor(props: any) {
@@ -96,7 +98,7 @@ class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, St
             toggleBookmarks,
             toggleDetails,
             toggleHistory,
-            toggleEdit } = this.props;
+            toggleIsOnEdit } = this.props;
 
         return (
             <Toolbar className={className}>
@@ -127,8 +129,12 @@ class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, St
 
                 <ToolbarSeparator/>
 
-                <IconButton onClick={toggleEdit}>
+                <IconButton onClick={toggleIsOnEdit}>
                     <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
+
+                <IconButton onClick={toggleIsOnEdit}>
+                    <Icon path={mdiPencil} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
                 <ToolbarSeparator/>
@@ -153,8 +159,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     toggleBookmarks: () => dispatch(toggleBookmarks()),
     toggleDetails: () => dispatch(toggleDetails()),
     toggleHistory: () => dispatch(toggleHistory()),
-    toggleEdit: () => dispatch(toggleEdit()),
     closeAll: () => dispatch(closeAll()),
+    toggleIsOnEdit: () => dispatch(toggleIsOnEdit()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentHeader);

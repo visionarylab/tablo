@@ -190,5 +190,6 @@ export const sidebarStateKey: string = 'sidebarState';
 export const defaultSidebarState: SidebarState = {
     browserSection: CHROME_SECTION,
     userSection: SITE_SECTION,
-    itemOnEdit: null
+    isOnEdit: false,
+    itemOnEdit: null,
 };

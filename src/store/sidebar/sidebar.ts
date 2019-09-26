@@ -6,6 +6,7 @@ import StorageApi from 'api/StorageApi';
 export interface SidebarState {
     browserSection: Section;
     userSection: Section;
+    isOnEdit: boolean;
     itemOnEdit: SectionItem | null;
 }
 
@@ -35,6 +36,8 @@ export enum SidebarActions {
 
     SET_BROWSER_SECTION = 'SIDEBAR/SET_BROWSER_SECTION',
     SET_USER_SECTION = 'SIDEBAR/SET_USER_SECTION',
+
+    TOGGLE_IS_ON_EDIT = 'SIDEBAR/TOGGLE_IS_ON_EDIT',
 }
 
 export interface LoadSidebarStateAction extends Action<SidebarActions.LOAD_SIDEBAR_STATE> {
@@ -72,6 +75,10 @@ export interface SetUserSectionAction extends Action<SidebarActions.SET_USER_SEC
     payload: Section;
 }
 
+export interface ToggleIsOnEditAction extends Action<SidebarActions.TOGGLE_IS_ON_EDIT> {
+    type: SidebarActions.TOGGLE_IS_ON_EDIT;
+}
+
 export type SidebarActionType = LoadSidebarStateAction
                               | LoadSidebarStateFailAction
                               | LoadSidebarStateSuccessAction
@@ -79,7 +86,8 @@ export type SidebarActionType = LoadSidebarStateAction
                               | SaveSidebarStateFailAction
                               | SaveSidebarStateSuccessAction
                               | SetBrowserSectionAction
-                              | SetUserSectionAction;
+                              | SetUserSectionAction
+                              | ToggleIsOnEditAction;
 
 export const loadSidebarState = () => ({
     type: SidebarActions.LOAD_SIDEBAR_STATE,
@@ -116,6 +124,10 @@ export const setUserSection = (payload: Section) => ({
     payload: payload,
 });
 
+export const toggleIsOnEdit = () => ({
+    type: SidebarActions.TOGGLE_IS_ON_EDIT,
+});
+
 export const sidebarState = (
     state: SidebarState = defaultSidebarState,
     action: SidebarActionType
@@ -141,10 +153,8 @@ export const sidebarState = (
         case SidebarActions.SET_USER_SECTION:
             return { ...state, userSection: {...action.payload} };
 
-        /*
-        case SidebarActions.SET_OPEN_IN_CURRENT_TAB:
-            return { ...state, openInCurrentTab: action.payload };
-        */
+        case SidebarActions.TOGGLE_IS_ON_EDIT:
+            return { ...state, isOnEdit: !state.isOnEdit };
 
         default:
             return state;
