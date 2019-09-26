@@ -58,7 +58,7 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
     }
 
     editItem(item: SectionItem, index: number) {
-        const { section, onSectionChange } = this.props;
+        // const { section, onSectionChange } = this.props;
 
         // onSectionChange(section);
     }
@@ -91,10 +91,7 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
     }
 
     render() {
-        const {
-            section,
-            children } = this.props;
-
+        const { section } = this.props;
         const { isOnEdit } = this.state;
 
         if (!section) {

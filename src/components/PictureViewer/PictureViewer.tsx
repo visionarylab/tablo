@@ -70,7 +70,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
     }
 
     render() {
-        const { className, showDetails } = this.props;
+        const { showDetails } = this.props;
         const { currentPicture } = this.state;
 
         if (!currentPicture) {

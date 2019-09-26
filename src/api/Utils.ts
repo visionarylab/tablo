@@ -1,4 +1,4 @@
-const ENV = process.env.NODE_ENV;
+// const ENV = process.env.NODE_ENV;
 
 export default class Utils {
 

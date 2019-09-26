@@ -1,5 +1,4 @@
 import React, { Component, HTMLAttributes } from 'react';
-import classNames from 'classnames';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
 import { SortableHandle } from 'react-sortable-hoc';
@@ -29,24 +28,15 @@ interface State {
 
 export default class SidebarSectionItem extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
-    constructor(props: any) {
-        super(props);
-    }
-
     render() {
         const {
             item,
             isOnEdit,
             isHidable,
             isDeletable,
-            editItem,
+            // editItem,
             deleteItem,
             toggleShowItem } = this.props;
-
-        const classnames = classNames('item-wrapper', {
-            'item-hidden': isHidable && !item.visible
-        });
-
 
         if (!item) {
             return (null);

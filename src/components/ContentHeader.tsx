@@ -72,12 +72,12 @@ class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, St
         }
 
         if (event.key.length === 1) {
-            const newQuery = this.state.searchQuery + event.key + '';
+            // const newQuery = this.state.searchQuery + event.key + '';
             // this.setState({ searchQuery: newQuery.trim() })
         }
 
         if (event.keyCode === 8 && this.state.searchQuery.length > 0) {
-            const newQuery = this.state.searchQuery.slice(0, -1);
+            // const newQuery = this.state.searchQuery.slice(0, -1);
             // this.setState({ searchQuery: newQuery.trim()})
             // console.log('backspace');
         }
