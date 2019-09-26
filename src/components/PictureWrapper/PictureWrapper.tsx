@@ -1,7 +1,7 @@
 import React, { Component, CSSProperties } from 'react';
-import Spinner from 'components/Spinner/Spinner';
 import classNames from 'classnames';
 import './PictureWrapper.scss';
+import { Spinner } from 'components/ui';
 
 interface Props {
     src: string;

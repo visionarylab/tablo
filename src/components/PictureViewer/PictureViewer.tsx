@@ -1,11 +1,10 @@
 import React, { Component, HTMLAttributes } from 'react';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { Picture } from 'store/picture/picture';
 import { toggleDetails } from 'store/ui/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
-import './PictureViewer.scss';
+import { PictureViewerContainer, PictureContainer, PictureCaptionContainer, Text } from 'components/ui';
 
 const Zooming: any = require('zooming/build/zooming');
 
@@ -78,26 +77,22 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
             return (null);
         }
 
-        const pictureViewerClass = classNames('picture-viewer-wrapper', className);
-
         return (
-            <>
-                <div className={pictureViewerClass}>
-                    <div className="picture-container">
-                        <PictureWrapper
-                            onImageLoad={this.onImageLoad}
-                            className="image-zoom"
-                            src={currentPicture.medias.max}
-                            alt={currentPicture.title + ' ' + currentPicture.artiste}
-                        />
-                    </div>
+            <PictureViewerContainer>
+                <PictureContainer>
+                    <PictureWrapper
+                        onImageLoad={this.onImageLoad}
+                        className="image-zoom"
+                        src={currentPicture.medias.max}
+                        alt={currentPicture.title + ' ' + currentPicture.artiste}
+                    />
+                </PictureContainer>
 
-                    <div className="picture-caption" onClick={() => showDetails()}>
-                        <div><i>{currentPicture.title}</i></div>
-                        <div>{currentPicture.artiste}</div>
-                    </div>
-                </div>
-            </>
+                <PictureCaptionContainer onClick={() => showDetails()}>
+                    <Text><i>{currentPicture.title}</i></Text>
+                    <Text>{currentPicture.artiste}</Text>
+                </PictureCaptionContainer>
+            </PictureViewerContainer>
         );
     }
 }

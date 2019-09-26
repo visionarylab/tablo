@@ -5,12 +5,13 @@ import * as mdIcon from '@mdi/js';
 import { SortableHandle } from 'react-sortable-hoc';
 import { SectionItem } from 'store/sidebar/sidebar';
 import FaviconWrapper from 'components/FaviconWrapper/FaviconWrapper';
-import './SidebarSectionItem.scss';
+import { SidebarItem, Text, SidebarItemIcon, SidebarItemHandle,
+    SidebarItemBtn, FlexSeparator } from 'components/ui';
 
 const Handle = SortableHandle(() => (
-    <div className="item-handle item-icon">
+    <SidebarItemHandle>
         <Icon path={mdIcon.mdiMenu} size="var(--iconSize)" color="var(--color)" />
-    </div>
+    </SidebarItemHandle>
 ));
 
 interface Props {
@@ -46,54 +47,58 @@ export default class SidebarSectionItem extends Component<Props & HTMLAttributes
             'item-hidden': isHidable && !item.visible
         });
 
+
         if (!item) {
             return (null);
         }
 
+        const opacity = (isHidable && !item.visible) ? 0.5 : 1;
+
         return (
-            <div className={classnames}>
+            <SidebarItem opacity={opacity}>
                 {isOnEdit &&
                     <Handle />
                 }
 
                 {!isOnEdit && item.icon &&
-                    <div className="item-icon">
+                    <SidebarItemIcon>
                     <Icon path={mdIcon[item.icon]} size="var(--iconSize)" color="var(--color)" />
-                    </div>
+                    </SidebarItemIcon>
                 }
 
                 {!isOnEdit && !item.icon &&
-                    <div className="item-icon">
+                    <SidebarItemIcon>
                         <FaviconWrapper url={item.link}/>
-                    </div>
+                    </SidebarItemIcon>
                 }
 
-                <span className="item-label">{item.label}</span>
+                <Text>{item.label}</Text>
 
                 {isOnEdit &&  <>
-                    <div className="flex-separator"></div>
+
+                    <FlexSeparator/>
 
                     {isHidable &&
-                        <div className="item-control-btn" onClick={toggleShowItem}>
+                    <SidebarItemBtn onClick={toggleShowItem}>
                         <Icon path={item.visible ? mdIcon.mdiEyeOffOutline : mdIcon.mdiEyeOutline}
                             size="var(--iconSize)" color="var(--color)" />
-                        </div>
+                    </SidebarItemBtn>
                     }
 
                     {/*
-                    <div className="item-control-btn" onClick={editItem}>
+                    <SidebarItemBtn onClick={editItem}>
                         <Icon path={mdIcon.mdiPencilOutline} size="var(--iconSize)" color="var(--color)" />
-                    </div>
+                    </SidebarItemBtn>
                     */}
 
                     {isDeletable &&
-                    <div className="item-control-btn" onClick={deleteItem}>
+                    <SidebarItemBtn onClick={deleteItem}>
                         <Icon path={mdIcon.mdiClose} size="var(--iconSize)" color="var(--color)" />
-                    </div>
+                    </SidebarItemBtn>
                     }
 
                 </>}
-            </div>
+            </SidebarItem>
         );
 
     }

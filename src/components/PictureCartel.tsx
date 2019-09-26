@@ -5,7 +5,7 @@ import { mdiOpenInNew, mdiDownload } from '@mdi/js';
 import { RootState } from 'store/rootReducer';
 import { connect } from 'react-redux';
 import { Picture } from 'store/picture/picture';
-import './PictureCartel.scss';
+import { FlexContainer, Text, CartelButton, CartelRow } from 'components/ui';
 
 interface Props {
     pictures: Picture[];
@@ -121,23 +121,19 @@ class PictureCartel extends Component<Props, State> {
             return (null);
         }
         return (
-            <div className="cartel-wrapper">
+            <FlexContainer direction="column">
 
-                <div className="cartel-header">
-                    <div className="cartel-header-controls">
-                        <button className="cartel-header-btn"
-                            onClick={this.openImageWebsite}>
-                            <Icon path={mdiOpenInNew} size="var(--iconSizeBtn)" color="var(--color)" />
-                            <span>Visit {currentPicture.from} page</span>
-                        </button>
+                <FlexContainer direction="column" height="auto" padding="5px">
+                    <CartelButton onClick={this.openImageWebsite}>
+                        <Icon path={mdiOpenInNew} size="var(--iconSizeBtn)" color="var(--color)" />
+                        <Text fontSize="1.2">Visit {currentPicture.from} page</Text>
+                    </CartelButton>
 
-                        <button className="cartel-header-btn"
-                            onClick={this.downloadImage}>
-                            <Icon path={mdiDownload} size="var(--iconSizeBtn)" color="var(--color)" />
-                            <span>Download</span>
-                        </button>
-                    </div>
-                </div>
+                    <CartelButton onClick={this.downloadImage}>
+                        <Icon path={mdiDownload} size="var(--iconSizeBtn)" color="var(--color)" />
+                        <Text fontSize="1.2">Download</Text>
+                    </CartelButton>
+                </FlexContainer>
 
                 { currentPictureData.map((item: any, i: number) => {
                     const itemClassNames = classNames('item', {
@@ -146,13 +142,13 @@ class PictureCartel extends Component<Props, State> {
                     });
 
                     return (
-                        <div className={itemClassNames} key={i}>
-                            <div className="label">{item.label}</div>
-                            <div>{item.data}</div>
-                        </div>
+                        <CartelRow className={itemClassNames} key={i}>
+                            <Text width="125px">{item.label}</Text>
+                            <Text>{item.data}</Text>
+                        </CartelRow>
                     );
                 })}
-            </div>
+            </FlexContainer>
         );
     }
 }

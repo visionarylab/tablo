@@ -2,9 +2,9 @@ import React, { Component, HTMLAttributes } from 'react';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
-import SidebarSectionItem from 'components/SidebarSectionItem/SidebarSectionItem';
+import SidebarSectionItem from 'components/SidebarSectionItem';
 import { Section, SectionItem } from 'store/sidebar/sidebar';
-import './SidebarSection.scss';
+import { FlexContainer, FlexSeparator, Toolbar, Text, IconButton } from 'components/ui';
 
 const List = SortableContainer(({ children }) => (
     <div className="section-content">
@@ -106,22 +106,22 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
             : section.items;
 
         return (
-            <div className="section-wrapper">
-                <div className="section-header">
-                    <div className="section-header-title">{section.title}</div>
+            <FlexContainer direction="column" height="unset" className="section-wrapper">
+                <Toolbar className="section-header">
+                    <Text fontSize="0.8">{section.title}</Text>
 
-                    <div className="flex-separator"></div>
+                    <FlexSeparator/>
 
                     {/*
-                    <div className="section-header-btn" onClick={()=> {}}>
+                    <IconButton onClick={()=> {}}>
                         <Icon path={mdIcon.mdiPlus} size="var(--iconSize)" color="var(--color)" />
-                    </div>
+                    </IconButton>
                     */}
 
-                    <div className="section-header-btn" onClick={this.toggleEditSection}>
+                    <IconButton onClick={this.toggleEditSection}>
                         <Icon path={mdIcon.mdiPencil} size="var(--iconSize)" color="var(--color)" />
-                    </div>
-                </div>
+                    </IconButton>
+                </Toolbar>
 
                 <List
                     axis="xy"
@@ -148,7 +148,7 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
 
                     ))}
                 </List>
-            </div>
+            </FlexContainer>
         );
     }
 

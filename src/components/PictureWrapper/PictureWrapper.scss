@@ -1,4 +1,21 @@
 .picture-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 100%;
     width: 100%;
+    z-index: 2;
+}
+
+img.picture-el {
+    max-height: 100%;
+    max-width: 100%;
+    transform: translateZ(0);
+    transition: opacity ease-in-out .2s;
+    opacity: 0;
+
+    &.is-loaded {
+        opacity: 1;
+    }
 }

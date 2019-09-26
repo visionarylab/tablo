@@ -2,17 +2,16 @@
 
 :root {
     // colors
-    /*
-    --color: white;
+    --color: #F0ECE2;
     --bgColor: #282c34;
-    --bgColorPanel: rgba(0, 0, 0, 0.2);
+    --bgColorPanel: #20232A; // rgba(0, 0, 0, 0.2);
     --bgColorHover: rgba(255, 255, 255, 0.1);
-    */
 
-    --color: #222831;
-    --bgColor: #F0ECE2;
-    --bgColorPanel: rgba(0, 0, 0, 0.2);
-    --bgColorHover: rgba(0, 0, 0, 0.1);
+    // --color: #222831;
+    // --bgColor: white;
+    // --bgColor: #F0ECE2;
+    // --bgColorPanel: rgba(0, 0, 0, 0.1);
+    // --bgColorHover: rgba(0, 0, 0, 0.1);
 
     // Icons/Favicons
     --iconSizeBtn: 24px;
@@ -20,7 +19,7 @@
 
     // Grid
     --sidebarWidth: 260px;
-    --headerHeight: 40px;
+    --rowHeight: 40px;
     --gridMargin: 5px;
 
     --modalTransition: all ease-in-out .2s;

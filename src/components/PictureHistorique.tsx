@@ -5,7 +5,7 @@ import { RootState } from 'store/rootReducer';
 import { Picture, setPictureIndex } from 'store/picture/picture';
 import { closeAll } from 'store/ui/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
-import './PictureHistorique.scss';
+import { HistoricContainer } from 'components/ui';
 
 interface Props {
     pictures: Picture[];
@@ -43,7 +43,7 @@ class PictureHistorique extends Component<Props> {
     render() {
         let { pictures, currentPictureIndex } = this.props;
         return (
-            <div className="historique-wrapper">
+            <HistoricContainer>
                 {pictures.map((pict: any, i: number) => {
                     const className = classNames({ 'selected': (i === currentPictureIndex) });
                     return (
@@ -56,7 +56,7 @@ class PictureHistorique extends Component<Props> {
                         />
                     )
                 })}
-            </div>
+            </HistoricContainer>
         );
     }
 }

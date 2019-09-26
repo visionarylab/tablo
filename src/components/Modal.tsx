@@ -1,8 +1,7 @@
 import React, { Component, CSSProperties } from 'react';
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
-import classNames from 'classnames';
-import './Modal.scss';
+import { Toolbar, IconButton, Text, FlexSeparator, ModalContainer, ModalInner } from 'components/ui';
 
 interface Props {
     title?: string;
@@ -51,31 +50,24 @@ class Modal extends Component<Props> {
         let {
             title,
             show,
-            style,
             children } = this.props;
 
-        const modalContentClass = classNames('modal-content', {
-            'modal-content-show': show,
-            'modal-content-hide': !show,
-        });
+        const translate = show ? 'translateY(0)' : 'translateY(100%)';
 
         return (
-            <div className={modalContentClass} style={{ ...style }}>
-
-                <div className="modal-background"></div>
-                <div className="modal-background-overlay"></div>
-
-                <div className="modal-content-header">
-                    <div className="modal-content-title">{title}</div>
-                    <button className="modal-close-btn" onClick={this.onHideSidebar}>
+            <ModalContainer style={{ transform: translate }}>
+                <Toolbar>
+                    <Text fontSize="1.5">{title}</Text>
+                    <FlexSeparator/>
+                    <IconButton onClick={this.onHideSidebar}>
                         <Icon path={mdiClose} size="var(--iconSizeBtn)" color="var(--color)" />
-                    </button>
-                </div>
+                    </IconButton>
+                </Toolbar>
 
-                <div className="modal-content-inner" ref={this.handleRef}>
+                <ModalInner className="modal-content-inner" ref={this.handleRef}>
                     {children}
-                </div>
-            </div>
+                </ModalInner>
+            </ModalContainer>
         );
     }
 }

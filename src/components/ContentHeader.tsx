@@ -1,5 +1,4 @@
 import React, { Component, HTMLAttributes } from 'react';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import Icon from '@mdi/react';
 import {
@@ -18,7 +17,7 @@ import {
     toggleEdit} from 'store/ui/ui';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture/picture';
-import './Header.scss';
+import { Toolbar, Input, ToolbarSeparator, IconButton, FlexSeparator } from 'components/ui';
 
 interface Props {
     getRandomPicture: () => void;
@@ -34,7 +33,7 @@ interface State {
     searchQuery: string;
 }
 
-class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
+class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
     static defaultProps: Props = {
         getRandomPicture: () => { },
@@ -82,7 +81,6 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
             // this.setState({ searchQuery: newQuery.trim()})
             // console.log('backspace');
         }
-
         // console.log(this.state.searchQuery)
     }
 
@@ -100,63 +98,46 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
             toggleHistory,
             toggleEdit } = this.props;
 
-        const headerClass = classNames('header-wrapper', className)
-
         return (
-            <div className={headerClass}>
+            <Toolbar className={className}>
 
-                {this.state.searchQuery &&
+                {false  && this.state.searchQuery &&
                     <div className="texttt">{this.state.searchQuery}</div>
                 }
 
-                <div className="header-controls">
+                <Input value={this.state.searchQuery} onChange={this.handleQueryChange} />
 
-                    <input className="header-search" type="text" name="" id=""
-                        value={this.state.searchQuery}
-                        onChange={this.handleQueryChange}
-                    />
+                <IconButton onClick={toggleBookmarks}>
+                    <Icon path={mdiBookmarkOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
 
-                    <button className="header-btn"
-                        data-tip="Bookmarks"
-                        onClick={toggleBookmarks}>
-                        <Icon path={mdiBookmarkOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
-                    </button>
+                <FlexSeparator/>
 
-                    <div className="separator"></div>
+                <IconButton onClick={getRandomPicture}>
+                    <Icon path={mdiImagePlus} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
 
-                    <button className="header-btn"
-                        data-tip="New picture"
-                        onClick={getRandomPicture}>
-                        <Icon path={mdiImagePlus} size="var(--iconSizeBtn)" color="var(--color)"/>
-                    </button>
+                <IconButton onClick={toggleHistory}>
+                    <Icon path={mdiViewGrid} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
 
-                    <button className="header-btn"
-                        data-tip="Show history"
-                        onClick={toggleHistory}>
-                        <Icon path={mdiViewGrid} size="var(--iconSizeBtn)" color="var(--color)"/>
-                    </button>
+                <IconButton onClick={toggleDetails}>
+                    <Icon path={mdiAlertBoxOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
 
-                    <button className="header-btn"
-                        data-tip="Show details"
-                        onClick={toggleDetails}>
-                        <Icon path={mdiAlertBoxOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
-                    </button>
+                <ToolbarSeparator/>
 
-                    <div className="separator"></div>
+                <IconButton onClick={toggleEdit}>
+                    <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
 
-                    <button className="header-btn"
-                        onClick={toggleSettings}>
-                        <Icon path={mdiSettings} size="var(--iconSizeBtn)" color="var(--color)"/>
-                    </button>
+                <ToolbarSeparator/>
 
-                    <button className="header-btn"
-                        onClick={toggleEdit}>
-                        <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
-                    </button>
+                <IconButton onClick={toggleSettings}>
+                    <Icon path={mdiSettings} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
 
-                </div>
-
-            </div>
+            </Toolbar>
         );
     }
 }
@@ -176,4 +157,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     closeAll: () => dispatch(closeAll()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(ContentHeader);

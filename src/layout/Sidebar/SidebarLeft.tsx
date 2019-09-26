@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { RootState } from 'store/rootReducer';
 import { connect } from 'react-redux';
 import { Section, setBrowserSection } from 'store/sidebar/sidebar';
-import SidebarSection from 'components/SidebarSection/SidebarSection';
+import SidebarSection from 'components/SidebarSection';
 
 interface Props {
     section: any;
