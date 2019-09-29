@@ -258,7 +258,6 @@ export const SidebarItemWrapper = styled.div`
     transition: all ease .3s;
 `;
 
-
 export const SidebarItem = styled.div`
     user-select: none;
     cursor: pointer;

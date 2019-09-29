@@ -79,7 +79,7 @@
 
     .setting-modal-wrapper {
         background-color: white;
-        color: black;
+        color: var(--color);
         width: 100%;
         height: 100%;
         transition: none;
@@ -91,7 +91,7 @@
 
 
         .settings-btn {
-            color: black;
+            color: var(--color);
             text-decoration: none;
             border: 2px solid;
             border-radius: 8px;

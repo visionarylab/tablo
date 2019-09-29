@@ -28,14 +28,14 @@ export const AppHeader = styled.div`
     grid-area: 1 / 1 / 2 / 3;
     height: var(--rowHeight);
     width: 100%;
-    background: rgba(0, 0, 0, .2);
+    background: var(--bgColorPanel);
 `;
 
 export const AppLeft = styled.div`
     grid-area: 2 / 1 / 3 / 2;
     height: 100%;
     width: 100%;
-    background: rgba(0, 0, 0, .2);
+    background: var(--bgColorPanel);
     overflow: hidden;
     position: relative;
 `;
@@ -45,7 +45,7 @@ export const AppRight = styled.div`
     height: 100%;
     max-height: calc(100%);
     width: 100%;
-    background: rgba(0, 0, 0, .2);
+    background: var(--bgColorPanel);
 `;
 
 const App: FC = () => (

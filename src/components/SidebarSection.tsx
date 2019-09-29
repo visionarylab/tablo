@@ -137,12 +137,12 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
             : section.items;
 
         const styleWrapper = {
-            borderBottom: section.expanded ? '1px solid rgba(255, 255, 255, 0.2)' : 'unset',
+            borderBottom: section.expanded ? '1px solid var(--bgColorHover)' : 'unset',
         };
 
         const styleToolbar = {
             cursor: 'pointer',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+            borderBottom: '1px solid var(--bgColorHover)',
         };
 
         return (
