@@ -1,18 +1,21 @@
-import React, { Component, HTMLAttributes } from 'react';
+import React, { Component, HTMLAttributes, useRef } from 'react';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import SidebarSectionItem from 'components/SidebarSectionItem';
 import { Section, SectionItem } from 'store/sidebar/sidebar';
-import { FlexContainer, FlexSeparator, Toolbar, Text, IconButton } from 'components/ui';
+import { FlexContainer, FlexSeparator, Toolbar, Text, IconButton, SidebarItemWrapper } from 'components/ui';
 import { OpenLinkType } from 'store/ui/ui';
 import BrowserApi from 'api/BrowserApi';
 
-const List = SortableContainer(({ children }) => (
-    <div className="section-content">
-        {children}
-    </div>
-));
+const List = SortableContainer(({ expanded, itemCount, children }) => {
+    const height = `calc(var(--rowHeight) * ${itemCount})`;
+    return (
+        <SidebarItemWrapper height={expanded? height : '0'}>
+            {children}
+        </SidebarItemWrapper>
+    )
+});
 
 const ListItem = SortableElement(({ item, index, isOnEdit, isHidable, isDeletable, editItem, deleteItem, toggleShowItem, click }) => {
     return (
@@ -56,6 +59,7 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
         };
 
         // this.toggleEditSection = this.toggleEditSection.bind(this);
+        this.toggleExpand = this.toggleExpand.bind(this);
         this.editItem = this.editItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.toggleShowItem = this.toggleShowItem.bind(this);
@@ -68,6 +72,12 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
     //     const { isOnEdit } = this.state;
     //     this.setState({ isOnEdit: !isOnEdit });
     // }
+    toggleExpand() {
+        const { section, onSectionChange } = this.props;
+
+        section.expanded = !section.expanded;
+        onSectionChange(section);
+    }
 
     editItem(item: SectionItem, index: number) {
         // const { section, onSectionChange } = this.props;
@@ -128,12 +138,23 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
             ? section.items.filter((item: SectionItem) => item.visible)
             : section.items;
 
+        const styleWrapper = {
+            borderBottom: section.expanded ? '1px solid rgba(255, 255, 255, 0.2)' : 'unset',
+        };
+
+        const styleToolbar = {
+            cursor: 'pointer',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+        };
+
         return (
-            <FlexContainer direction="column" height="unset" className="section-wrapper">
-                <Toolbar className="section-header">
+            <FlexContainer style={styleWrapper} direction="column" height="unset" className="section-wrapper">
+                <Toolbar style={styleToolbar} onClick={this.toggleExpand} >
                     <Text fontSize="0.8">{section.title}</Text>
 
                     <FlexSeparator/>
+
+                        <Icon path={section.expanded ? mdIcon.mdiMenuDown : mdIcon.mdiMenuUp } size="var(--iconSize)" color="var(--color)" />
 
                     {/*
                     <IconButton onClick={()=> {}}>
@@ -148,6 +169,8 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
                 </Toolbar>
 
                 <List
+                    expanded={section.expanded}
+                    itemCount={items.length}
                     axis="xy"
                     useDragHandle={true}
                     lockToContainerEdges={true}
