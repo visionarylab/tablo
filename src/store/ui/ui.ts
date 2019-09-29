@@ -16,7 +16,7 @@ export enum ThemeType {
 }
 
 export enum OpenLinkType {
-    CURRENT = 'current',
+    CURRENT = 'CURRENT',
     NEW = 'NEW',
 }
 
