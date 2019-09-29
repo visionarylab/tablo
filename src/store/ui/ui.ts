@@ -290,7 +290,7 @@ export const uiState = (
 
 const applyTheme = (themeKey: ThemeType) => {
     const currentTheme = theme[themeKey];
-    Object.keys(currentTheme).map((key: string) => {
+    Object.keys(currentTheme).forEach((key: string) => {
         const cssKey = `--${key}`;
         const cssValue = currentTheme[key];
         document.body.style.setProperty(cssKey, cssValue);
