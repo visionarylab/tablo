@@ -61,7 +61,7 @@ class FaviconWrapper extends Component<Props & HTMLAttributes<HTMLDivElement>, S
                         src={faviconUrl}
                         onLoad={this.onImageLoad}
                         onError={this.onImageError}
-                        alt="favicon"
+                        alt=""
                     />
                 }
 
