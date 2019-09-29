@@ -33,7 +33,6 @@ export const Toolbar = styled.div`
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    border-bottom: 1px solid white;
 `;
 
 export const ToolbarSeparator = styled.div`
@@ -93,6 +92,7 @@ export const Text = styled.div`
  */
 
 export const ModalContainer = styled.div`
+    top: 0;
     position: absolute;
     z-index: 1;
     height: 100%;
@@ -122,7 +122,7 @@ export const PictureViewerContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100% - var(--rowHeight));
+    height: calc(100% - 10px);
     flex-wrap: nowrap;
 `;
 
@@ -249,6 +249,15 @@ export const HistoricContainer = styled.div`
  *  Sidebar
  *
  */
+
+export const SidebarItemWrapper = styled.div`
+    width: 100%;
+    // height: ${props => props.height || '100%' };
+    max-height: ${props => props.height || '100%' };
+    overflow: hidden;
+    transition: all ease .3s;
+`;
+
 
 export const SidebarItem = styled.div`
     user-select: none;
