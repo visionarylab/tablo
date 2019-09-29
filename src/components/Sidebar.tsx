@@ -28,7 +28,8 @@ class Sidebar extends Component<Props & HTMLAttributes<HTMLDivElement>> {
             setBrowserSection,
             userSection,
             setUserSection,
-            isOnEdit } = this.props;
+            isOnEdit,
+            openLink } = this.props;
 
         if (!userSection) {
             return (null);
@@ -38,11 +39,13 @@ class Sidebar extends Component<Props & HTMLAttributes<HTMLDivElement>> {
             <SidebarWrapper>
                 <SidebarSection
                     isOnEdit={isOnEdit}
+                    openLink={openLink}
                     section={browserSection}
                     onSectionChange={setBrowserSection}
                 />
                 <SidebarSection
                     isOnEdit={isOnEdit}
+                    openLink={openLink}
                     section={userSection}
                     onSectionChange={setUserSection}
                 />

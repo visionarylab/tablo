@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components'
 import Header from 'components/Header';
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from 'components/Sidebar';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
 import Modals from 'components/Modals';
 
@@ -16,7 +16,7 @@ export const AppWrapper = styled.div`
 
 export const AppContainer = styled.div`
     height: 100%;
-    width: 100%;
+    width: calc(100% - var(--gridMargin));
     display: grid;
     grid-row-gap: var(--gridMargin);
     grid-column-gap: var(--gridMargin);
