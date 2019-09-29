@@ -39,11 +39,10 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 // store.dispatch<any>(loadSearchStateAsync());
+store.dispatch<any>(loadUIStateAsync());
 store.dispatch<any>(getRandomPictureAsync());
-
 store.dispatch<any>(loadPictureStateAsync());
 store.dispatch<any>(loadBookmarkAsync());
 store.dispatch<any>(loadSidebarStateAsync());
-store.dispatch<any>(loadUIStateAsync());
 
 export default store;
