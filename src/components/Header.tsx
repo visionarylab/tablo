@@ -35,7 +35,7 @@ interface State {
     searchQuery: string;
 }
 
-class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
+class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
     static defaultProps: Props = {
         getRandomPicture: () => { },
@@ -113,6 +113,16 @@ class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, St
                     <Icon path={mdiBookmarkOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
+                <ToolbarSeparator/>
+
+                <IconButton onClick={toggleIsOnEdit}>
+                    <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
+
+                <IconButton onClick={toggleIsOnEdit}>
+                    <Icon path={mdiPencil} size="var(--iconSizeBtn)" color="var(--color)"/>
+                </IconButton>
+
                 <FlexSeparator/>
 
                 <IconButton onClick={getRandomPicture}>
@@ -125,16 +135,6 @@ class ContentHeader extends Component<Props & HTMLAttributes<HTMLDivElement>, St
 
                 <IconButton onClick={toggleDetails}>
                     <Icon path={mdiAlertBoxOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
-                </IconButton>
-
-                <ToolbarSeparator/>
-
-                <IconButton onClick={toggleIsOnEdit}>
-                    <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
-                </IconButton>
-
-                <IconButton onClick={toggleIsOnEdit}>
-                    <Icon path={mdiPencil} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
                 <ToolbarSeparator/>
@@ -163,4 +163,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     toggleIsOnEdit: () => dispatch(toggleIsOnEdit()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
