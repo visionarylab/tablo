@@ -122,7 +122,7 @@ export const PictureViewerContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100% - 10px);
+    height: 100%;
     flex-wrap: nowrap;
 `;
 
@@ -131,17 +131,17 @@ export const PictureContainer = styled.div`
     justify-content: center;
     display: flex;
     align-items: center;
-    height: calc(100% - 10px - var(--rowHeight));
-    min-height: calc(100% - 10px - var(--rowHeight));
-    max-height: calc(100% - 10px - var(--rowHeight));
+    height: calc(100% - 50px);
+    min-height: calc(100% - 50px);
+    max-height: calc(100% - 50px);
     width: 100%;
-    padding: var(--rowHeight);
+    padding: 20px;
 `;
 
 export const PictureCaptionContainer = styled.div`
     cursor: pointer;
-    height: calc(10px + var( --rowHeight));
-    min-height: calc(10px + var(--rowHeight));
+    height: 50px;
+    min-height: 50px;
     padding: 0 5px;
     display: flex;
     grid-area: caption;
