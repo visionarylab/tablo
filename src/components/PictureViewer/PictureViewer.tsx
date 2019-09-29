@@ -47,7 +47,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
             // enableGrab: false,
             // customSize: '100%'
             scaleBase: 0.9,
-            scaleExtra: 0.7
+            scaleExtra: 2
         });
         this.initSelectedPicture(this.props)
     }
