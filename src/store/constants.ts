@@ -1,6 +1,7 @@
 import { PictureState } from 'store/picture/picture';
 import { BookmarkState } from 'store/bookmarks/bookmarks';
 import { SidebarState } from 'store/sidebar/sidebar';
+import Utils from 'api/Utils';
 
 // Bookmarks state
 export const bookmarkStateKey: string = 'bookmarkState';
@@ -90,43 +91,43 @@ export const FIREFOX_SECTION = {
     isHidable: true,
     expanded: true,
     items: [
-        {
+    /* {
         link: 'chrome://apps',
         label: 'apps',
         icon: 'mdiViewGrid',
         visible: true,
-    },
-    {
+    }, */
+    /* {
         link: 'chrome://bookmarks',
         label: 'bookmarks',
         icon: 'mdiStarOutline',
         visible: true,
-    },
+    }, */
     {
-        link: 'chrome://downloads',
+        link: 'about:downloads',
         label: 'downloads',
         icon: 'mdiDownload',
         visible: true,
     },
+    // {
+    //     link: 'chrome://history',
+    //     label: 'history',
+    //     icon: 'mdiClockOutline',
+    //     visible: true,
+    // },
     {
-        link: 'chrome://history',
-        label: 'history',
-        icon: 'mdiClockOutline',
-        visible: true,
-    },
-    {
-        link: 'chrome://extensions/',
+        link: 'about:plugins',
         label: 'Extensions',
         icon: 'mdiPuzzle',
         visible: true,
     },
     {
-        link: 'chrome://settings',
+        link: 'about:preferences',
         label: 'settings',
         icon: 'mdiSettingsOutline',
         visible: true,
     },
-    {
+    /* {
         link: 'chrome://inspect/#devices',
         label: 'Inspect',
         icon: 'mdiAndroidDebugBridge',
@@ -143,7 +144,7 @@ export const FIREFOX_SECTION = {
         label: 'site engagement',
         icon: 'mdiPoll',
         visible: true,
-    }
+    } */
 ]};
 
 export const SITE_SECTION = {
@@ -188,7 +189,7 @@ export const SITE_SECTION = {
 
 export const sidebarStateKey: string = 'sidebarState';
 export const defaultSidebarState: SidebarState = {
-    browserSection: CHROME_SECTION,
+    browserSection: Utils.isFirefoxExtension() ? FIREFOX_SECTION : CHROME_SECTION,
     userSection: SITE_SECTION,
     isOnEdit: false,
     itemOnEdit: null,
