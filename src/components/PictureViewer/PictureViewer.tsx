@@ -6,6 +6,8 @@ import { toggleDetails } from 'store/ui/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import { PictureViewerContainer, PictureContainer, PictureCaptionContainer, Text } from 'components/ui';
 
+
+
 const Zooming: any = require('zooming/build/zooming');
 
 interface Props {
