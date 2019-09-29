@@ -8,7 +8,7 @@ export interface UIState {
     showBookmarks: boolean;
     showDetails: boolean;
     showHistory: boolean;
-    showEdit: boolean;
+    showAddSectionItem: boolean;
     theme: ThemeType;
     openLink: OpenLinkType;
 }
@@ -51,7 +51,7 @@ export enum UIActions {
     TOGGLE_BOOKMARKS = 'UI/TOGGLE_BOOKMARKS',
     TOGGLE_DETAILS = 'UI/TOGGLE_DETAILS',
     TOGGLE_HISTORY = 'UI/TOGGLE_HISTORY',
-    TOGGLE_EDIT = 'UI/TOGGLE_EDIT',
+    TOGGLE_ADD_SECTION_ITEM = 'UI/TOGGLE_ADD_SECTION_ITEM',
     CLOSE_ALL = 'UI/CLOSE_ALL',
     SET_THEME = 'UI/SET_THEME',
     SET_OPEN_LINK = 'UI/SET_OPEN_LINK',
@@ -98,8 +98,8 @@ export interface ToggleHistoryAction extends Action<UIActions.TOGGLE_HISTORY> {
     type: UIActions.TOGGLE_HISTORY;
 }
 
-export interface ToggleEditAction extends Action<UIActions.TOGGLE_EDIT> {
-    type: UIActions.TOGGLE_EDIT;
+export interface ToggleAddSectionItemAction extends Action<UIActions.TOGGLE_ADD_SECTION_ITEM> {
+    type: UIActions.TOGGLE_ADD_SECTION_ITEM;
 }
 
 export interface CloseAllAction extends Action<UIActions.CLOSE_ALL> {
@@ -126,7 +126,7 @@ export type UIActionType = LoadUIStateAction
     | ToggleBookmarksAction
     | ToggleDetailsAction
     | ToggleHistoryAction
-    | ToggleEditAction
+    | ToggleAddSectionItemAction
     | CloseAllAction
     | SetThemeAction
     | SetOpenLinkAction;
@@ -173,8 +173,8 @@ export const toggleHistory = () => ({
     type: UIActions.TOGGLE_HISTORY,
 });
 
-export const toggleEdit = () => ({
-    type: UIActions.TOGGLE_EDIT,
+export const toggleAddSectionItem = () => ({
+    type: UIActions.TOGGLE_ADD_SECTION_ITEM,
 });
 
 export const closeAll = () => ({
@@ -218,7 +218,7 @@ export const uiState = (
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: false,
-                showEdit: false,
+                showAddSectionItem: false,
             };
 
         case UIActions.TOGGLE_BOOKMARKS:
@@ -228,7 +228,7 @@ export const uiState = (
                 showBookmarks: !state.showBookmarks,
                 showDetails: false,
                 showHistory: false,
-                showEdit: false,
+                showAddSectionItem: false,
             };
 
         case UIActions.TOGGLE_DETAILS:
@@ -238,7 +238,7 @@ export const uiState = (
                 showBookmarks: false,
                 showDetails: !state.showDetails,
                 showHistory: false,
-                showEdit: false,
+                showAddSectionItem: false,
             };
 
         case UIActions.TOGGLE_HISTORY:
@@ -248,17 +248,17 @@ export const uiState = (
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: !state.showHistory,
-                showEdit: false,
+                showAddSectionItem: false,
             };
 
-        case UIActions.TOGGLE_EDIT:
+        case UIActions.TOGGLE_ADD_SECTION_ITEM:
             return {
                 ...state,
                 showSettings: false,
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: false,
-                showEdit: !state.showEdit,
+                showAddSectionItem: !state.showAddSectionItem,
             };
 
         case UIActions.CLOSE_ALL:
@@ -268,7 +268,7 @@ export const uiState = (
                 showBookmarks: false,
                 showDetails: false,
                 showHistory: false,
-                showEdit: false,
+                showAddSectionItem: false,
             };
 
         case UIActions.SET_THEME:
@@ -314,7 +314,7 @@ export const loadUIStateAsync = () => {
 const saveUIStateSaga = takeEvery([
     UIActions.TOGGLE_BOOKMARKS,
     UIActions.TOGGLE_DETAILS,
-    UIActions.TOGGLE_EDIT,
+    UIActions.TOGGLE_ADD_SECTION_ITEM,
     UIActions.TOGGLE_HISTORY,
     UIActions.TOGGLE_SETTINGS,
     UIActions.SET_THEME,

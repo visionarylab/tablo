@@ -14,7 +14,7 @@ interface Props {
     showBookmarks: boolean;
     showDetails: boolean;
     showHistory: boolean;
-    showEdit: boolean;
+    showAddSectionItem: boolean;
     closeAll: () => void;
 }
 
@@ -25,7 +25,7 @@ class Modals extends Component<Props> {
         showBookmarks: false,
         showDetails: false,
         showHistory: false,
-        showEdit: false,
+        showAddSectionItem: false,
         closeAll: () => { },
     };
 
@@ -35,7 +35,7 @@ class Modals extends Component<Props> {
             showBookmarks,
             showDetails,
             showHistory,
-            showEdit,
+            showAddSectionItem,
             closeAll } = this.props;
 
         return (
@@ -77,7 +77,7 @@ class Modals extends Component<Props> {
 
                 <Modal
                     title="Edit"
-                    show={showEdit}
+                    show={showAddSectionItem}
                     onHide={closeAll}>
                     <Edit />
                 </Modal>
@@ -92,7 +92,7 @@ const mapStateToProps = (state: RootState) => {
         showBookmarks: state.uiState.showBookmarks,
         showDetails: state.uiState.showDetails,
         showHistory: state.uiState.showHistory,
-        showEdit: state.uiState.showEdit,
+        showAddSectionItem: state.uiState.showAddSectionItem,
     }
 };
 

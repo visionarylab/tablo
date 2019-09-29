@@ -201,7 +201,7 @@ export const defaultUIState: UIState = {
     showBookmarks: false,
     showDetails: false,
     showHistory: false,
-    showEdit: false,
+    showAddSectionItem: false,
     theme: ThemeType.DARK,
     openLink: OpenLinkType.NEW,
 };

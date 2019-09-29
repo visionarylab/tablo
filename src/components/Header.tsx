@@ -8,24 +8,28 @@ import {
     mdiSettings,
     mdiBookmarkOutline,
     mdiPlus,
-    mdiPencil} from '@mdi/js';
+    mdiPencil,
+    mdiPencilOff} from '@mdi/js';
 import {
     toggleSettings,
     toggleHistory,
     toggleDetails,
     toggleBookmarks,
-    closeAll } from 'store/ui/ui';
+    closeAll,
+    toggleAddSectionItem} from 'store/ui/ui';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture/picture';
 import { Toolbar, Input, ToolbarSeparator, IconButton, FlexSeparator } from 'components/ui';
 import { toggleIsOnEdit } from 'store/sidebar/sidebar';
 
 interface Props {
+    isOnEdit: boolean;
     getRandomPicture: () => void;
     toggleSettings: () => void;
     toggleBookmarks: () => void;
     toggleDetails: () => void;
     toggleHistory: () => void;
+    toggleAddSectionItem: () => void;
     closeAll: () => void;
     toggleIsOnEdit: () => void;
 }
@@ -37,11 +41,13 @@ interface State {
 class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
     static defaultProps: Props = {
+        isOnEdit: false,
         getRandomPicture: () => { },
         toggleSettings: () => { },
         toggleBookmarks: () => { },
         toggleDetails: () => { },
         toggleHistory: () => { },
+        toggleAddSectionItem: () => { },
         closeAll: () => { },
         toggleIsOnEdit: () => { },
     };
@@ -91,35 +97,40 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
     render() {
         const {
+            isOnEdit,
             className,
             getRandomPicture,
             toggleSettings,
             toggleBookmarks,
             toggleDetails,
             toggleHistory,
+            toggleAddSectionItem,
             toggleIsOnEdit } = this.props;
 
         return (
             <Toolbar className={className}>
 
-                {false  && this.state.searchQuery &&
+                {/*
+                {this.state.searchQuery &&
                     <div className="texttt">{this.state.searchQuery}</div>
                 }
-
                 <Input value={this.state.searchQuery} onChange={this.handleQueryChange} />
+
 
                 <IconButton onClick={toggleBookmarks}>
                     <Icon path={mdiBookmarkOutline} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
                 <ToolbarSeparator/>
+                */}
 
-                <IconButton onClick={toggleIsOnEdit}>
+
+                <IconButton onClick={toggleAddSectionItem}>
                     <Icon path={mdiPlus} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
                 <IconButton onClick={toggleIsOnEdit}>
-                    <Icon path={mdiPencil} size="var(--iconSizeBtn)" color="var(--color)"/>
+                    <Icon path={isOnEdit ? mdiPencilOff : mdiPencil} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
                 <FlexSeparator/>
@@ -149,6 +160,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
 
 const mapStateToProps = (state: RootState) => {
     return {
+        isOnEdit: state.sidebarState.isOnEdit
     }
 };
 
@@ -158,6 +170,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     toggleBookmarks: () => dispatch(toggleBookmarks()),
     toggleDetails: () => dispatch(toggleDetails()),
     toggleHistory: () => dispatch(toggleHistory()),
+    toggleAddSectionItem: () => dispatch(toggleAddSectionItem()),
     closeAll: () => dispatch(closeAll()),
     toggleIsOnEdit: () => dispatch(toggleIsOnEdit()),
 });
