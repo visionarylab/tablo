@@ -24,7 +24,7 @@ class Settings extends Component<Props, State> {
         theme: ThemeType.DARK,
         maxPicturesCount: 100,
         setOpenLink: (payload: OpenLinkType) => {},
-        setTheme: (payload: 'dark' | 'light') => {},
+        setTheme: (payload: ThemeType) => {},
         setMaxPicturesCount: (payload: number) => {},
     };
 

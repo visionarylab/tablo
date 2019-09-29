@@ -45,9 +45,6 @@ if (typeof (window as any).browser === 'undefined' && ENV !== 'development') {
 //     }
 // }
 
-
-
-
 class DevApi {
     static getBookmarksTree() {
         return Promise.resolve(require('./bookmarks.json'));

@@ -115,8 +115,6 @@ class SidebarSection extends Component<Props & HTMLAttributes<HTMLDivElement>, S
     handleOpenLink(item: SectionItem) {
         const { openLink, isOnEdit } = this.props;
 
-        console.log('handleOpenLink', openLink, isOnEdit);
-
         if (!isOnEdit) {
             if (openLink === OpenLinkType.CURRENT) {
                 BrowserApi.openUrlInCurrentTab(item.link);
