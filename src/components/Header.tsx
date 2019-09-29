@@ -6,7 +6,6 @@ import {
     mdiViewGrid,
     mdiAlertBoxOutline,
     mdiSettings,
-    mdiBookmarkOutline,
     mdiPlus,
     mdiPencil,
     mdiPencilOff} from '@mdi/js';
@@ -19,7 +18,7 @@ import {
     toggleAddSectionItem} from 'store/ui/ui';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture/picture';
-import { Toolbar, Input, ToolbarSeparator, IconButton, FlexSeparator } from 'components/ui';
+import { Toolbar, ToolbarSeparator, IconButton, FlexSeparator } from 'components/ui';
 import { toggleIsOnEdit } from 'store/sidebar/sidebar';
 
 interface Props {
@@ -101,7 +100,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
             className,
             getRandomPicture,
             toggleSettings,
-            toggleBookmarks,
+            // toggleBookmarks,
             toggleDetails,
             toggleHistory,
             toggleAddSectionItem,

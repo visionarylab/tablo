@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { RootState } from 'store/rootReducer';
 import { Picture, setPictureIndex } from 'store/picture/picture';
-import { closeAll } from 'store/ui/ui';
 import PictureWrapper from 'components/PictureWrapper/PictureWrapper';
 import { HistoricContainer } from 'components/ui';
 
@@ -11,7 +10,6 @@ interface Props {
     pictures: Picture[];
     currentPictureIndex: number;
     setPictureIndex?: (index: number) => void,
-    closeAll: () => void;
 }
 
 class PictureHistoric extends Component<Props> {
@@ -20,7 +18,6 @@ class PictureHistoric extends Component<Props> {
         pictures: [],
         currentPictureIndex: 0,
         setPictureIndex: (index: number) => {},
-        closeAll: () => {},
     }
 
     constructor(props: any) {
@@ -31,13 +28,11 @@ class PictureHistoric extends Component<Props> {
     onSelectPicture(index: number) {
         const {
             currentPictureIndex,
-            setPictureIndex,
-            closeAll } = this.props;
+            setPictureIndex } = this.props;
 
         if (index !== currentPictureIndex && setPictureIndex) {
             setPictureIndex(index);
         }
-        closeAll();
     }
 
     render() {
@@ -70,7 +65,6 @@ const mapStateToProps = (rootState: RootState) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
     setPictureIndex: (payload: number) => dispatch(setPictureIndex(payload)),
-    closeAll: () => dispatch(closeAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureHistoric);
