@@ -334,7 +334,7 @@ export const SpinnerInner = styled.div`
     width: 40px;
     height: 40px;
     margin: 100px auto;
-    background-color: white;
+    background-color: var(--bgColorHover);
     border-radius: 100%;
     animation: ${SpinnerAnim} 1.0s infinite ease-in-out;
 `;
