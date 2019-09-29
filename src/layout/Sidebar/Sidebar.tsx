@@ -6,7 +6,6 @@ import { Section, setUserSection, setBrowserSection } from 'store/sidebar/sideba
 import SidebarSection from 'components/SidebarSection';
 import { OpenLinkType } from 'store/ui/ui';
 
-
 export const SidebarWrapper = styled.div`
     width: 100%;
     height: 100%;

@@ -14,8 +14,7 @@ import {
     toggleHistory,
     toggleDetails,
     toggleBookmarks,
-    closeAll,
-    toggleEdit} from 'store/ui/ui';
+    closeAll } from 'store/ui/ui';
 import { RootState } from 'store/rootReducer';
 import { getRandomPictureAsync } from 'store/picture/picture';
 import { Toolbar, Input, ToolbarSeparator, IconButton, FlexSeparator } from 'components/ui';

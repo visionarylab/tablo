@@ -1,10 +1,10 @@
-import React, { Component, HTMLAttributes, useRef } from 'react';
+import React, { Component, HTMLAttributes } from 'react';
 import Icon from '@mdi/react';
 import * as mdIcon from '@mdi/js';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import SidebarSectionItem from 'components/SidebarSectionItem';
 import { Section, SectionItem } from 'store/sidebar/sidebar';
-import { FlexContainer, FlexSeparator, Toolbar, Text, IconButton, SidebarItemWrapper } from 'components/ui';
+import { FlexContainer, FlexSeparator, Toolbar, Text, SidebarItemWrapper } from 'components/ui';
 import { OpenLinkType } from 'store/ui/ui';
 import BrowserApi from 'api/BrowserApi';
 

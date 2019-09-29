@@ -5,7 +5,6 @@ import Sidebar from './Sidebar/Sidebar';
 import PictureViewer from 'components/PictureViewer/PictureViewer';
 import Modals from 'components/Modals';
 
-
 export const AppWrapper = styled.div`
     margin: 0 auto;
     padding: var(--gridMargin);
