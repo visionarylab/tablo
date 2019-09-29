@@ -6,7 +6,7 @@ import Modal from './Modal';
 import Settings from './Settings/Settings';
 import Bookmarks from './Bookmarks/Bookmarks';
 import PictureCartel from './PictureCartel';
-import PictureHistorique from './PictureHistorique';
+import PictureHistoric from './PictureHistoric';
 import Edit from './Edit/Edit';
 
 interface Props {
@@ -65,15 +65,9 @@ class Modals extends Component<Props> {
                     title="History"
                     show={showHistory}
                     onHide={closeAll}>
-                    <PictureHistorique />
+                    <PictureHistoric />
                 </Modal>
 
-                <Modal
-                    title="Sidebar"
-                    show={showHistory}
-                    onHide={closeAll}>
-                    <PictureHistorique />
-                </Modal>
 
                 <Modal
                     title="Edit"

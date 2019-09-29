@@ -14,7 +14,7 @@ interface Props {
     closeAll: () => void;
 }
 
-class PictureHistorique extends Component<Props> {
+class PictureHistoric extends Component<Props> {
 
     static defaultPrps = {
         pictures: [],
@@ -73,5 +73,5 @@ const mapDispatchToProps = (dispatch: any) => ({
     closeAll: () => dispatch(closeAll()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PictureHistorique);
+export default connect(mapStateToProps, mapDispatchToProps)(PictureHistoric);
 
