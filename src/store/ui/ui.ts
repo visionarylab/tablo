@@ -25,15 +25,15 @@ export enum OpenLinkType {
 
 export const theme = {
     dark: {
-        color: 'white',
+        color: '#F0ECE2',
         bgColor: '#282c34',
-        bgColorPanel: 'rgba(0, 0, 0, 0.2)',
-        bgColorHover: 'rgba(255, 255, 255, 0.1)',
+        bgColorPanel: '#20232A',
+        gColorHover: 'rgba(255, 255, 255, 0.1)',
     },
     light: {
         color: '#222831',
         bgColor: '#F0ECE2',
-        bgColorPanel: 'rgba(0, 0, 0, 0.2)',
+        bgColorPanel: '#D8D4CB',
         bgColorHover: 'rgba(0, 0, 0, 0.1)',
     }
 }
@@ -288,13 +288,24 @@ export const uiState = (
     }
 };
 
+const applyTheme = (themeKey: ThemeType) => {
+    const currentTheme = theme[themeKey];
+    Object.keys(currentTheme).map((key: string) => {
+        const cssKey = `--${key}`;
+        const cssValue = currentTheme[key];
+        document.body.style.setProperty(cssKey, cssValue);
+    });
+};
 
 // ASYNC ACTIONS
 export const loadUIStateAsync = () => {
     return async (dispatch: any, getState: any) => {
         dispatch(loadUIState())
         return StorageApi.getItems(defaultUIStateKey, defaultUIState)
-            .then((uiState: UIState) => dispatch(loadUIStateSuccess(uiState)))
+            .then((uiState: UIState) => {
+                applyTheme(uiState ? uiState.theme : ThemeType.DARK);
+                return dispatch(loadUIStateSuccess(uiState))
+            })
             .catch((err: any) => dispatch(loadUIStateFail()));
     };
 }
@@ -309,17 +320,26 @@ const saveUIStateSaga = takeEvery([
     UIActions.SET_THEME,
     UIActions.SET_OPEN_LINK,
 ],
-    function* () {
-        const rootState = yield select();
-        yield put(saveUIState());
-        const saved = yield StorageApi.setItems(defaultUIStateKey, rootState.uiState);
-        if (saved) {
-            yield put(saveUIStateSuccess());
-        } else {
-            yield put(saveUIStateFail());
-        }
-    });
+function* () {
+    const rootState = yield select();
+    yield put(saveUIState());
+    const saved = yield StorageApi.setItems(defaultUIStateKey, rootState.uiState);
+    if (saved) {
+        yield put(saveUIStateSuccess());
+    } else {
+        yield put(saveUIStateFail());
+    }
+});
+
+const setThemeSaga = takeEvery([
+    UIActions.SET_THEME,
+],
+function* () {
+    const rootState = yield select();
+    applyTheme(rootState.uiState.theme);
+});
 
 export const uiSaga = [
     saveUIStateSaga,
+    setThemeSaga,
 ];
