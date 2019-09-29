@@ -1,4 +1,7 @@
 import { Action } from 'redux';
+import { takeEvery, select, put } from 'redux-saga/effects';
+import { defaultUIState, defaultUIStateKey } from 'store/constants';
+import StorageApi from 'api/StorageApi';
 
 export interface UIState {
     showSettings: boolean;
@@ -20,17 +23,6 @@ export enum OpenLinkType {
     NEW = 'NEW',
 }
 
-export enum UIActions {
-    TOGGLE_SETTINGS = 'UI/TOGGLE_SETTINGS',
-    TOGGLE_BOOKMARKS = 'UI/TOGGLE_BOOKMARKS',
-    TOGGLE_DETAILS = 'UI/TOGGLE_DETAILS',
-    TOGGLE_HISTORY = 'UI/TOGGLE_HISTORY',
-    TOGGLE_EDIT = 'UI/TOGGLE_EDIT',
-    CLOSE_ALL = 'UI/CLOSE_ALL',
-    SET_THEME = 'UI/SET_THEME',
-    SET_OPEN_LINK = 'UI/SET_OPEN_LINK',
-}
-
 export const theme = {
     dark: {
         color: 'white',
@@ -44,6 +36,50 @@ export const theme = {
         bgColorPanel: 'rgba(0, 0, 0, 0.2)',
         bgColorHover: 'rgba(0, 0, 0, 0.1)',
     }
+}
+
+export enum UIActions {
+    LOAD_UI_STATE = 'UI/LOAD_UI_STATE',
+    LOAD_UI_STATE_SUCCESS = 'UI/LOAD_UI_STATE_SUCCESS',
+    LOAD_UI_STATE_FAIL = 'UI/LOAD_UI_STATE_FAIL',
+
+    SAVE_UI_STATE = 'UI/SAVE_UI_STATE',
+    SAVE_UI_STATE_SUCCESS = 'UI/SAVE_UI_STATE_SUCCESS',
+    SAVE_UI_STATE_FAIL = 'UI/SAVE_UI_STATE_FAIL',
+
+    TOGGLE_SETTINGS = 'UI/TOGGLE_SETTINGS',
+    TOGGLE_BOOKMARKS = 'UI/TOGGLE_BOOKMARKS',
+    TOGGLE_DETAILS = 'UI/TOGGLE_DETAILS',
+    TOGGLE_HISTORY = 'UI/TOGGLE_HISTORY',
+    TOGGLE_EDIT = 'UI/TOGGLE_EDIT',
+    CLOSE_ALL = 'UI/CLOSE_ALL',
+    SET_THEME = 'UI/SET_THEME',
+    SET_OPEN_LINK = 'UI/SET_OPEN_LINK',
+}
+
+export interface LoadUIStateAction extends Action<UIActions.LOAD_UI_STATE> {
+    type: UIActions.LOAD_UI_STATE;
+}
+
+export interface LoadUIStateFailAction extends Action<UIActions.LOAD_UI_STATE_SUCCESS> {
+    type: UIActions.LOAD_UI_STATE_SUCCESS;
+    payload: UIState | any;
+}
+
+export interface LoadUIStateSuccessAction extends Action<UIActions.LOAD_UI_STATE_FAIL> {
+    type: UIActions.LOAD_UI_STATE_FAIL;
+}
+
+export interface SaveUIStateAction extends Action<UIActions.SAVE_UI_STATE> {
+    type: UIActions.SAVE_UI_STATE;
+}
+
+export interface SaveUIStateFailAction extends Action<UIActions.SAVE_UI_STATE_SUCCESS> {
+    type: UIActions.SAVE_UI_STATE_SUCCESS;
+}
+
+export interface SaveUIStateSuccessAction extends Action<UIActions.SAVE_UI_STATE_FAIL> {
+    type: UIActions.SAVE_UI_STATE_FAIL;
 }
 
 export interface ToggleSettingsAction extends Action<UIActions.TOGGLE_SETTINGS> {
@@ -80,14 +116,46 @@ export interface SetOpenLinkAction extends Action<UIActions.SET_OPEN_LINK> {
     payload: OpenLinkType;
 }
 
-export type UIActionType = ToggleSettingsAction
-                         | ToggleBookmarksAction
-                         | ToggleDetailsAction
-                         | ToggleHistoryAction
-                         | ToggleEditAction
-                         | CloseAllAction
-                         | SetThemeAction
-                         | SetOpenLinkAction;
+export type UIActionType = LoadUIStateAction
+    | LoadUIStateFailAction
+    | LoadUIStateSuccessAction
+    | SaveUIStateAction
+    | SaveUIStateFailAction
+    | SaveUIStateSuccessAction
+    | ToggleSettingsAction
+    | ToggleBookmarksAction
+    | ToggleDetailsAction
+    | ToggleHistoryAction
+    | ToggleEditAction
+    | CloseAllAction
+    | SetThemeAction
+    | SetOpenLinkAction;
+
+
+export const loadUIState = () => ({
+    type: UIActions.LOAD_UI_STATE,
+});
+
+export const loadUIStateSuccess = (payload: UIState | any) => ({
+    type: UIActions.LOAD_UI_STATE_SUCCESS,
+    payload: payload,
+});
+
+export const loadUIStateFail = () => ({
+    type: UIActions.LOAD_UI_STATE,
+});
+
+export const saveUIState = () => ({
+    type: UIActions.SAVE_UI_STATE,
+});
+
+export const saveUIStateSuccess = () => ({
+    type: UIActions.SAVE_UI_STATE_SUCCESS,
+});
+
+export const saveUIStateFail = () => ({
+    type: UIActions.SAVE_UI_STATE,
+});
 
 export const toggleSettings = () => ({
     type: UIActions.TOGGLE_SETTINGS,
@@ -97,7 +165,7 @@ export const toggleBookmarks = () => ({
     type: UIActions.TOGGLE_BOOKMARKS,
 });
 
-export const toggleDetails= () => ({
+export const toggleDetails = () => ({
     type: UIActions.TOGGLE_DETAILS,
 });
 
@@ -123,21 +191,25 @@ export const setOpenLink = (payload: OpenLinkType) => ({
     payload: payload
 });
 
-const INITIAL_STATE: UIState = {
-    showSettings: false,
-    showBookmarks: false,
-    showDetails: false,
-    showHistory: false,
-    showEdit: false,
-    theme: ThemeType.DARK,
-    openLink: OpenLinkType.NEW,
-};
-
 export const uiState = (
-    state: UIState = INITIAL_STATE, // defaultSearchConfig,
+    state: UIState = defaultUIState,
     action: UIActionType
 ): UIState => {
     switch (action.type) {
+
+        case UIActions.LOAD_UI_STATE:
+            return state;
+        case UIActions.LOAD_UI_STATE_SUCCESS:
+            return { ...state, ...action.payload };
+        case UIActions.LOAD_UI_STATE_FAIL:
+            return state;
+
+        case UIActions.SAVE_UI_STATE:
+            return state;
+        case UIActions.SAVE_UI_STATE_SUCCESS:
+            return state;
+        case UIActions.SAVE_UI_STATE_FAIL:
+            return state;
 
         case UIActions.TOGGLE_SETTINGS:
             return {
@@ -215,3 +287,39 @@ export const uiState = (
             return state;
     }
 };
+
+
+// ASYNC ACTIONS
+export const loadUIStateAsync = () => {
+    return async (dispatch: any, getState: any) => {
+        dispatch(loadUIState())
+        return StorageApi.getItems(defaultUIStateKey, defaultUIState)
+            .then((uiState: UIState) => dispatch(loadUIStateSuccess(uiState)))
+            .catch((err: any) => dispatch(loadUIStateFail()));
+    };
+}
+
+/// SAGA
+const saveUIStateSaga = takeEvery([
+    UIActions.TOGGLE_BOOKMARKS,
+    UIActions.TOGGLE_DETAILS,
+    UIActions.TOGGLE_EDIT,
+    UIActions.TOGGLE_HISTORY,
+    UIActions.TOGGLE_SETTINGS,
+    UIActions.SET_THEME,
+    UIActions.SET_OPEN_LINK,
+],
+    function* () {
+        const rootState = yield select();
+        yield put(saveUIState());
+        const saved = yield StorageApi.setItems(defaultUIStateKey, rootState.uiState);
+        if (saved) {
+            yield put(saveUIStateSuccess());
+        } else {
+            yield put(saveUIStateFail());
+        }
+    });
+
+export const uiSaga = [
+    saveUIStateSaga,
+];

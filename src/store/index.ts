@@ -8,12 +8,14 @@ import { all } from 'redux-saga/effects';
 import { loadBookmarkAsync } from './bookmarks/bookmarks';
 import { sidebarSaga, loadSidebarStateAsync } from './sidebar/sidebar';
 import { pictureSaga, loadPictureStateAsync, getRandomPictureAsync } from './picture/picture';
+import { uiSaga, loadUIStateAsync } from './ui/ui';
 
 // Sagas
 const rootSaga = function* () {
     yield all([
         ...pictureSaga,
-        ...sidebarSaga
+        ...sidebarSaga,
+        ...uiSaga,
     ]);
 };
 
@@ -37,9 +39,11 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 // store.dispatch<any>(loadSearchStateAsync());
-store.dispatch<any>(loadPictureStateAsync());
 store.dispatch<any>(getRandomPictureAsync());
+
+store.dispatch<any>(loadPictureStateAsync());
 store.dispatch<any>(loadBookmarkAsync());
 store.dispatch<any>(loadSidebarStateAsync());
+store.dispatch<any>(loadUIStateAsync());
 
 export default store;

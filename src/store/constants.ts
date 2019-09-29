@@ -2,6 +2,7 @@ import { PictureState } from 'store/picture/picture';
 import { BookmarkState } from 'store/bookmarks/bookmarks';
 import { SidebarState } from 'store/sidebar/sidebar';
 import Utils from 'api/Utils';
+import { UIState, ThemeType, OpenLinkType } from './ui/ui';
 
 // Bookmarks state
 export const bookmarkStateKey: string = 'bookmarkState';
@@ -15,11 +16,9 @@ export const defaultBookmarkState: BookmarkState = {
 // Picture state
 export const pictureStateKey: string = 'pictureState';
 export const defaultPictureState: PictureState = {
-    currentPictureIndex: null,
+    currentPictureIndex: 0,
     pictures: [],
     maxPicturesCount: 100,
-    showDetails: false,
-    showHistory: false
 };
 
 // Sidebar state
@@ -193,4 +192,16 @@ export const defaultSidebarState: SidebarState = {
     userSection: SITE_SECTION,
     isOnEdit: false,
     itemOnEdit: null,
+};
+
+// UI state
+export const defaultUIStateKey: string = 'uiState';
+export const defaultUIState: UIState = {
+    showSettings: false,
+    showBookmarks: false,
+    showDetails: false,
+    showHistory: false,
+    showEdit: false,
+    theme: ThemeType.DARK,
+    openLink: OpenLinkType.NEW,
 };
