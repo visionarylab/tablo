@@ -270,6 +270,7 @@ export const SidebarItem = styled.div`
     align-items: center;
     background-color: transparent;
     opacity: ${props => props.opacity};
+    padding-left: ${props => props.paddingLeft};
 
     :hover {
         background-color: var(--bgColorHover);

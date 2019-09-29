@@ -6,36 +6,38 @@ import { RootState } from 'store/rootReducer';
 import { searchBookmark } from 'store/bookmarks/bookmarks';
 import FaviconWrapper from 'components/FaviconWrapper/FaviconWrapper';
 import './Bookmarks.scss';
+import { Toolbar, IconButton, Text, Input, FlexSeparator, SidebarItem, SidebarItemIcon, FlexContainer } from 'components/ui';
 
-const TreeItem: FC<any> = ({ node, click }) => {
+const TreeItem: FC<any> = ({ node, click, level = 0 }) => {
     if (!node) {
         return (null);
     }
     return (
-        <div className="tree-item-wrapper">
-            <div className="tree-item" onClick={() => {click(node)}}>
+        <FlexContainer direction="column">
+            <SidebarItem paddingLeft={`calc(35px * ${level})`}
+                onClick={() => {click(node)}}>
             {node.children &&
-                <div className="tree-item-icon">
-                    <Icon style={{ marginRight: '10px' }} path={node.expanded ? mdiFolderOpen : mdiFolder} size="var(--iconSize)" color="var(--color)" />
-                </div>
+                <SidebarItemIcon>
+                    <Icon path={node.expanded ? mdiFolderOpen : mdiFolder} size="var(--iconSize)" color="var(--color)" />
+                </SidebarItemIcon>
                 }
 
                 {!node.children &&
-                <FaviconWrapper className="tree-item-img" style={{ marginRight: '10px' }} url={node.url}/>
+                <SidebarItemIcon>
+                    <FaviconWrapper url={node.url}/>
+                </SidebarItemIcon>
                 }
-                <div className="tree-item-title">{node.title}</div>
-            </div>
+                <Text>{node.title}</Text>
+            </SidebarItem>
 
             {node.children && node.expanded &&
-                <div className="tree-item-children">
-
-                    {node.children.map((childNode: any) => {
-                        return (<TreeItem key={childNode.id} node={childNode} click={click}/>);
-                    })}
-
-                </div>
+            <FlexContainer direction="column">
+                {node.children.map((childNode: any) => {
+                    return (<TreeItem level={level + 1} key={childNode.id} node={childNode} click={click}/>);
+                })}
+            </FlexContainer>
             }
-        </div>
+        </FlexContainer>
     );
 };
 
@@ -47,9 +49,8 @@ interface Props {
 
 interface State {
     treeData: any;
-    searchString: string,
-    searchFocusIndex: number,
-    searchFoundCount: number,
+    searchString: string;
+    isAllExpanded: boolean;
 }
 
 class Bookmarks extends Component<Props, State> {
@@ -66,19 +67,15 @@ class Bookmarks extends Component<Props, State> {
         this.state = {
             treeData: null,
             searchString: '',
-            searchFocusIndex: 0,
-            searchFoundCount: 0,
+            isAllExpanded: false,
         }
 
         this.handleTreeOnChange = this.handleTreeOnChange.bind(this);
         this.handleSearchOnChange = this.handleSearchOnChange.bind(this);
         this.searchFinishCallback = this.searchFinishCallback.bind(this);
-        this.selectPrevMatch = this.selectPrevMatch.bind(this);
-        this.selectNextMatch = this.selectNextMatch.bind(this);
         this.expandAll = this.expandAll.bind(this);
         this.collapseAll = this.collapseAll.bind(this);
         this.handleClickNode = this.handleClickNode.bind(this);
-        this.generateNodeProps = this.generateNodeProps.bind(this);
     }
 
     componentDidMount() {
@@ -104,34 +101,8 @@ class Bookmarks extends Component<Props, State> {
     }
 
     searchFinishCallback(matches: any) {
-        const { searchFocusIndex } = this.state;
-        this.setState({
-            searchFoundCount: matches.length,
-            searchFocusIndex:
-                matches.length > 0 ? searchFocusIndex % matches.length : 0,
-        })
+
     }
-
-    selectPrevMatch() {
-        const { searchFocusIndex, searchFoundCount } = this.state;
-        this.setState({
-            searchFocusIndex:
-                searchFocusIndex !== null
-                    ? (searchFoundCount + searchFocusIndex - 1) % searchFoundCount
-                    : searchFoundCount - 1,
-        });
-    };
-
-    selectNextMatch() {
-        const { searchFocusIndex, searchFoundCount } = this.state;
-
-        this.setState({
-            searchFocusIndex:
-                searchFocusIndex !== null
-                    ? (searchFocusIndex + 1) % searchFoundCount
-                    : 0,
-        });
-    };
 
     setExpandAll(expanded: boolean) {
         const { treeData } = this.state;
@@ -144,7 +115,7 @@ class Bookmarks extends Component<Props, State> {
             }
         }
         parse(treeData);
-        this.setState({ treeData });
+        this.setState({ treeData, isAllExpanded: expanded });
     }
 
     expandAll() {
@@ -181,27 +152,12 @@ class Bookmarks extends Component<Props, State> {
         }
     }
 
-    generateNodeProps(rowInfo: any) {
-        return {
-            buttons: [
-                <button
-                    className="btn btn-outline-success"
-                    style={{ verticalAlign: 'middle' }}
-                    onClick={() => {
-                        console.log('rowInfo', rowInfo)
-                    }}>
-                    Hello
-              </button>,
-            ],
-        }
-    }
-
     render() {
         const {
             treeData,
-            searchString,
-            searchFocusIndex,
-            searchFoundCount } = this.state;
+            searchString } = this.state;
+
+        const { isAllExpanded } = this.state;
 
         if (!treeData) {
             return (null);
@@ -210,30 +166,27 @@ class Bookmarks extends Component<Props, State> {
         return (
             <div className="bookmarks-wrapper">
 
-                <div className="bookmarks-header">
-                    <button onClick={this.expandAll}>
-                        Expand all
-                    </button>
-                    <button
-                        className="collapse"
-                        onClick={this.collapseAll}>
-                        Collapse all
-                    </button>
-                    <input type="text" name="" id=""
+                <Toolbar className="bookmarks-header">
+                    <Input type="text" name="" id=""
                         value={searchString}
                         onChange={this.handleSearchOnChange}
                     />
-                    <button className="previous" onClick={this.selectPrevMatch}>
-                        Previous
-                    </button>
-                    <button className="next" onClick={this.selectNextMatch}>
-                        Next
-                    </button>
 
-                    <label>
-                        {searchFocusIndex} / {searchFoundCount}
-                    </label>
-                </div>
+                    <FlexSeparator/>
+
+                    { !isAllExpanded &&
+                    <IconButton onClick={this.expandAll}>
+                        <Text>Expand all</Text>
+                    </IconButton>
+                    }
+
+                    { isAllExpanded &&
+                    <IconButton onClick={this.collapseAll}>
+                        <Text>Collapse all</Text>
+                    </IconButton>
+                    }
+
+                </Toolbar>
 
                 <div className="tree-wrapper">
                     {treeData.children.map((node: any) => {
@@ -247,56 +200,10 @@ class Bookmarks extends Component<Props, State> {
                     })}
                 </div>
 
-                {/*
-
-                <TreeMenu data={treeData}>
-                    {({ items }) => (
-                        <ul className="tree-item-group">
-                            {items.map(props => (
-                                <ItemComponent {...props} />
-                            ))}
-                        </ul>
-                    )}
-                </TreeMenu> */}
-
-
-                {/*
-                <SortableTree
-                    treeData={treeData}
-                    theme={FileExplorerTheme}
-                    searchQuery={searchString}
-                    searchFocusOffset={searchFocusIndex}
-                    searchFinishCallback={this.searchFinishCallback}
-                    canDrag={false}
-                    getNodeKey={({ node }) => node.id}
-
-                    onChange={this.handleTreeOnChange}
-                    generateNodeProps={this.generateNodeProps}
-                />
-                */}
-
             </div>
         );
     }
 }
-
-/*
-theme={{
-    ...FileExplorerTheme,
-    rowHeight: 50,
-    innerStyle: {
-        borderColor: '3px solid blue'
-    }
-    /  nodeContentRenderer: (infos: any) => {
-        console.log('nodeContentRenderer', infos)
-        return (
-            <div>
-                hello
-            </div>
-        )
-    } /
-}}
-*/
 
 const mapStateToProps = (rootState: RootState) => {
     return {
