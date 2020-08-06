@@ -2,11 +2,16 @@
 
 # Tablo: new tab chrome extension
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 ### What's inside:
 
-- A configurable search bar for your prefered search engine.
-- A sidebar with a random art picture from Tate or MoMA museum.
-- A panel with all yours bookmarks.
+A new tab chrome extension: 
+- displays a random random image from MoMA museum or Tate modern museum (with image details and historic panel)
+
+- a sidebar with custom bookmarks and chrome/firefox shortcuts (settings page, extensions page, etc...)
+
+- dark/light theme
 
 ![alt main interface](https://github.com/radiium/tablo/blob/master/.github/cap1.jpg "Tablo UI: main interface")
 ![alt image details](https://github.com/radiium/tablo/blob/master/.github/cap2.jpg "Tablo UI: image details")
@@ -14,22 +19,6 @@
 ![alt reorder item](https://github.com/radiium/tablo/blob/master/.github/cap4.jpg "Tablo UI: reorder item")
 
 
-### Stack:
-
-- react (with create react app + typescript)
-- react-animate-height
-- react-magnifier
-- react-medium-image-zoom
-- redux + react-redux
-- redux-thunk
-- redux-saga
-- primereact + primeicons
-- Axios
-- classnames
-- lodash
-- and other ...
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Available Scripts
 
