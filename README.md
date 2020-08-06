@@ -8,9 +8,11 @@
 - A sidebar with a random art picture from Tate or MoMA museum.
 - A panel with all yours bookmarks.
 
-![alt Tablo UI 1](https://github.com/radiium/tablo/blob/master/.github/tablo.png "Tablo UI 1: main interface")
+![alt main interface](https://github.com/radiium/tablo/blob/master/.github/cap1.jpg "Tablo UI: main interface")
+![alt image details](https://github.com/radiium/tablo/blob/master/.github/cap2.jpg "Tablo UI: image details")
+![alt settings light theme](https://github.com/radiium/tablo/blob/master/.github/cap3.jpg "Tablo UI: settings light theme")
+![alt reorder item](https://github.com/radiium/tablo/blob/master/.github/cap4.jpg "Tablo UI: reorder item")
 
-![alt Tablo UI 2](https://github.com/radiium/tablo/blob/master/.github/tablo2.png "Tablo UI 2: image details")
 
 ### Stack:
 
