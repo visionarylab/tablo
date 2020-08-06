@@ -46,19 +46,19 @@ if (typeof (window as any).browser === 'undefined' && ENV !== 'development') {
 // }
 
 class DevApi {
-    static getBookmarksTree() {
+    static getBookmarksTree(): Promise<any> {
         return Promise.resolve(require('./bookmarks.json'));
     }
 
-    static openUrlInCurrentTab(url: string) {
+    static openUrlInCurrentTab(url: string): Promise<any> {
         return Promise.resolve(window.open(url, '_self'));
     }
 
-    static openUrlInNewTab(url: string) {
+    static openUrlInNewTab(url: string): Promise<any> {
         return Promise.resolve(window.open(url, '_blank'));
     }
 
-    static getFaviconUrl(url: string) {
+    static getFaviconUrl(url: string): string {
         try {
             const prefixLessUrl = new URL(url || "").hostname;
             return `https://api.faviconkit.com/${prefixLessUrl}/40`;
@@ -69,19 +69,19 @@ class DevApi {
 }
 
 class FirefoxApi {
-    static getBookmarksTree() {
+    static getBookmarksTree(): Promise<any> {
         return browser.bookmarks.getTree();
     }
 
-    static openUrlInCurrentTab(url: string) {
+    static openUrlInCurrentTab(url: string): Promise<any> {
         return browser.tabs.update({ url });
     }
 
-    static openUrlInNewTab(url: string) {
+    static openUrlInNewTab(url: string): Promise<any> {
         return browser.tabs.create({ url });
     }
 
-    static getFaviconUrl(url: string) {
+    static getFaviconUrl(url: string): string {
         try {
             const prefixLessUrl = new URL(url || "").hostname;
             return `https://api.faviconkit.com/${prefixLessUrl}/40`;
@@ -92,19 +92,19 @@ class FirefoxApi {
 }
 
 class ChromeApi {
-    static getBookmarksTree() {
+    static getBookmarksTree(): Promise<any> {
         return browser.bookmarks.getTree();
     }
 
-    static openUrlInCurrentTab(url: string) {
+    static openUrlInCurrentTab(url: string): Promise<any> {
         return browser.tabs.update({ url });
     }
 
-    static openUrlInNewTab(url: string) {
+    static openUrlInNewTab(url: string): Promise<any> {
         return browser.tabs.create({ url });
     }
 
-    static getFaviconUrl(url: string) {
+    static getFaviconUrl(url: string): string {
         return `chrome://favicon/size/16@2x/${url}`;
     }
 }
@@ -113,7 +113,6 @@ let BrowserApi: any;
 if (ENV === 'development') {
     BrowserApi = DevApi;
 } else {
-
     if (Utils.isFirefoxExtension()) {
         BrowserApi = FirefoxApi;
     } else {
