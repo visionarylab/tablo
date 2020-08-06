@@ -7,7 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### What's inside:
 
 A new tab chrome extension: 
-- displays a random random image from MoMA museum or Tate modern museum (with image details and historic panel)
+- display random image from MoMA museum or Tate modern museum (with image details and historic panel)
 
 - a sidebar with custom bookmarks and chrome/firefox shortcuts (settings page, extensions page, etc...)
 
