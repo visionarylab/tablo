@@ -24,7 +24,7 @@ const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger({ collapsed: true });
 
 const middlewares = process.env.NODE_ENV === 'production'
-    ? applyMiddleware(sagaMiddleware, thunk)
+    ? applyMiddleware(sagaMiddleware, thunk, logger)
     : applyMiddleware(sagaMiddleware, thunk, logger);
 
 const composeEnhancers = (window as any).REDUX_DEVTOOLS_EXTENSION_COMPOSE
@@ -39,10 +39,11 @@ const store = createStore(
 
 sagaMiddleware.run(rootSaga);
 // store.dispatch<any>(loadSearchStateAsync());
-store.dispatch<any>(loadUIStateAsync());
-store.dispatch<any>(getRandomPictureAsync());
-store.dispatch<any>(loadPictureStateAsync());
-store.dispatch<any>(loadBookmarkAsync());
-store.dispatch<any>(loadSidebarStateAsync());
+store.dispatch<any>(loadUIStateAsync()).then(() => {
+    store.dispatch<any>(getRandomPictureAsync());
+    store.dispatch<any>(loadPictureStateAsync());
+    store.dispatch<any>(loadBookmarkAsync());
+    store.dispatch<any>(loadSidebarStateAsync())
+});
 
 export default store;

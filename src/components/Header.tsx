@@ -5,7 +5,7 @@ import {
     mdiImagePlus,
     mdiViewGrid,
     mdiAlertBoxOutline,
-    mdiSettings,
+    mdiCog,
     mdiPlus,
     mdiPencil,
     mdiPencilOff} from '@mdi/js';
@@ -149,7 +149,7 @@ class Header extends Component<Props & HTMLAttributes<HTMLDivElement>, State> {
                 <ToolbarSeparator/>
 
                 <IconButton onClick={toggleSettings}>
-                    <Icon path={mdiSettings} size="var(--iconSizeBtn)" color="var(--color)"/>
+                    <Icon path={mdiCog} size="var(--iconSizeBtn)" color="var(--color)"/>
                 </IconButton>
 
             </Toolbar>

@@ -21,7 +21,7 @@ interface Props {
     setUserSection: (section: Section) => void;
 }
 
-class Sidebar extends Component<Props & HTMLAttributes<HTMLDivElement>> {
+class Sidebar extends Component<Props & HTMLAttributes<HTMLElement>> {
     render() {
         const {
             browserSection,

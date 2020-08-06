@@ -18,7 +18,7 @@ export const pictureStateKey: string = 'pictureState';
 export const defaultPictureState: PictureState = {
     currentPictureIndex: 0,
     pictures: [],
-    maxPicturesCount: 100,
+    maxPicturesCount: 1000,
 };
 
 // Sidebar state
@@ -61,7 +61,7 @@ export const CHROME_SECTION = {
     {
         link: 'chrome://settings',
         label: 'settings',
-        icon: 'mdiSettingsOutline',
+        icon: 'mdiCogOutline',
         visible: true,
     },
     {
@@ -123,7 +123,7 @@ export const FIREFOX_SECTION = {
     {
         link: 'about:preferences',
         label: 'settings',
-        icon: 'mdiSettingsOutline',
+        icon: 'mdiCogOutline',
         visible: true,
     },
     /* {

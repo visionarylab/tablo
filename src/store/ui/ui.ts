@@ -303,6 +303,7 @@ export const loadUIStateAsync = () => {
         dispatch(loadUIState())
         return StorageApi.getItems(defaultUIStateKey, defaultUIState)
             .then((uiState: UIState) => {
+                console.log('apply theme')
                 applyTheme(uiState ? uiState.theme : ThemeType.DARK);
                 return dispatch(loadUIStateSuccess(uiState))
             })
