@@ -71,6 +71,9 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
         }
     }
 
+    onImageError(evt?: any) {
+    }
+
     render() {
         const { showDetails } = this.props;
         const { currentPicture } = this.state;
@@ -84,6 +87,7 @@ class PictureViewer extends Component<Props & HTMLAttributes<HTMLDivElement>, St
                 <PictureContainer>
                     <PictureWrapper
                         onImageLoad={this.onImageLoad}
+                        onImageError={this.onImageError}
                         className="image-zoom"
                         src={currentPicture.medias.max}
                         alt={currentPicture.title + ' ' + currentPicture.artiste}

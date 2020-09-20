@@ -10,6 +10,7 @@ interface Props {
     style?: CSSProperties;
     isLoading?: boolean;
     onImageLoad?: () => void;
+    onImageError?: () => void;
     onClick?: () => void;
 }
 
@@ -25,7 +26,8 @@ class PictureWrapper extends Component<Props, State> {
         className: '',
         style: {},
         onImageLoad: () => {},
-        onImaonClickgeLoad: () => {},
+        onImageError: () => {},
+        onClick: () => {},
     };
 
     state = {
@@ -35,6 +37,7 @@ class PictureWrapper extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.onImageLoad = this.onImageLoad.bind(this);
+        this.onImageError = this.onImageError.bind(this);
     }
 
     componentWillReceiveProps(nextProps: Props) {
@@ -47,6 +50,13 @@ class PictureWrapper extends Component<Props, State> {
         this.setState({ isLoading: false });
         if (this.props.onImageLoad) {
             this.props.onImageLoad();
+        }
+    }
+
+    onImageError(event: any) {
+        this.setState({ isLoading: false });
+        if (this.props.onImageError) {
+            this.props.onImageError();
         }
     }
 
@@ -69,6 +79,7 @@ class PictureWrapper extends Component<Props, State> {
                 alt={alt}
                 ref={(el) => this.img = el}
                 onLoad={this.onImageLoad}
+                onError={this.onImageError}
                 onClick={onClick}
             />
             </>

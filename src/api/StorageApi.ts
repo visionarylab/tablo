@@ -1,4 +1,5 @@
 const ENV = process.env.NODE_ENV;
+declare var window: any;
 
 export default class StorageApi {
 
