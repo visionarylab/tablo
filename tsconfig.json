@@ -21,7 +21,6 @@
     "baseUrl": "src",
     "noImplicitAny": false,
     "types": [
-      "@types/chrome",
       "node"
     ]
   },
